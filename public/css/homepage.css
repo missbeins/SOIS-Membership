@@ -1,0 +1,135 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+header {
+    min-height: 100vh;
+    background-image: url(/images/pylon.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    bottom: 0px;
+}
+
+.navcon {
+    background-color: #c62128;
+    background-image: linear-gradient(147deg, #a00000 0%, #c62128 74%);
+    padding: 0;
+}
+.upperbrand {
+    font-size: 120%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    font-variant: small-caps;
+    color: #f7f8f9;
+}
+.uppernavitems {
+    font-size: 120%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    font-variant: small-caps;
+    color: #1c1c1c;
+}
+
+.uppernavitems:hover {
+    color: #f7f8f9;
+    background-color: #a00000;
+    transition: 0.2s;
+}
+.lowerbrand {
+    padding-left: 15px;
+    font-family: comic sans;
+    font-size: 200%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    font-variant: small-caps;
+    color: #f7f8f9;
+}
+
+.lowerbrand:hover {
+    font-variant: small-caps;
+    color: #f7f8f9;
+}
+.mainnav {
+    margin-top: 0;
+    margin-left: 40%;
+}
+
+.lowernavitems {
+    font-size: 120%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    font-variant: small-caps;
+    color: #f7f8f9;
+}
+
+.lowernavitems:hover {
+    color: #1c1c1c;
+    background-color: #f7f8f9;
+    transition: 0.2s;
+}
+.headertext {
+    background-color: transparent;
+    color: #fff;
+    margin-top: 50px;
+    margin-left: -20px;
+}
+
+.hrcolor {
+    background-color: #fff707;
+    padding: 0;
+}
+
+section {
+    max-height: 70vh;
+    background-color: #f7f8f9;
+    font-style: poppins;
+    padding: 30px 0;
+}
+
+.img-text {
+    width: 100%;
+    height: 300px;
+    display: block;
+    text-align: center;
+    padding: 50% 5%;
+    background: #262626;
+    color: #f7f8f9;
+    border-radius: 15px;
+}
+.img-text h2 {
+    font-size: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.img-text p {
+    font-size: 14px;
+}
+
+.single-box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.img-area {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 5px solid #f7f8f9;
+    overflow: hidden;
+    top: 15px;
+    left: 77px;
+    border-radius: 50%;
+}
+
+.img-area img {
+    width: 100%;
+}
+
+/* .card table {
+    color: #f7f8f9;
+} */

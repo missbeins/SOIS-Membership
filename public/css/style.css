@@ -1,0 +1,72 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    min-height: 100vh;
+    background-image: url(/images/pylon.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    bottom: 0px;
+}
+
+.navbar {
+    background-color: #c62128;
+    background-image: linear-gradient(147deg, #a00000 0%, #c62128 74%);
+    padding: 0;
+}
+
+.navbar a {
+    color: #f7f8f9;
+}
+
+.sub-nav {
+    background-color: #ffffff;
+    box-shadow: 0 5px 10px 0 rgba(204, 204, 204, 0.3);
+    margin-bottom: 40px;
+    padding: 0;
+}
+
+.sub-nav a {
+    color: #0a0d11;
+}
+.sub-nav a:hover {
+    background-color: #c62128;
+    background-image: linear-gradient(147deg, #a00000 0%, #c62128 74%);
+    color: #f7f8f9;
+    border-radius: 2px;
+}
+
+.card {
+    background-color: #c62128;
+    background-image: linear-gradient(147deg, #a00000 0%, #c62128 74%);
+    box-shadow: 0 5px 10px 5px rgba(133, 117, 117, 0.9);
+    margin-bottom: 40px;
+    padding: 0;
+    color: #f7f8f9;
+}
+
+.membership-welcome-page {
+    min-height: 90vh;
+    background-image: url(/images/pupt.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.header-text {
+    background-color: transparent;
+    color: #f7f8f9;
+}
+.membership-welcome-page .header-text hr {
+    background-color: #c62128;
+    background-image: linear-gradient(147deg, #a00000 0%, #c62128 74%);
+}
+
+.services {
+    min-height: 60vh;
+}
+/* .card table {
+    color: #f7f8f9;
+} */
