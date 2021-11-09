@@ -15,13 +15,13 @@
                         <th>Status</th>
                     </thead>
                     <tbody>
-                        @foreach ($academic_membership as $member)
+                        {{-- @foreach ($academic_membership as $member)
                             <tr>
                                 <td>{{ $member->organization_name }}</td>
                                 <td>{{ $member->validity }}</td>
                                 <td class="text-success">{{ $member->subscription }}</td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
             </div>

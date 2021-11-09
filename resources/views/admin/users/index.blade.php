@@ -56,7 +56,7 @@
                 <table class="table table-hover table-striped table-bordered table-light">
                     <thead>
                         <tr>
-                            <th scope="col">#Id</th>
+                            <th scope="col">#</th>
                             <th scope="col">Student Number</th>
                             <th scope="col">Email</th>
                             <th scope="col">Action</th>

@@ -12,15 +12,16 @@ class UserApplicationsController extends Controller
 {
     public function index(){
         
-        $user_id = Auth::user()->user_id;
-        return view('users.user.user-application',[
+        return view('users.user.user-application');
+        // $user_id = Auth::user()->user_id;
+        // return view('users.user.user-application',[
            
-            'applications' => Non_Academic_Membership::join('organizations','organizations.organization_id','=','non-academic_membership.organization_id')
-                         ->where('user_id',$user_id)
-                         ->get(),
-            'non_academic_organization' => Organizations::all()->where('organization_type_id','=','2'),
+        //     'applications' => Non_Academic_Membership::join('organizations','organizations.organization_id','=','non-academic_membership.organization_id')
+        //                  ->where('user_id',$user_id)
+        //                  ->get(),
+        //     'non_academic_organization' => Organizations::all()->where('organization_type_id','=','2'),
         
-        ]);
+        // ]);
     }
 
    public function store(Request $request){

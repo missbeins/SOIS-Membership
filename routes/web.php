@@ -12,6 +12,7 @@ use App\Http\Controllers\Memberships\OrganizationsController;
 use App\Http\Controllers\User\UserOrganizationsController;
 use App\Http\Controllers\User\UserSubscriptionsController;
 use App\Http\Controllers\User\UserApplicationsController;
+use App\Http\Controllers\InformationVerificationController;
 use App\Imports\ExpectedStudentsImport;
 
 /*
@@ -29,9 +30,16 @@ Route::get('/membership-homepage', function () {
     return view('index');
 });
 
+
 Route::get('/membership', function () {
     return view('membership.welcome');
 })->middleware('auth');
+
+//verifystudentinformation
+
+Route::get('/verify', [InformationVerificationController::class, 'index']);
+Route::post('/information-verify', [InformationVerificationController::class, 'verifyInformation'])->name('information-verify');
+Route::post('/store-verified}', [InformationVerificationController::class, 'store'])->name('store-verified');
 
 //password update
 

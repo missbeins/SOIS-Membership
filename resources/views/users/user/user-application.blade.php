@@ -6,7 +6,7 @@
             <div class=" card-header text-light" style="background-color: #c62128">Application Status
                 <a class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" href="#applicationform" role="button">New
                     application</a>
-                @include('users.user.application-form')
+                {{-- @include('users.user.application-form') --}}
             </div>
             <div class="card-body">
                 <table class="table table-sm table-striped table-hover table-responsive text-center">
@@ -19,13 +19,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($applications as $application)
+                        {{-- @foreach ($applications as $application)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $application->organization_name }}</td>
                                 <td>{{ $application->approval_status }}</td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
             </div>
