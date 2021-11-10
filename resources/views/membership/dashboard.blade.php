@@ -47,9 +47,6 @@
                     <a href="{{ route('membership.admin.official.index') }}"
                         class="list-group-item list-group-item-action  second-text fw-bold "><i
                             class="fas fa-users me-2"></i>Members</a>
-                    <a href="{{ route('membership.admin.member-renewals') }}"
-                        class="list-group-item list-group-item-action  second-text fw-bold "><i
-                            class="fas fa-edit me-2"></i>Renewals</a>
                     <a href="{{ route('membership.admin.subscriptions.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-money-check me-2"></i>Subscriptions</a>

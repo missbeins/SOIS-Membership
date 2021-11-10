@@ -12,14 +12,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Select confirm to proceed.</p>
-                    <div class=" form-row">
-                        <div class="form-group col-md-10">
-                            {{-- <input type="hidden" value="{{ $subscription->academic_membership_id }}" name="requestId"> --}}
                             <input type="hidden" value="{{ $subscription->subscription }}" name="subscription">
-
-                        </div>
-                    </div>
+                            <div class="mb-3 row">
+                                <label for="inputReceipt" class="col-sm-3 col-form-label">Receipt No.</label>
+                                <div class="col-sm-9">
+                                  <input type="text" class="form-control" id="inputReceipt">
+                                </div>
+                            </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

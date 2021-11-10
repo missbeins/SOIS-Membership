@@ -26,7 +26,7 @@ use App\Imports\ExpectedStudentsImport;
 |
 */
 
-Route::get('/membership-homepage', function () {
+Route::get('/', function () {
     return view('index');
 });
 

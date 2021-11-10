@@ -29,6 +29,19 @@ class UserSeeder extends Seeder
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
              ],
+             [
+                'first_name' => 'Non',
+                'middle_name' => 'Academic',
+                'last_name' =>'Admin',
+                'course_id'=> '11',
+                'year_and_section'=>'ERG',
+                'mobile_number' => '091234567812',
+                'student_number' => '00000-ERG-TG-0',
+                'email' => 'adminerg@email.com',
+                'password' =>Hash::make('admin12345'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+             ],
             
             
             // [

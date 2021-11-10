@@ -39,7 +39,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="float-left">Acount Applications</h3>
+                        <h3 class="float-left">User Management</h3>
                         <a role="button" class="btn btn-sm btn-success float-right"
                             href="{{ route('membership.admin.users.create') }}">
                             New
