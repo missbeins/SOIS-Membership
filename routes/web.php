@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\Academic\AcademicMembersController;
 use App\Http\Controllers\Admin\Academic\AcademicSubscriptionController;
 use App\Http\Controllers\Admin\Academic\AcademicRenewalsController;
 use App\Http\Controllers\Admin\Academic\AcademicApplicationController;
+use App\Http\Controllers\Admin\Membership\Academic\AddAcademicMembershipController;
+use App\Http\Controllers\Admin\Membership\Nonacademic\AddNonacademicMembershipController;
 use App\Http\Controllers\Memberships\OrganizationsController;
 use App\Http\Controllers\User\UserOrganizationsController;
 use App\Http\Controllers\User\UserSubscriptionsController;
@@ -39,7 +41,7 @@ Route::get('/membership', function () {
 
 Route::get('/verify', [InformationVerificationController::class, 'index']);
 Route::post('/information-verify', [InformationVerificationController::class, 'verifyInformation'])->name('information-verify');
-Route::post('/store-verified}', [InformationVerificationController::class, 'store'])->name('store-verified');
+Route::post('/store-user', [InformationVerificationController::class, 'store'])->name('store-user');
 
 //password update
 
@@ -58,6 +60,8 @@ Route::prefix('membership')->middleware(['auth'])->name('membership.')->group(fu
         Route::resource('/member/academic/official', AcademicMembersController::class);
         Route::resource('/member/applications', AcademicApplicationController::class);
         Route::post('/import', [UserController::class, 'importStudents'])->name('expectedstudent-import');
+        Route::post('/addacademicmembership', [AddAcademicMembershipController::class, 'addMembership'])->name('addacademic');
+        Route::post('/addnonacademicmembership', [AddNonacademicMembershipController::class, 'store'])->name('addnonacademic');
     });
     
     //users

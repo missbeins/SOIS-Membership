@@ -9,24 +9,15 @@ class Academic_Membership extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'academic_member_id';
+    protected $primaryKey = 'academic_membership_id';
     protected $table = 'academic_membership';
 
     protected $fillable = [
         
-        'course_id',
-        'first_name',
-        'middle_name',
-        'last_name',
-        'mobile_number',
-        'student_number',
-        'email',
-        'gender',
-        'date_of_birth',
-        'year_and_section',
-        'subscription',
-        'approval_status',
-        'validity'
+        'semester',
+        'school_year',
+        'start_date',
+        'end_date'
     ];
 
     

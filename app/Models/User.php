@@ -86,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function non_academic_membership(): BelongsTo
+    public function non_academic_membership()
     {
         return $this->belongsTo(Non_Academic_Membership::class, 'non-academic_membership_id');
     }

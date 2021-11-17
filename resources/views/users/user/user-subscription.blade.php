@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h3>My Subscriptions</h3>
+        <h3>My Memberships</h3>
         {{-- @foreach ($membership as $member) --}}
             <div class="card text-dark bg-light mb-3">
                 <div class=" card-header text-light" style="background-color: #c62128">Organizations</div>
@@ -17,7 +17,7 @@
                             <tr>
                                 {{-- <td>{{ $member->organization_name }}</td> --}}
                                 <td>organization name</td>
-                                <td class="text-success">Verified</td>
+                                <td class="text-success">Paid</td>
                             </tr>
                         </tbody>
                     </table>

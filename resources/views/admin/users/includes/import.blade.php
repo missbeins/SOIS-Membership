@@ -10,8 +10,8 @@
                 <div class="mb-3">
                     <form action="{{ route('membership.admin.expectedstudent-import') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <label for="formFile" class="form-label">Upload all the expected applicants for your organization. Upload file ('.csv/.xlsx')</label>
-                        <p style="color: red">Note: All uploaded expected applicants will only be allowed to register for membership accounts.</p>
+                        <label for="formFile" class="form-label">Upload all the expected students for Account registration. Upload file ('.csv/.xlsx')</label>
+                        <p style="color: red">Note: All uploaded expected students will only be allowed to register for membership accounts.</p>
                         <input class="form-control" type="file" id="formFile" name="file" required>
                         <div class="mt-3"> 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

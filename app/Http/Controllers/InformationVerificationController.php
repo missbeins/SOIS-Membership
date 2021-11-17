@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Expected_Applicants;
-use App\Models\Academic_Membership;
+use App\Models\Academic_Members;
 use App\Models\Course;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -15,21 +15,33 @@ class InformationVerificationController extends Controller
 {
     public function index(){
         
-        return view('auth.information-verify');
+        return view('guest.register', [
+    
+            'courses'=>Course::all(),
+            'roles' => Role::all()
+        
+         ]);
 
     }
 
     public function verifyInformation(Request $request){
         
         $data = $request->validate([
-
+            
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'student_number' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'student_number' => ['required', 'string', 'max:50', 'unique:users'],
+            'year_and_section' => ['required', 'string', 'max:255'],
+            'course_id' => ['required', 'string'],
+            'mobile_number' => ['required', 'string'],
+            'date_of_birth' => ['required', 'date'],
+            'gender' => ['required', 'string'], 
            
         ]);
-
+           
         $applicantExist = false;
         $expected_applicants = Expected_Applicants::all();
         
@@ -44,17 +56,34 @@ class InformationVerificationController extends Controller
         }
         if($applicantExist==true){
 
-            return view('guest.register',
-            [
+        //     return view('guest.register',
+        //     [
     
-                'courses'=>Course::all(),
-                'roles' => Role::all()
+        //         'courses'=>Course::all(),
+        //         'roles' => Role::all()
             
-             ]);
-           }
+        //      ]);
+        //    }
+            $user = User::create([
+                'first_name' => $data['first_name'],
+                'middle_name' => $data['middle_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'student_number' =>$data['student_number'],
+                'year_and_section' => $data['year_and_section'],
+                'course_id' => $data['course_id'],
+                'mobile_number' => $data['mobile_number'],
+            ]);
+            $user->roles()->attach(2);
+        $request->session()->flash('success','Account Registered!');
+        
+        return redirect(route('login'));
+        }
+
         else{
 
-            $request->session()->flash('error','Verification failed!');
+            $request->session()->flash('error','You are not expected to register, please contact your organization.');
             return redirect()->back();
         }
 
@@ -68,7 +97,7 @@ class InformationVerificationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $data = $request->validate([
 
             'first_name' => ['required', 'string', 'max:255'],
@@ -97,26 +126,26 @@ class InformationVerificationController extends Controller
             'mobile_number' => $data['mobile_number'],
         ]);
 
-        $academic_membership = Academic_Membership::create([
+        // $academic_members = Academic_Members::create([
 
-            'first_name' => $data['first_name'],
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
-            'student_number' => $data['student_number'],
-            'email' => $data['email'],
-            'date_of_birth' => $data['date_of_birth'],
-            'subscription' => 'unpaid',
-            'gender' => $data['gender'],
-            'approval_status' => 'approved',
-            'year_and_section' => $data['year_and_section'],
-            'course_id' => $data['course_id'],
-            'mobile_number' => $data['mobile_number'],
-        ]);
+        //     'first_name' => $data['first_name'],
+        //     'middle_name' => $data['middle_name'],
+        //     'last_name' => $data['last_name'],
+        //     'student_number' => $data['student_number'],
+        //     'email' => $data['email'],
+        //     'date_of_birth' => $data['date_of_birth'],
+        //     'subscription' => 'unpaid',
+        //     'gender' => $data['gender'],
+        //     'approval_status' => 'approved',
+        //     'year_and_section' => $data['year_and_section'],
+        //     'course_id' => $data['course_id'],
+        //     'mobile_number' => $data['mobile_number'],
+        // ]);
         
         $user->roles()->attach(2);
-        $request->session()->flash('success','Successfully added new user!');
+        $request->session()->flash('success','Account Registered!');
         
-        return redirect(route('login'));
+        return redirect(route('generated::Q6O1PRB65AjdPdWC'));
 
     }
     

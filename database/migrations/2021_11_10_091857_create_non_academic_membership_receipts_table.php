@@ -13,14 +13,14 @@ class CreateNonAcademicMembershipReceiptsTable extends Migration
      */
     public function up()
     {
-        Schema::create('non_academic_membership_receipts', function (Blueprint $table) {
+        Schema::create('non_academic_receipts', function (Blueprint $table) {
             $table->id('receipt_id');
-            $table->unsignedBigInteger('non_academic_member_id');
+            $table->unsignedBigInteger('membership_id');
             $table->string('receipt_number');
 
             $table->timestamps();
 
-            $table->foreign('non_academic_member_id')->references('non_academic_member_id')->on('non_academic_membership')->onDelete('cascade');
+            $table->foreign('membership_id')->references('non_academic_membership_id')->on('non_academic_membership')->onDelete('cascade');
             
         });
     }

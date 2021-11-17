@@ -40,6 +40,14 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
+                             <!-- Authentication Links -->
+                             <a href="{{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline"
+                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                             {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         @else
                             <a href="{{ route('login') }}"
                                 class="nav-item nav-link uppernavitems ml-4">{{ __('Login') }}</a>

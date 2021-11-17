@@ -18,7 +18,7 @@ class CreateExpectedApplicantsTable extends Migration
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
-            $table->string('student_number');
+            $table->string('student_number')->unique();
             $table->timestamps();
 
             

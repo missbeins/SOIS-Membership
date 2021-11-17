@@ -9,36 +9,15 @@ use App\Models\User;
 class Non_Academic_Membership extends Model
 {
     use HasFactory;
-
-    protected $primaryKey = 'non-academic_member_id';
-    protected $table = 'non-academic_membership';
+    protected $primaryKey = 'non_academic_membership_id';
+    protected $table = 'non_academic_membership';
 
     protected $fillable = [
-        'user_id',
-        'organization_id',
-        'course',
-        'first_name',
-        'middle_name',
-        'last_name',
-        'contact',
-        'student_number',
-        'email',
-        'gender',
-        'address',
-        'date_of_birth',
-        'year_and_section',
-        'subscription',
-        'approval_status',
         
+        'semester',
+        'school_year',
+        'start_date',
+        'end_date'
     ];
-
-    /**
-     * Get the user associated with the Non_Academic_Membership
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function user(): HasOne
-    {
-        return $this->hasOne(User::class, 'user_id');
-    }
+   
 }

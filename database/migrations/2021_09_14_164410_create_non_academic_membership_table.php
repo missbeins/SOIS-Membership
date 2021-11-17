@@ -14,28 +14,16 @@ class CreateNonAcademicMembershipTable extends Migration
     public function up()
     {
         Schema::create('non_academic_membership', function (Blueprint $table) {
-            $table->id('non_academic_member_id');
-            
-            $table->unsignedBigInteger('user_id');
+            $table->id('non_academic_membership_id');
             $table->unsignedBigInteger('organization_id');
-            $table->string('student_number');
-            $table->string('first_name');
-            $table->string('middle_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('gender');
-            $table->string('course');
-            $table->string('year_and_section');
-            $table->date('date_of_birth');
-            $table->string('contact');
-            $table->string('address');
-            $table->string('approval_status')->default('pending');
-            $table->string('subscription')->default('unpaid');
+            $table->string('semester');
+            $table->string('school_year');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('organization_id')->references('organization_id')->on('organizations')->onDelete('cascade');
-        });
+
+            });
     }
 
     /**

@@ -20,6 +20,6 @@ class Organizations extends Model
 
     public function courses()
     {
-        return $this->belongsTo(Courses::class, 'course_id');
+        return $this->belongsTo(Course::class, 'course_id');
     }
 }

@@ -13,16 +13,13 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Course;
 use App\Models\Academic_Membership;
+use App\Models\Academic_Members;
 use Excel;
 use App\Imports\ExpectedStudentsImport;
-
+use PhpParser\Node\Stmt\If_;
 
 class UserController extends Controller
 {
-    // public function __construct(){
-
-    //     $this->middleware('auth');
-    // }
     /**
      * Display a listing of the resource.
      *
@@ -40,19 +37,19 @@ class UserController extends Controller
         if(Gate::allows('is-admin')){
             $admin_org_id = Auth::user()->course['organization_id'];
             $admin_course = Auth::user()->course_id;
-            $members = Academic_Membership::all()
+            $members = Academic_Members::all()
                 ->where('subscription','=','paid')
                 ->where('approval_status','=','approved')
                 ->where('course_id',$admin_course)
                 ->count();
             
-            $unpaid_members = Academic_Membership::all()
+            $unpaid_members = Academic_Members::all()
                 ->where('subscription','=','unpaid')
                 ->where('approval_status','=','approved')
                 ->where('course_id',$admin_course)
                 ->count();
                 
-            $applications = Academic_Membership::all()
+            $applications = Academic_Members::all()
                 ->where('subscription','=','unpaid')
                 ->where('approval_status','=','pending')
                 ->where('course_id',$admin_course)
@@ -65,6 +62,9 @@ class UserController extends Controller
                                 ->where('role_user.role_role_id',2)
                                 ->select()
                                 ->paginate(5);
+
+            // $academic_membership = Academic_Membership::all()
+            //                     ->where('')
             return view('admin.users.index',compact([
                 'members',
                 'unpaid_members',
@@ -116,7 +116,6 @@ class UserController extends Controller
             'mobile_number' => ['required', 'string'],
             'date_of_birth' => ['required', 'date'],
             'gender' => ['required', 'string'], 
-            // 'validity' => ['required','date'],
         ]);
 
         $user = User::create([
@@ -131,7 +130,7 @@ class UserController extends Controller
             'mobile_number' => $data['mobile_number'],
         ]);
 
-        $academic_membership = Academic_Membership::create([
+        $academic_members = Academic_Members::create([
 
             'first_name' => $data['first_name'],
             'middle_name' => $data['middle_name'],
@@ -255,12 +254,16 @@ class UserController extends Controller
         $request->validate([
             'file' => 'required|max:10000|mimes:xlsx,xls',
         ]);
-    
-        $path = $request->file('file')->getRealPath();
-    
-            Excel::import(new ExpectedStudentsImport, $path);  
         
-        
+        $path = $request->file('file');
+        $import = new ExpectedStudentsImport;
+        $import->import($path);
+
+        if ($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+        //Excel::import(new ExpectedStudentsImport, $path);  
+        //dd($import->failures());
         $request->session()->flash('success','Imported successfully!');    
         return redirect()->back();
     }

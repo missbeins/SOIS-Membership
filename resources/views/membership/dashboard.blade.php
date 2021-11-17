@@ -49,7 +49,7 @@
                             class="fas fa-users me-2"></i>Members</a>
                     <a href="{{ route('membership.admin.subscriptions.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-money-check me-2"></i>Subscriptions</a>
+                            class="fas fa-money-check me-2"></i>Membership Fees</a>
                     <a href="{{ route('membership.admin.applications.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-address-book me-2"></i>Applications</a>
@@ -62,10 +62,10 @@
                             class="fas fa-address-card me-2"></i>My Organizations</a>
                     <a href="{{ route('membership.user.my-subscriptions') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-money-check me-2"></i>Subscriptions</a>
+                            class="fas fa-money-check me-2"></i>My Memberships</a>
                     <a href="{{ route('membership.user.my-applications') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-address-book me-2"></i>Applications</a>
+                            class="fas fa-address-book me-2"></i>My Applications</a>
                 @endcan
 
                 <a class=" list-group-item list-group-item-action second-text fw-bold" href="{{ route('logout') }}"
