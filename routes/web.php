@@ -8,8 +8,8 @@ use App\Http\Controllers\Admin\Academic\AcademicMembersController;
 use App\Http\Controllers\Admin\Academic\AcademicSubscriptionController;
 use App\Http\Controllers\Admin\Academic\AcademicRenewalsController;
 use App\Http\Controllers\Admin\Academic\AcademicApplicationController;
-use App\Http\Controllers\Admin\Membership\Academic\AddAcademicMembershipController;
-use App\Http\Controllers\Admin\Membership\Nonacademic\AddNonacademicMembershipController;
+use App\Http\Controllers\Admin\Membership\Academic\AcademicMembershipController;
+use App\Http\Controllers\Admin\Membership\Nonacademic\NonacademicMembershipController;
 use App\Http\Controllers\Memberships\OrganizationsController;
 use App\Http\Controllers\User\UserOrganizationsController;
 use App\Http\Controllers\User\UserSubscriptionsController;
@@ -60,11 +60,13 @@ Route::prefix('membership')->middleware(['auth'])->name('membership.')->group(fu
         Route::resource('/member/academic/official', AcademicMembersController::class);
         Route::resource('/member/applications', AcademicApplicationController::class);
         Route::post('/import', [UserController::class, 'importStudents'])->name('expectedstudent-import');
-        Route::post('/addacademicmembership', [AddAcademicMembershipController::class, 'addMembership'])->name('addacademic');
-        Route::post('/addnonacademicmembership', [AddNonacademicMembershipController::class, 'store'])->name('addnonacademic');
+
+        //Route::post('/addacademicmembership', [AddAcademicMembershipController::class, 'addMembership'])->name('addacademic');
+        Route::resource('/academicmembership', AcademicMembershipController::class);
+        Route::resource('/nonacademicmembership', NonAcademicMembershipController::class);
     });
-    
-    //users
+     
+    //users routes
     Route::prefix('user')->middleware(['auth','auth.isStudent','verified'])->name('user.')->group(function () {
 
         Route::get('my-organizations', [UserOrganizationsController::class, 'index'])->name('my-organizations');

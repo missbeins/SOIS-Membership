@@ -66,9 +66,9 @@
         <select name="course_id" class="form-control @error('course_id') is-invalid @enderror">
 
             @foreach ($courses as $course)
-                <option value="{{ $course->course_id }}"
-                    @isset($user){{ $course->course_id == $user->course_id ? 'selected' : '' }} @endisset>
-                    {{ $course->course_name }}</option>
+                <option value="{{ $course->course_id }} @isset($user){{ $course->course_id == $user->course_id ? 'selected' : '' }} @endisset">
+                    {{ $course->course_name }}
+                </option>
             @endforeach
         </select>
 

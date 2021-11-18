@@ -17,7 +17,10 @@ class Academic_Membership extends Model
         'semester',
         'school_year',
         'start_date',
-        'end_date'
+        'end_date',
+        'organization_id',
+        'membership_fee',
+        'status'
     ];
 
     

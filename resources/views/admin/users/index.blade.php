@@ -33,9 +33,16 @@
             </div>
         </div>
     </div>
+    @if (isset($errors) && $errors->any())
+        <div class="alert alert-danger mt-2">
+            @foreach ($errors->all() as $error )
+                {{ $error }}
+            @endforeach
+        </div>
+    @endif
     <div class="container-fluid" >
         <div class="row">
-            <div class="col-md-8">        
+            <div class="col-md-7">        
                 <div class="mt-3">
                     <div class="card">
                         <div class="card-header">
@@ -51,13 +58,6 @@
                                         Import Expected Students
                                     </button>
                                     @include('admin.users.includes.import')
-                                    @if (isset($errors) && $errors->any())
-                                    <div class="alert alert-danger mt-2">
-                                       @foreach ($errors->all() as $error )
-                                           {{ $error }}
-                                       @endforeach
-                                    </div>
-                                   @endif
 
                                    @if (session()->has('failures'))
 
@@ -133,7 +133,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="mt-3">
                     <div class="card">
                         <div class="card-header">
@@ -144,7 +144,7 @@
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addmembership">
                                            Start New Membership
                                         </button>
-                                    @include('admin.memberships.addacademicmembership')
+                                    @include('admin.memberships.academic.addacademicmembership')
                                 </div>
                             </div>
                         </div>
@@ -152,42 +152,48 @@
                             <table class="table table-hover table-striped table-bordered table-light">
                                 <thead>
                                     <tr> 
+                                        <th scope="col">#</th>
                                         <th scope="col">Semester</th>
                                         <th scope="col">School Year</th>
+                                        <th scope="col">Fee</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">End Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        
-                                    </tr>
-                                    {{-- @foreach ($users as $user)
+                                   
+                                    @foreach ($academic_memberships as $membership)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $user->student_number }}</td>
-                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $membership->semester }}</td>
+                                            <td>{{ $membership->school_year }}</td>
+                                            <td>{{ $membership->membership_fee }}</td>
+                                            <td>{{ $membership->start_date }}</td>
+                                            <td>{{ $membership->end_date }}</td>
+                                            <td>{{ $membership->status }}</td>
                                             <td>
-                                                <a role="button" class="btn btn-sm btn-primary"
-                                                    href="{{ route('membership.admin.users.edit', $user->user_id) }}">
-                                                    <i class="fas fa-user-edit"></i>
-                                                </a>
-                                                <button type="button" class="btn btn-sm btn-danger"
-                                                    onclick="event.preventDefault(); document.getElementById('delete-user-form-{{ $user->user_id }}').submit()">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <form class="d-none" id="delete-user-form-{{ $user->user_id }}"
-                                                    action="{{ route('membership.admin.users.destroy', $user->user_id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                                    <a role="button" class="btn btn-sm btn-primary"
+                                                        href="{{ route('membership.admin.academicmembership.edit', $membership->academic_membership_id) }}">
+                                                        <i class="fas fa-user-edit"></i>
+                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                        onclick="event.preventDefault(); document.getElementById('delete-membership-form-{{ $membership->academic_membership_id }}').submit()">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                    <form class="d-none" id="delete-membership-form-{{ $membership->academic_membership_id }}"
+                                                        action="{{ route('membership.admin.academicmembership.destroy',  $membership->academic_membership_id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
-                            {{-- {{ $users->links() }} --}}
+                            {{ $academic_memberships->links() }}
                         </div>
                     </div>
                 </div>

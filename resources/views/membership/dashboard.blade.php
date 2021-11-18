@@ -53,8 +53,8 @@
                     <a href="{{ route('membership.admin.applications.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-address-book me-2"></i>Applications</a>
-                    <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-paperclip me-2"></i>Reports</a>
+                    {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
+                            class="fas fa-paperclip me-2"></i>Reports</a> --}}
 
                 @elsecan('is-student')
                     <a href="{{ route('membership.user.my-organizations') }}"

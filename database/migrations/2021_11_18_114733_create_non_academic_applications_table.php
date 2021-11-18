@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNonAcademicMembersTable extends Migration
+class CreateNonAcademicApplicationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,29 +13,30 @@ class CreateNonAcademicMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('non_academic_members', function (Blueprint $table) {
-            $table->id('non_academic_member_id');
-            
+        Schema::create('non_academic_applications', function (Blueprint $table) {
+            $table->id('application_id');
+
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('organization_id');
+            $table->unsignedBigInteger('membership_id');
+  
             $table->string('student_number');
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
             $table->string('email');
             $table->string('gender');
-            $table->string('course');
             $table->string('year_and_section');
             $table->date('date_of_birth');
             $table->string('contact');
             $table->string('address');
-            $table->string('approval_status')->default('pending');
-            $table->string('subscription')->default('unpaid');
+            $table->string('application_status')->default('pending');
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('organization_id')->references('organization_id')->on('organizations')->onDelete('cascade');
-        
+            $table->foreign('membership_id')->references('non_academic_membership_id')->on('non_academic_membership')->onDelete('cascade');
+
         });
     }
 
@@ -46,6 +47,6 @@ class CreateNonAcademicMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('non_academic_members');
+        Schema::dropIfExists('non_academic_applications');
     }
 }

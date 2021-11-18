@@ -6,22 +6,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Organizations;
 use App\Models\Non_Academic_Membership;
+use App\Models\Academic_Membership;
 use Illuminate\Support\Facades\Auth;
 
 class UserApplicationsController extends Controller
 {
     public function index(){
         
-        return view('users.user.user-application');
-        // $user_id = Auth::user()->user_id;
-        // return view('users.user.user-application',[
-           
-        //     'applications' => Non_Academic_Membership::join('organizations','organizations.organization_id','=','non-academic_membership.organization_id')
-        //                  ->where('user_id',$user_id)
-        //                  ->get(),
-        //     'non_academic_organization' => Organizations::all()->where('organization_type_id','=','2'),
+        //$user_org_id = auth::user()->course['organization_id'];
+        $academic_memberships = Academic_Membership::join('organizations','organizations.organization_id','=','academic_membership.organization_id')
+                            ->where('academic_membership.organization_id',auth::user()->course['organization_id'])
+                            ->get();
+
+        $non_academic_memberships = Non_Academic_Membership::join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
+                            ->get();
+                            
+        $available_organizations = Organizations::join('academic_membership','academic_membership.organization_id','=','organizations.organization_id')
+                            // ->join('non_academic_membership','non_academic_membership.organization_id','=','organizations.organization_id')    
+                            ->where('academic_membership.status','=','Open')
+                            // ->where('non_academic_membership.status','=','Open')
+                            ->get();
+        // dd($available_organizations);
+        return view('users.user.user-application', compact(['academic_memberships', 'non_academic_memberships','available_organizations']));
         
-        // ]);
     }
 
    public function store(Request $request){

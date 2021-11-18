@@ -56,14 +56,6 @@ class InformationVerificationController extends Controller
         }
         if($applicantExist==true){
 
-        //     return view('guest.register',
-        //     [
-    
-        //         'courses'=>Course::all(),
-        //         'roles' => Role::all()
-            
-        //      ]);
-        //    }
             $user = User::create([
                 'first_name' => $data['first_name'],
                 'middle_name' => $data['middle_name'],
@@ -75,10 +67,11 @@ class InformationVerificationController extends Controller
                 'course_id' => $data['course_id'],
                 'mobile_number' => $data['mobile_number'],
             ]);
+            
             $user->roles()->attach(2);
-        $request->session()->flash('success','Account Registered!');
+            $request->session()->flash('success','Account Registered!');
         
-        return redirect(route('login'));
+            return redirect(route('login'));
         }
 
         else{

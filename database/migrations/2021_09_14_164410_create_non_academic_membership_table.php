@@ -16,11 +16,14 @@ class CreateNonAcademicMembershipTable extends Migration
         Schema::create('non_academic_membership', function (Blueprint $table) {
             $table->id('non_academic_membership_id');
             $table->unsignedBigInteger('organization_id');
+            $table->integer('membership_fee');
             $table->string('semester');
             $table->string('school_year');
             $table->date('start_date');
             $table->date('end_date');
+            $table->string('status');
             $table->timestamps();
+
             $table->foreign('organization_id')->references('organization_id')->on('organizations')->onDelete('cascade');
 
             });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAcademicMembersTable extends Migration
+class CreateNonAcademicMembersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,20 @@ class CreateAcademicMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('academic_members', function (Blueprint $table) {
-            $table->id('academic_member_id');
-
-            $table->unsignedBigInteger('course_id');
+        Schema::create('non_academic_members', function (Blueprint $table) {
+            $table->id('non_academic_member_id');
+            
             $table->unsignedBigInteger('membership_id');
-            // $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('course_id');
+            //$table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('organization_id');
-
             $table->string('student_number');
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
             $table->string('email');
             $table->string('gender');
+            $table->string('course');
             $table->string('year_and_section');
             $table->date('date_of_birth');
             $table->string('contact');
@@ -34,12 +34,11 @@ class CreateAcademicMembersTable extends Migration
             $table->string('membership_fee')->default('unpaid');
             $table->timestamps();
 
-
-            //  $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
-            $table->foreign('membership_id')->references('academic_membership_id')->on('academic_membership')->onDelete('cascade');
+            // $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('membership_id')->references('non_academic_membership_id')->on('non_academic_membership')->onDelete('cascade');
             $table->foreign('organization_id')->references('organization_id')->on('organizations')->onDelete('cascade');
             $table->foreign('course_id')->references('course_id')->on('courses')->onDelete('cascade');
-       
+
         });
     }
 
@@ -50,6 +49,6 @@ class CreateAcademicMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_members');
+        Schema::dropIfExists('non_academic_members');
     }
 }

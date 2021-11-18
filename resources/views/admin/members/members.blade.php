@@ -13,9 +13,7 @@
                     <th scope="col">Gender</th>
                     <th scope="col">Year and Section</th>
                     <th scope="col">Contact</th>
-                    <th scope="col">Validity</th>
                     <th scope="col">Action</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +25,6 @@
                         <td>{{ $member->gender }}</td>
                         <td>{{ $member->year_and_section }}</td>
                         <td>{{ $member->mobile_number }}</td>
-                        <td>{{ $member->validity }}</td>
                         <td>
                             <button class="btn btn-success btn-sm" disabled><i class="fas fa-bell"> Notify</i></button>
                         </td>

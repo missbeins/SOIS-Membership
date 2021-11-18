@@ -54,7 +54,7 @@ class UserController extends Controller
                 ->where('approval_status','=','pending')
                 ->where('course_id',$admin_course)
                 ->count();
-        
+            
             $users = User::join('courses','courses.course_id','=','users.course_id')
                                 ->join('role_user','role_user.user_user_id','=','users.user_id')
                                 ->join('organizations','organizations.organization_id','=','courses.organization_id')
@@ -62,6 +62,9 @@ class UserController extends Controller
                                 ->where('role_user.role_role_id',2)
                                 ->select()
                                 ->paginate(5);
+            $academic_memberships = Academic_Membership::where('organization_id','=',Auth::user()->course['organization_id'])
+                                ->select()
+                                ->paginate(3);
 
             // $academic_membership = Academic_Membership::all()
             //                     ->where('')
@@ -69,7 +72,8 @@ class UserController extends Controller
                 'members',
                 'unpaid_members',
                 'applications',
-                'users'
+                'users',
+                'academic_memberships'
         ]));
         }
         
@@ -130,22 +134,22 @@ class UserController extends Controller
             'mobile_number' => $data['mobile_number'],
         ]);
 
-        $academic_members = Academic_Members::create([
+        // $academic_members = Academic_Members::create([
 
-            'first_name' => $data['first_name'],
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
-            'student_number' => $data['student_number'],
-            'email' => $data['email'],
-            'date_of_birth' => $data['date_of_birth'],
-            'subscription' => 'unpaid',
-            'gender' => $data['gender'],
-            'approval_status' => 'approved',
-            'year_and_section' => $data['year_and_section'],
-            'course_id' => $data['course_id'],
-            'mobile_number' => $data['mobile_number'],
-            // 'validity' => $data['validity'],
-        ]);
+        //     'first_name' => $data['first_name'],
+        //     'middle_name' => $data['middle_name'],
+        //     'last_name' => $data['last_name'],
+        //     'student_number' => $data['student_number'],
+        //     'email' => $data['email'],
+        //     'date_of_birth' => $data['date_of_birth'],
+        //     'subscription' => 'unpaid',
+        //     'gender' => $data['gender'],
+        //     'approval_status' => 'approved',
+        //     'year_and_section' => $data['year_and_section'],
+        //     'course_id' => $data['course_id'],
+        //     'mobile_number' => $data['mobile_number'],
+        //     // 'validity' => $data['validity'],
+        // ]);
         
         $user->roles()->attach(2);
         Password::sendResetLink($request->only(['email']));

@@ -7,9 +7,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="row g-3" method="POST" action="{{ route('membership.user.apply') }}">
+                <form class="row g-3" method="POST" action="#">
                     @csrf
-                    <input type="hidden" value="{{ Auth::user()->user_id }}" name="user_id">
+                    {{-- <input type="hidden" value="{{ Auth::user()->user_id }}" name="user_id"> --}}
                     <div class="col-md-4">
                         <label for="inputEmail4" class="form-label">Firstname</label>
                         <input type="text" class="form-control" id="inputEmail4" name="first_name"
@@ -43,7 +43,7 @@
                     <div class="col-md-6">
                         <label for="inputState" class="form-label">Organization</label>
                         <select id="inputState" class="form-select" name="organization" required>
-                            @foreach ($non_academic_organization as $org)
+                            @foreach ($available_organizations as $org)
                                 <option value="{{ $org->organization_id }}">{{ $org->organization_name }}</option>
                             @endforeach
                         </select>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="inputPassword4" class="form-label">Date of birth</label>
-                        <input type="date" class="form-control" id="inputPassword4" name="date_of_birth" required>
+                        <input type="date" class="form-control" id="inputPassword4" name="date_of_birth" value="{{ Auth::user()->date_of_birth }}"required>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Submit</button>
