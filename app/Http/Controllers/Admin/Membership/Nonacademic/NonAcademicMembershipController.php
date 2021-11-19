@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Membership\Academic;
+namespace App\Http\Controllers\Admin\Membership\Nonacademic;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Academic_Membership;
 use Illuminate\Support\Facades\Auth;
 
-class AcademicMembershipController extends Controller
+class NonAcademicMembershipController extends Controller
 {
     /**
      * Display a listing of the resource.

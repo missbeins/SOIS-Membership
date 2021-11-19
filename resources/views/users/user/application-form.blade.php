@@ -43,8 +43,11 @@
                     <div class="col-md-6">
                         <label for="inputState" class="form-label">Organization</label>
                         <select id="inputState" class="form-select" name="organization" required>
-                            @foreach ($available_organizations as $org)
+                            @foreach ($academic_organization as $org)
                                 <option value="{{ $org->organization_id }}">{{ $org->organization_name }}</option>
+                            @endforeach
+                            @foreach ($non_academic_organization as $nonorg)
+                                <option value="{{ $nonorg->organization_id }}">{{ $nonorg->organization_name }}</option>
                             @endforeach
                         </select>
                     </div>

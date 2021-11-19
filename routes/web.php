@@ -15,6 +15,8 @@ use App\Http\Controllers\User\UserOrganizationsController;
 use App\Http\Controllers\User\UserSubscriptionsController;
 use App\Http\Controllers\User\UserApplicationsController;
 use App\Http\Controllers\InformationVerificationController;
+use App\Http\Controllers\User\Academic\AcademicApplicationsController;
+use App\Http\Controllers\User\Nonacademic\NonacademicApplicationController;
 use App\Imports\ExpectedStudentsImport;
 
 /*
@@ -68,11 +70,22 @@ Route::prefix('membership')->middleware(['auth'])->name('membership.')->group(fu
      
     //users routes
     Route::prefix('user')->middleware(['auth','auth.isStudent','verified'])->name('user.')->group(function () {
+        Route::prefix('academic')->middleware(['auth','auth.isStudent','verified'])->name('academic.')->group(function () {
+            
+            Route::get('application-form', [AcademicApplicationsController::class, 'showForm'])->name('academic-application');
 
+        });
+        Route::prefix('nonacademic')->middleware(['auth','auth.isStudent','verified'])->name('nonacademic.')->group(function () {
+            
+            Route::get('application-form', [NonacademicApplicationController::class, 'showForm'])->name('nonacademic-application');
+
+        });
         Route::get('my-organizations', [UserOrganizationsController::class, 'index'])->name('my-organizations');
         Route::get('my-subscriptions', [UserSubscriptionsController::class, 'index'])->name('my-subscriptions');
         Route::get('my-applications', [UserApplicationsController::class, 'index'])->name('my-applications');
         Route::post('my-applications', [UserApplicationsController::class, 'store'])->name('apply');
+        //Route::get('application-form', [UserApplicationsController::class, 'applicationForm'])->name('application-form');
+
         
     });
 });

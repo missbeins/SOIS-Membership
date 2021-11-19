@@ -10,14 +10,18 @@
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
-                            <th>Organization</th>
-                            <th>Status</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Organization</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Schol Year</th>
+                            <th scope="col">Fee</th>
+                            <th scope="col">Status</th>
                         </thead>
                         <tbody>
                             <tr>
-                                {{-- <td>{{ $member->organization_name }}</td> --}}
+                                {{-- <td>{{ $member->organization_name }}</td>
                                 <td>organization name</td>
-                                <td class="text-success">Paid</td>
+                                <td class="text-success">Paid</td> --}}
                             </tr>
                         </tbody>
                     </table>
