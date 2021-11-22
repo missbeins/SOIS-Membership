@@ -17,8 +17,8 @@ class CreateAcademicApplicationsTable extends Migration
             $table->id('application_id');
 
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('membership_id');
+            $table->unsignedBigInteger('course_id');
   
             $table->string('student_number');
             $table->string('first_name');
@@ -34,8 +34,8 @@ class CreateAcademicApplicationsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
-            $table->foreign('organization_id')->references('organization_id')->on('organizations')->onDelete('cascade');
             $table->foreign('membership_id')->references('academic_membership_id')->on('academic_membership')->onDelete('cascade');
+            $table->foreign('course_id')->references('course_id')->on('courses')->onDelete('cascade');
 
         });
     }

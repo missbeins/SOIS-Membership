@@ -31,7 +31,7 @@ class CreateAcademicMembersTable extends Migration
             $table->date('date_of_birth');
             $table->string('contact');
             $table->string('address');
-            $table->string('membership_fee')->default('unpaid');
+            $table->string('membership_status')->default('unpaid');
             $table->timestamps();
 
 

@@ -44,9 +44,9 @@ class AcademicMembershipController extends Controller
             'membership_fee' => ['required','integer'],
             'school_year' => ['required'],
             'status' => ['required','string'],
+            'registration_status' => ['required','string'],
             'start_date' => ['required','date'],
             'end_date' => ['required', 'date','after:start_date'],
-
             
         ]);
         
@@ -55,6 +55,7 @@ class AcademicMembershipController extends Controller
             'semester' => $data['semester'],
             'membership_fee' => $data['membership_fee'],
             'school_year' =>  $data['school_year'],
+            'registration_status' =>  $data['registration_status'],
             'status' =>  $data['status'],
             'start_date' =>  $data['start_date'],
             'end_date' =>  $data['end_date'],           

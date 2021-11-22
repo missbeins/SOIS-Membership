@@ -134,22 +134,7 @@ class UserController extends Controller
             'mobile_number' => $data['mobile_number'],
         ]);
 
-        // $academic_members = Academic_Members::create([
-
-        //     'first_name' => $data['first_name'],
-        //     'middle_name' => $data['middle_name'],
-        //     'last_name' => $data['last_name'],
-        //     'student_number' => $data['student_number'],
-        //     'email' => $data['email'],
-        //     'date_of_birth' => $data['date_of_birth'],
-        //     'subscription' => 'unpaid',
-        //     'gender' => $data['gender'],
-        //     'approval_status' => 'approved',
-        //     'year_and_section' => $data['year_and_section'],
-        //     'course_id' => $data['course_id'],
-        //     'mobile_number' => $data['mobile_number'],
-        //     // 'validity' => $data['validity'],
-        // ]);
+      
         
         $user->roles()->attach(2);
         Password::sendResetLink($request->only(['email']));

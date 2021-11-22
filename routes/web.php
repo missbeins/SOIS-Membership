@@ -31,7 +31,7 @@ use App\Imports\ExpectedStudentsImport;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('auth.login');
 });
 
 
@@ -41,7 +41,7 @@ Route::get('/membership', function () {
 
 //verifystudentinformation
 
-Route::get('/verify', [InformationVerificationController::class, 'index']);
+Route::get('/verify', [InformationVerificationController::class, 'index'])->name('verify-applicant');
 Route::post('/information-verify', [InformationVerificationController::class, 'verifyInformation'])->name('information-verify');
 Route::post('/store-user', [InformationVerificationController::class, 'store'])->name('store-user');
 
@@ -73,6 +73,7 @@ Route::prefix('membership')->middleware(['auth'])->name('membership.')->group(fu
         Route::prefix('academic')->middleware(['auth','auth.isStudent','verified'])->name('academic.')->group(function () {
             
             Route::get('application-form', [AcademicApplicationsController::class, 'showForm'])->name('academic-application');
+            Route::post('application',[AcademicApplicationsController::class, 'store'])->name('application-store');
 
         });
         Route::prefix('nonacademic')->middleware(['auth','auth.isStudent','verified'])->name('nonacademic.')->group(function () {

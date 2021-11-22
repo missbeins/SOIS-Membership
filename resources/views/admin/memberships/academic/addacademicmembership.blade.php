@@ -1,6 +1,6 @@
   <!-- Modal -->
   <div class="modal fade" id="addmembership" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">New Membership</h5>
@@ -11,7 +11,7 @@
                   @csrf
                   {{-- <input type="hidden" name="organization_id" value="{{ Auth::user()->course['organization_id'] }}"> --}}
                   <div class=" mb-2 row"> 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <label for="semester" class="form-label ">{{ __('Semester') }}<span style="color:red">*</span></label>
                       <select aria-label="Default select example" name="semester" class="form-control @error('semester') is-invalid @enderror"
                           value="{{ old('semester') }}" required>
@@ -24,7 +24,7 @@
                           </span>
                       @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <label for="membership_fee" class="form-label">{{ __('Membership Fee') }} <span style="color:red">*</span></label>
                       <input id="membership_fee" type="number" class="form-control @error('membership_fee') is-invalid @enderror"
                           name="membership_fee" value="{{ old('membership_fee') }}" required
@@ -36,9 +36,8 @@
                           </span>
                       @enderror
                     </div>
-                  </div>
-                  <div class="mb-2 row">
-                    <div class="col-md-6"> <label for="school_year" class="form-label">{{ __('School Year') }} <span style="color:red">*</span></label>
+                  
+                    <div class="col-md-4"> <label for="school_year" class="form-label">{{ __('School Year') }} <span style="color:red">*</span></label>
                       <input id="school_year" type="text" class="form-control @error('school_year') is-invalid @enderror"
                           name="school_year" value="{{ old('school_year') }}" required
                           autocomplete="school_year" autofocus>
@@ -49,19 +48,31 @@
                           </span>
                       @enderror</div>
                     <div class="col-md-6">
-                      <label for="status" class="form-label ">{{ __('Status') }}<span style="color:red">*</span></label>
-                  <select aria-label="Default select example" name="status" class="form-control @error('status') is-invalid @enderror"
-                      value="{{ old('status') }}" required>
-                      <option>Open</option>
-                      <option>Close</option>
-                  </select>
-                  @error('status')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
+                      <label for="registration_status" class="form-label ">{{ __('Registration Status') }}<span style="color:red">*</span></label>
+                      <select aria-label="Default select example" name="registration_status" class="form-control @error('registration_status') is-invalid @enderror"
+                          value="{{ old('registration_status') }}" required>
+                          <option>Open</option>
+                          <option>Close</option>
+                      </select>
+                      @error('registration_status')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
                     </div>
-                     
+                    <div class="col-md-6">
+                      <label for="status" class="form-label ">{{ __('Status') }}<span style="color:red">*</span></label>
+                      <select aria-label="Default select example" name="status" class="form-control @error('status') is-invalid @enderror"
+                          value="{{ old('status') }}" required>
+                          <option>Active</option>
+                          <option>Ended</option>
+                      </select>
+                      @error('status')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                    </div>
                   </div>
                   <div class="mb-2 row">
                     <div class="col-md-6">

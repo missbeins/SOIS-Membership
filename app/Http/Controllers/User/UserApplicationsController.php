@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Organizations;
 use App\Models\Non_Academic_Membership;
 use App\Models\Academic_Membership;
+use App\Models\AcademicApplication;
 use Illuminate\Support\Facades\Auth;
 
 class UserApplicationsController extends Controller
@@ -26,9 +27,20 @@ class UserApplicationsController extends Controller
                             ->get();
         $non_academic_organization = Organizations::join('non_academic_membership','non_academic_membership.organization_id','=','organizations.organization_id')    
                             ->where('non_academic_membership.status','=','Open')
-                            ->get();                
-        // dd($available_organizations);
-        return view('users.user.user-application', compact(['academic_memberships', 'non_academic_memberships','non_academic_organization','academic_organization']));
+                            ->get(); 
+        $application_statuses = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
+                            ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
+                            ->where('application_status','=','pending')
+                            ->where('user_id',Auth::user()->user_id)
+                            ->get();               
+        //  dd($application_statuses);
+        return view('users.user.user-application', compact([
+            'academic_memberships',
+            'non_academic_memberships',
+            'non_academic_organization',
+            'academic_organization',
+            'application_statuses'
+        ]));
         
     }
 

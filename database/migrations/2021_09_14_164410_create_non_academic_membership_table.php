@@ -21,6 +21,7 @@ class CreateNonAcademicMembershipTable extends Migration
             $table->string('school_year');
             $table->date('start_date');
             $table->date('end_date');
+            $table->string('registration_status');
             $table->string('status');
             $table->timestamps();
 

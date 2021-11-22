@@ -158,6 +158,7 @@
                                         <th scope="col">Fee</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">End Date</th>
+                                        <th scope="col">Registration Status</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Actions</th>
                                     </tr>
@@ -172,6 +173,7 @@
                                             <td>{{ $membership->membership_fee }}</td>
                                             <td>{{ $membership->start_date }}</td>
                                             <td>{{ $membership->end_date }}</td>
+                                            <td>{{ $membership->registration_status }}</td>
                                             <td>{{ $membership->status }}</td>
                                             <td>
                                                     <a role="button" class="btn btn-sm btn-primary"

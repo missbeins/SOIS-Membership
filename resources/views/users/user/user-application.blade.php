@@ -118,13 +118,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($applications as $application)
+                                @foreach ($application_statuses as $application_status)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $application->organization_name }}</td>
-                                        <td>{{ $application->approval_status }}</td>
+                                        <td>{{ $application_status->organization_name }}</td>
+                                        <td>{{ $application_status->semester }}</td>
+                                        <td>{{ $application_status->school_year }}</td>
+                                        <td>₱ {{ $application_status->membership_fee }}.00</td>
+                                        <td>{{ $application_status->application_status }}</td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

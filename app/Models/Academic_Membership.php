@@ -20,7 +20,8 @@ class Academic_Membership extends Model
         'end_date',
         'organization_id',
         'membership_fee',
-        'status'
+        'status',
+        'registration_status'
     ];
 
     
