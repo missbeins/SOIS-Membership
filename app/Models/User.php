@@ -35,6 +35,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'role_id',
         'email',
         'password',
+        'date_of_birth',
+        'suffix',
+        'address',
+        'status',
         
     ];
 
@@ -63,15 +67,16 @@ class User extends Authenticatable implements MustVerifyEmail
     // }
 
    /**
-         * The roles that belong to the User
-         *
-         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-         */
-    public function roles()
-        {
-            return $this->belongsToMany(Role::class);
-        }
+     * The roles that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')->withPivot('organization_id');
+    }
+    
     public function hasAnyRole(String $role){
 
         return null !== $this->roles()->where('role', $role)->first();

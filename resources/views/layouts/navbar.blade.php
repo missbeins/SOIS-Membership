@@ -21,14 +21,16 @@
 <body class="antialiased">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-                <a class="navbar-brand"
-                    href="/">{{ __('Student Organization Information System : Membership') }}</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            <div class="container ">
+                <a class="navbar-brand ml-2"
+                    href="/">{{ __('SOIS: Membership') }}</a>
+                <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="form-inline my-2 my-lg-0">
+                
+                <div class="collapse navbar-collapse justify-content-end    " id="navbarSupportedContent">
+                    
                     <a href="/verify" class="text-sm text-gray-700 dark:text-gray-500 underline mr-2">Sign up </a>
                     @if (Route::has('login'))
                         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -50,6 +52,7 @@
                         </div>
                     @endif
                 </div>
+               
             </div>
         </nav>
     </header>

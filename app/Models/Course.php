@@ -18,12 +18,14 @@ class Course extends Model
        'course_id',
        'course_acronym'
     ];
-    public function user()
+  
+    public function users()
     {
-        return $this->hasMany(User::class, 'user_id');
+    	return $this->hasMany(User::class, 'course_id');
     }
-    public function organizations(){
 
-        return $this->hasOne(Organizations::class, 'organization_id');
+    public function organization()
+    {
+        return $this->belongsTo(Organizations::class, 'organization_id');
     }
 }

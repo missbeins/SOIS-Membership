@@ -16,6 +16,7 @@ use App\Models\Academic_Membership;
 use App\Models\Academic_Members;
 use Excel;
 use App\Imports\ExpectedStudentsImport;
+use App\Models\Expected_Applicants;
 use PhpParser\Node\Stmt\If_;
 
 class UserController extends Controller
@@ -35,6 +36,7 @@ class UserController extends Controller
         }
 
         if(Gate::allows('is-admin')){
+            
             $admin_org_id = Auth::user()->course['organization_id'];
             $admin_course = Auth::user()->course_id;
             $members = Academic_Members::all()
@@ -56,10 +58,10 @@ class UserController extends Controller
                 ->count();
             
             $users = User::join('courses','courses.course_id','=','users.course_id')
-                                ->join('role_user','role_user.user_user_id','=','users.user_id')
+                                ->join('role_user','role_user.user_id','=','users.user_id')
                                 ->join('organizations','organizations.organization_id','=','courses.organization_id')
                                 ->where('courses.organization_id',$admin_org_id)
-                                ->where('role_user.role_role_id',2)
+                                ->where('role_user.role_id',5)
                                 ->select()
                                 ->paginate(5);
             $academic_memberships = Academic_Membership::where('organization_id','=',Auth::user()->course['organization_id'])
@@ -110,7 +112,7 @@ class UserController extends Controller
         $data = $request->validate([
 
             'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -120,6 +122,7 @@ class UserController extends Controller
             'mobile_number' => ['required', 'string'],
             'date_of_birth' => ['required', 'date'],
             'gender' => ['required', 'string'], 
+            'address' => ['required', 'string'], 
         ]);
 
         $user = User::create([
@@ -132,6 +135,8 @@ class UserController extends Controller
             'year_and_section' => $data['year_and_section'],
             'course_id' => $data['course_id'],
             'mobile_number' => $data['mobile_number'],
+            'address' => $data['address'],
+            'date_of_birth' => $data['date_of_birth']
         ]);
 
       
@@ -163,7 +168,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        
+        abort_if(! User::where('user_id', Auth::user()->user_id)->exists(), 403);
+       
         return view('admin.users.edit',
         [
             'courses'=>Course::all(),
@@ -256,4 +262,5 @@ class UserController extends Controller
         $request->session()->flash('success','Imported successfully!');    
         return redirect()->back();
     }
+
 }

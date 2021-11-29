@@ -41,13 +41,14 @@
             </div>
             <div class="list-group list-group-flush my-3" id="myList">
                 @can('is-admin')
+               
                     <a href="{{ route('membership.admin.users.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{ route('membership.admin.official.index') }}"
                         class="list-group-item list-group-item-action  second-text fw-bold "><i
                             class="fas fa-users me-2"></i>Members</a>
-                    <a href="{{ route('membership.admin.subscriptions.index') }}"
+                    <a href="{{ route('membership.admin.payments.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-money-check me-2"></i>Membership Fees</a>
                     <a href="{{ route('membership.admin.applications.index') }}"
@@ -55,6 +56,7 @@
                             class="fas fa-address-book me-2"></i>Applications</a>
                     {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-paperclip me-2"></i>Reports</a> --}}
+                            
 
                 @elsecan('is-student')
                     <a href="{{ route('membership.user.my-organizations') }}"

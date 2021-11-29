@@ -12,19 +12,20 @@ class Academic_Members extends Model
     protected $table = 'academic_members';
 
     protected $fillable = [
-        
+        'membership_id',
+        'organization_id',
         'course_id',
         'first_name',
         'middle_name',
         'last_name',
-        'mobile_number',
+        'contact',
         'student_number',
         'email',
         'gender',
         'date_of_birth',
         'year_and_section',
-        'subscription',
-        'approval_status',
-        'validity'
+        'membership_status',
+        'address'
+        
     ];
 }

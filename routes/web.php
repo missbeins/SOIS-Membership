@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\Academic\AcademicMembersController;
-use App\Http\Controllers\Admin\Academic\AcademicSubscriptionController;
+use App\Http\Controllers\Admin\Academic\AcademicPaymentsController;
 use App\Http\Controllers\Admin\Academic\AcademicRenewalsController;
 use App\Http\Controllers\Admin\Academic\AcademicApplicationController;
 use App\Http\Controllers\Admin\Membership\Academic\AcademicMembershipController;
@@ -18,6 +18,7 @@ use App\Http\Controllers\InformationVerificationController;
 use App\Http\Controllers\User\Academic\AcademicApplicationsController;
 use App\Http\Controllers\User\Nonacademic\NonacademicApplicationController;
 use App\Imports\ExpectedStudentsImport;
+use App\Models\Academic_Members;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,20 +48,20 @@ Route::post('/store-user', [InformationVerificationController::class, 'store'])-
 
 //password update
 
-Route::view('/profile/password', 'auth.update-password')->middleware(['auth','verified']);
+Route::view('/profile/password', 'auth.update-password')->middleware(['auth']);
 
 //membership routes
 
-Route::prefix('membership')->middleware(['auth'])->name('membership.')->group(function () {
+Route::prefix('membership')->middleware(['auth','auth.isAdmin'])->name('membership.')->group(function () {
 
     //admin routes
-    Route::prefix('admin')->middleware(['auth','auth.isAdmin','verified'])->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('profile', ProfileController::class)->name('profile');
         Route::resource('users', UserController::class);
         Route::get('/member/renewals', [AcademicRenewalsController::class, 'index'])->name('member-renewals');
-        Route::resource('/member/subscriptions', AcademicSubscriptionController::class);
+        Route::resource('/member/academic/payments', AcademicPaymentsController::class);
         Route::resource('/member/academic/official', AcademicMembersController::class);
-        Route::resource('/member/applications', AcademicApplicationController::class);
+        Route::resource('/member/academic/applications', AcademicApplicationController::class);
         Route::post('/import', [UserController::class, 'importStudents'])->name('expectedstudent-import');
 
         //Route::post('/addacademicmembership', [AddAcademicMembershipController::class, 'addMembership'])->name('addacademic');
@@ -69,14 +70,14 @@ Route::prefix('membership')->middleware(['auth'])->name('membership.')->group(fu
     });
      
     //users routes
-    Route::prefix('user')->middleware(['auth','auth.isStudent','verified'])->name('user.')->group(function () {
-        Route::prefix('academic')->middleware(['auth','auth.isStudent','verified'])->name('academic.')->group(function () {
+    Route::prefix('user')->middleware(['auth','auth.isStudent'])->name('user.')->group(function () {
+        Route::prefix('academic')->name('academic.')->group(function () {
             
             Route::get('application-form', [AcademicApplicationsController::class, 'showForm'])->name('academic-application');
             Route::post('application',[AcademicApplicationsController::class, 'store'])->name('application-store');
 
         });
-        Route::prefix('nonacademic')->middleware(['auth','auth.isStudent','verified'])->name('nonacademic.')->group(function () {
+        Route::prefix('nonacademic')->name('nonacademic.')->group(function () {
             
             Route::get('application-form', [NonacademicApplicationController::class, 'showForm'])->name('nonacademic-application');
 

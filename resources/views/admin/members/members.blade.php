@@ -17,16 +17,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($members as $member)
+                @foreach ($paidmembers as $member)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name }}</td>
                         <td>{{ $member->email }}</td>
                         <td>{{ $member->gender }}</td>
                         <td>{{ $member->year_and_section }}</td>
-                        <td>{{ $member->mobile_number }}</td>
+                        <td>{{ $member->contact }}</td>
                         <td>
-                            <button class="btn btn-success btn-sm" disabled><i class="fas fa-bell"> Notify</i></button>
+                            <button class="btn btn-primary btn-sm"><i class="fas fa-bell"> Notify</i></button>
                         </td>
                     </tr>
                 @endforeach

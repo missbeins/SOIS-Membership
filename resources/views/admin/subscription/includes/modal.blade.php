@@ -1,9 +1,9 @@
-<form action="{{ route('membership.admin.subscriptions.update', $subscription->academic_member_id) }}" method="POST">
+<form action="{{ route('membership.admin.payments.update', $member->academic_member_id) }}" method="POST">
     @csrf
     @method('PATCH')
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop{{ $subscription->academic_member_id }}" data-bs-backdrop="static"
+    <div class="modal fade" id="staticBackdrop{{ $member->academic_member_id }}" data-bs-backdrop="static"
         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -12,7 +12,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                            <input type="hidden" value="{{ $subscription->subscription }}" name="subscription">
+                            <input type="hidden" value="{{ $member->membership_status }}" name="subscription">
                             <div class="mb-3 row">
                                 <label for="inputReceipt" class="col-sm-3 col-form-label">Receipt No.</label>
                                 <div class="col-sm-9">

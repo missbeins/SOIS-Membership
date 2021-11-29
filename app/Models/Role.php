@@ -13,14 +13,14 @@ class Role extends Model
     protected $table='roles';
     
    /**
-         * The roles that belong to the Role
-         *
-         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-         */
+     * The roles that belong to the Role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+
     public function users()
-        {
-            return $this->belongsToMany(User::class);
-        }
-   
+    {
+        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id')->withPivot('organization_id');
+    }
       
 }

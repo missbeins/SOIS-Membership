@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Admin\Academic;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academic_Members;
+use App\Models\AcademicApplication;
+use App\Models\Course;
+use App\Models\Expected_Applicants;
+use App\Models\Gender;
 use Illuminate\Http\Request;
 use App\Models\Membership;
 use App\Models\organizations;
@@ -21,23 +26,17 @@ class AcademicApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     $adminid = Auth::user()->course->organization_id;
-
-    //     $applications = DB::table('memberships')
-    //     ->join('users','memberships.user_id','=','users.user_id')
-    //     ->join('courses','users.course_id','=','courses.course_id')
-    //     ->where('approval_Status','=','pending')
-    //     ->where('courses.organization_id',$adminid)
-
-    //     ->select('memberships.membership_id','memberships.organization_id','memberships.approval_status','users.first_name','users.middle_name','users.last_name','users.year_and_section','courses.course_name')
-    //     ->get();
-        
-    //     return view('membership.applications.index',compact('applications'));
-    // }
     public function index(){
-        return view('admin.applications.applications');
+        $expected_applicants = Expected_Applicants::all();
+        $genders = Gender::all();
+        $courses = Course::all();
+        $acad_applications = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
+                        ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
+                        ->where('application_status','=','pending')
+                        ->select()
+                        ->paginate(5);
+
+        return view('admin.applications.applications', compact(['acad_applications','expected_applicants','courses','genders']));
     }
 
     /**
@@ -47,8 +46,7 @@ class AcademicApplicationController extends Controller
      */
     public function create()
     {
-        $organizations = organizations::all();
-        return view('membership.applications.create',compact('organizations'));
+        // 
     }
 
     /**
@@ -59,36 +57,7 @@ class AcademicApplicationController extends Controller
      */
     public function store(Request $request){
 
-
-        $data = $request->validate([
-            'organization'=>'required'            
-        ]);
-        
-        $applicationId = Auth::user()->user_id;
-        
-        $applicationList = membership::all();
-        
-        $applicationExist = false;
-
-        foreach ($applicationList as $application) {
-
-            if ($application->user_id == $applicationId  && $application->organization_id == $data['organization']) {
-                
-                $applicationExist = true;                 
-                return redirect()->back()->with('message', 'Application denied!');
-            }        
-        } 
-        if ($applicationExist == false) {
-            Membership::create([
-                'organization_id' =>$data['organization'] ,
-                'user_id' => Auth::user()->user_id,
-                'approval_status' => 'Pending',
-                'subscription' => 'Unpaid'
-            ]);
-
-            return redirect()->back()->with('success', 'Application Succesful!');
-        }    
-        
+      //
         
     }
 
@@ -111,8 +80,9 @@ class AcademicApplicationController extends Controller
      */
     public function edit($id)
     {
-        // $app_request = App_Request::find($id);
-        // return view('membership.applications.edit', compact('app_request'));
+        //
+        // $courses = Course::all();
+        // return view('admin.applications.includes.accept',compact('courses'));
     }
 
     /**
@@ -122,20 +92,46 @@ class AcademicApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request )
-    {
-       
-        $data = $request->validate([
-            'requestId'=>'required',
-            'orgId'=>'required' 
-
+    public function update(Request $request, $id )
+    {   
+        
+        $request->validate([
+            'application_id' =>['required'],
+            'membership_id' =>['required'],
+            'organization_id' =>['required'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'student_number' => ['required', 'string', 'max:50'],
+            'year_and_section' => ['required', 'string', 'max:255'],
+            'course_id' => ['required', 'string'],
+            'mobile_number' => ['required', 'string'],
+            'date_of_birth' => ['required', 'date'],
+            'gender' => ['required', 'string'], 
+            'address' => ['required', 'string'], 
         ]);
-
-
-        Membership::where('membership_id',$data['requestId'])->update ([
-            'membership_id' => $data['requestId'],
-            'organization_id' => $data['orgId'],
-            'approval_status' => 'Approved'
+        
+        Academic_Members::create([
+            'membership_id' => $request['membership_id'],
+            'organization_id' => $request['organization_id'],
+            'course_id' => $request['course_id'],
+            'first_name' => $request['first_name'],
+            'middle_name' => $request['middle_name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'student_number' =>$request['student_number'],
+            'year_and_section' => $request['year_and_section'],
+            'course_id' => $request['course_id'],
+            'contact' => $request['mobile_number'],
+            'address' => $request['address'],
+            'gender' => $request['gender'],
+            'date_of_birth' => $request['date_of_birth'],
+            'mmbership_status' => 'unpaid'
+        ]);
+       
+        AcademicApplication::where('application_id',$id)->update ([
+           'application_status' => 'approved'
         ]);
         
         return redirect()->back()->with('success','Application approved!');
@@ -149,9 +145,10 @@ class AcademicApplicationController extends Controller
      */
     public function destroy($id)
     {   
-        $app_request = Membership::find($id);
+        $app_request = AcademicApplication::find($id);
         $app_request->delete();
         return redirect()->back()->with('success', ' Application Declined!');
     }
+   
 }
 

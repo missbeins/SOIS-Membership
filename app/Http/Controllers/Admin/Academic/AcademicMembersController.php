@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Academic;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academic_Members;
 use App\Models\Academic_Membership;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,16 @@ use Illuminate\Http\Request;
 
 class AcademicMembersController extends Controller
 {
+     /**
+     * @param Array $roles, String $role
+     * Function to search for a role under 'role' column in $roles Array 
+     * Return Array Key if found, False if not
+     * @return True: Integer, False: Boolean
+     */ 
+    private function hasRole($roles, $role)
+    {
+        return array_search($role, array_column($roles, 'role'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +28,30 @@ class AcademicMembersController extends Controller
      */
     public function index()
     {
-        $adminOrg = Auth::user()->course_id;
-        $members = Academic_Membership::all()
-            ->where('course_id',$adminOrg)
-            ->where('approval_status','=','approved')
-            ->where('subscription','=','paid');
-        return view('admin.members.members',compact('members'));
+
+         // Pluck all User Roles
+         $userRoleCollection = Auth::user()->roles;
+
+         // Remap User Roles into array with Organization ID
+         $userRoles = array();
+         foreach ($userRoleCollection as $role) 
+         {
+             array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+         }
+ 
+         // If User has AR President Admin role...
+        
+         
+         // Get the Organization from which the user is AR President Admin
+         $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+         $organizationID = $userRoles[$userRoleKey]['organization_id'];
+ 
+         
+         $paidmembers = Academic_Members::where('membership_status','=','paid')
+             ->where('organization_id',$organizationID)
+             ->get();
+            
+        return view('admin.members.members',compact('paidmembers'));
     }
 
     /**

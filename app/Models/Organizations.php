@@ -10,7 +10,7 @@ class Organizations extends Model
 {
     use HasFactory;
     protected $guarded=[ ];
-    protected $primaryKey='organizations_id';
+    protected $primaryKey='organization_id';
     protected $table='organizations';
     protected $fillable = [
        'organization_name',
@@ -22,4 +22,5 @@ class Organizations extends Model
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
+    
 }

@@ -39,14 +39,14 @@ body {
 }
 
 .card {
-    background-color: #c62128;
-    background-image: linear-gradient(147deg, #a00000 0%, #c62128 74%);
+    /* background-color: #c62128;
+    background-image: linear-gradient(147deg, #a00000 0%, #c62128 74%); */
     box-shadow: 0 5px 10px 5px rgba(133, 117, 117, 0.9);
     margin-bottom: 40px;
     padding: 0;
     font-weight: bold;
-    color: #f7f8f9;
-    /* background-color: #f7f8f9; */
+    /* color: #f7f8f9; */
+    background-color: #f7f8f9;
 }
 
 .membership-welcome-page {

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin\Academic;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academic_Members;
 use App\Models\Academic_Membership;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class AcademicSubscriptionController extends Controller
+class AcademicPaymentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +19,28 @@ class AcademicSubscriptionController extends Controller
     
     public function index(){
 
-        $adminOrg = Auth::user()->course_id;
-        $subscriptions = Academic_Membership::all()
-            ->where('course_id',$adminOrg)
-            ->where('subscription','=','unpaid')
-            ->where('approval_status','=','approved')
-            ->sortByDesc('subscription');
-        return view('admin.subscription.subscription',compact('subscriptions'));
+        // Pluck all User Roles
+        $userRoleCollection = Auth::user()->roles;
+
+        // Remap User Roles into array with Organization ID
+        $userRoles = array();
+        foreach ($userRoleCollection as $role) 
+        {
+            array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+        }
+
+        // If User has AR President Admin role...
+       
+        
+        // Get the Organization from which the user is AR President Admin
+        $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+        $organizationID = $userRoles[$userRoleKey]['organization_id'];
+
+        
+        $unpaidmembers = Academic_Members::where('membership_status','=','unpaid')
+            ->where('organization_id',$organizationID)
+            ->get();
+        return view('admin.subscription.subscription',compact('unpaidmembers'));
     }
     /**
      * Show the form for creating a new resource.
@@ -85,14 +101,14 @@ class AcademicSubscriptionController extends Controller
 
         ]);
 
-        $subscription = Academic_Membership::FindorFail($id);
+        $subscription = Academic_Members::FindorFail($id);
 
-        $subscription = Academic_Membership::where('academic_member_id',$id)->update ([
+        $subscription = Academic_Members::where('academic_member_id',$id)->update ([
             
-            'subscription' => 'paid'
+            'membership_status' => 'paid'
         ]);
         
-        return redirect()->back()->with('success','Members subscription settled!');
+        return redirect()->back()->with('success','Membership payment settled!');
     }
 
     /**
@@ -104,5 +120,16 @@ class AcademicSubscriptionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+     /**
+     * @param Array $roles, String $role
+     * Function to search for a role under 'role' column in $roles Array 
+     * Return Array Key if found, False if not
+     * @return True: Integer, False: Boolean
+     */ 
+    private function hasRole($roles, $role)
+    {
+        return array_search($role, array_column($roles, 'role'));
     }
 }

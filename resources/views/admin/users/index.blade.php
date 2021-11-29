@@ -48,47 +48,14 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h3 class="float-left">User Management</h3>
+                                    <h4 class="float-left">User Management</h4>
                                     <a role="button" class="btn btn-sm btn-success float-right"
                                         href="{{ route('membership.admin.users.create') }}">
                                         New User
                                     </a>
-                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">
-                                        Import Expected Students
-                                    </button>
-                                    @include('admin.users.includes.import')
+                                    
 
-                                   @if (session()->has('failures'))
-
-                                    <table class="table table-danger table-responsive table-hover table-striped mt-2">
-                                       <thead>
-                                            <tr>
-                                                <th>Row</th>
-                                                <th>Attribute</th>
-                                                <th>Errors</th>
-                                                <th>Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (session()->get('failures') as $failure)
-                                            <tr>
-                                                <td>{{ $failure->row() }}</td>
-                                                <td>{{ $failure->attribute() }}</td>
-                                                <td>
-                                                    <ul>
-                                                        @foreach ($failure->errors() as $e)
-                                                            <li>{{ $e }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </td>
-                                                <td>{{ $failure->values()[$failure->attribute()] }}</td>
-                                            </tr>    
-                                            @endforeach
-                                            
-                                        </tbody>
-                                    </table>    
-                                   @endif
+                                 
                                 </div>
                             </div>
                         </div>
@@ -99,7 +66,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Student Number</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -111,11 +78,11 @@
                                             <td>
                                                 <a role="button" class="btn btn-sm btn-primary"
                                                     href="{{ route('membership.admin.users.edit', $user->user_id) }}">
-                                                    <i class="fas fa-user-edit"></i>
+                                                    <i class="fas fa-user-edit"></i> Edit
                                                 </a>
-                                                <button type="button" class="btn btn-sm btn-danger"
+                                                <button type="button" class="btn btn-sm btn-danger mt-1"
                                                     onclick="event.preventDefault(); document.getElementById('delete-user-form-{{ $user->user_id }}').submit()">
-                                                    <i class="fas fa-trash-alt"></i>
+                                                    <i class="fas fa-trash-alt"></i> Delete
                                                 </button>
                                                 <form class="d-none" id="delete-user-form-{{ $user->user_id }}"
                                                     action="{{ route('membership.admin.users.destroy', $user->user_id) }}"
@@ -139,7 +106,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h3 class="float-left">Organization Memberships</h3>
+                                    <h4 class="float-left">Organization Memberships</h4>
                                     <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addmembership">
                                            Start New Membership
@@ -149,7 +116,7 @@
                             </div>
                         </div>
                         <div class="card-body table-responsive text-center">
-                            <table class="table table-hover table-striped table-bordered table-light">
+                            <table class="table table-hover table-striped table-bordered table-light ">
                                 <thead>
                                     <tr> 
                                         <th scope="col">#</th>
@@ -167,22 +134,22 @@
                                    
                                     @foreach ($academic_memberships as $membership)
                                         <tr>
-                                            <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $membership->semester }}</td>
-                                            <td>{{ $membership->school_year }}</td>
-                                            <td>{{ $membership->membership_fee }}</td>
-                                            <td>{{ $membership->start_date }}</td>
-                                            <td>{{ $membership->end_date }}</td>
-                                            <td>{{ $membership->registration_status }}</td>
-                                            <td>{{ $membership->status }}</td>
+                                            <th scope="row" class="pt-4">{{ $loop->iteration }}</th>
+                                            <td class="pt-4">{{ $membership->semester }}</td>
+                                            <td class="pt-4">{{ $membership->school_year }}</td>
+                                            <td class="pt-4">{{ $membership->membership_fee }}</td>
+                                            <td class="pt-4">{{ $membership->start_date }}</td>
+                                            <td class="pt-4">{{ $membership->end_date }}</td>
+                                            <td class="pt-4">{{ $membership->registration_status }}</td>
+                                            <td class="pt-4">{{ $membership->status }}</td>
                                             <td>
                                                     <a role="button" class="btn btn-sm btn-primary"
                                                         href="{{ route('membership.admin.academicmembership.edit', $membership->academic_membership_id) }}">
-                                                        <i class="fas fa-user-edit"></i>
+                                                        <i class="fas fa-user-edit"></i> Edit
                                                     </a>
                                                     <button type="button" class="btn btn-sm btn-danger mt-1"
                                                         onclick="event.preventDefault(); document.getElementById('delete-membership-form-{{ $membership->academic_membership_id }}').submit()">
-                                                        <i class="fas fa-trash-alt"></i>
+                                                        <i class="fas fa-trash-alt"></i> Delete
                                                     </button>
                                                     <form class="d-none" id="delete-membership-form-{{ $membership->academic_membership_id }}"
                                                         action="{{ route('membership.admin.academicmembership.destroy',  $membership->academic_membership_id) }}"

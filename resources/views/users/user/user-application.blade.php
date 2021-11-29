@@ -21,7 +21,7 @@
                                             <th scope="col">Semester</th>
                                             <th scope="col">School Year</th>
                                             <th scope="col">Registration</th>
-                                            {{-- <th scope="col">Action</th> --}}
+                                           
                                         
                                         </tr>
                                     </thead>
@@ -32,23 +32,13 @@
                                                     <td>{{ $academic_membership->organization_name }}</td>
                                                     <td>{{ $academic_membership->semester }}</td>
                                                     <td>{{ $academic_membership->school_year }}</td>
-                                                    <td>{{ $academic_membership->status }}</td>
-                                                    {{-- <td>
-                                                        @if ($academic_membership->status == 'Close' || $academic_membership->status == 'close')
-                                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#applicationform" disabled>
-                                                            Apply
-                                                        </button>
-                                                        @else
-                                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#applicationform">
-                                                            Apply
-                                                         </button>
-                                                        @endif
-                                                        @include('users.user.application-form')
-                                                    </td> --}}
+                                                    <td>{{ $academic_membership->registration_status }}</td>
+                                                  
                                                 </tr>
                                             @endforeach
                                     </tbody>
                                 </table>
+                                {{ $academic_memberships->links() }}
                             </div>
                         </div>
                     </div>
@@ -69,7 +59,7 @@
                                             <th scope="col">Semester</th>
                                             <th scope="col">School Year</th>
                                             <th scope="col">Registration</th>
-                                            {{-- <th scope="col">Action</th> --}}
+                                           
                                         
                                         </tr>
                                     </thead>
@@ -79,22 +69,13 @@
                                             <td>{{ $non_academic_membership->organization_name }}</td>
                                             <td>{{ $non_academic_membership->semester }}</td>
                                             <td>{{ $non_academic_membership->school_year }}</td>
-                                            <td>{{ $non_academic_membership->status }}</td>
-                                            {{-- <td>@if ($non_academic_membership->status == 'Close' || $non_academic_membership->status == 'close')
-                                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#applicationform" disabled>
-                                                    Apply
-                                                </button>
-                                                @else
-                                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#applicationform">
-                                                    Apply
-                                                 </button>
-                                                @endif
-                                                @include('users.user.application-form')
-                                            </td> --}}
+                                            <td>{{ $non_academic_membership->registration_status }}</td>
+                                           
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {{ $non_academic_memberships->links() }}
                             </div>
                         </div>
                     </div>

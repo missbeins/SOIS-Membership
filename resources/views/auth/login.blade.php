@@ -38,7 +38,11 @@
                 <input type="email"name="email" placeholder="Email Address" tabindex="10" value="{{ old('email') }}" required autocomplete="email" >  
                
               </div>
-             
+              @error('email')
+                  <span class="invalid-feedback d-block" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
 
               <div class="form-input">
                 <span><i class="fa fa-key"></i></span>

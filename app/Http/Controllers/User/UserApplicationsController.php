@@ -17,10 +17,10 @@ class UserApplicationsController extends Controller
         //$user_org_id = auth::user()->course['organization_id'];
         $academic_memberships = Academic_Membership::join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                             ->where('academic_membership.organization_id',auth::user()->course['organization_id'])
-                            ->get();
+                            ->paginate(5);
 
         $non_academic_memberships = Non_Academic_Membership::join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
-                            ->get();
+                            ->paginate(5);
                             
         $academic_organization = Organizations::join('academic_membership','academic_membership.organization_id','=','organizations.organization_id')   
                             ->where('academic_membership.status','=','Open')
@@ -30,9 +30,9 @@ class UserApplicationsController extends Controller
                             ->get(); 
         $application_statuses = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
-                            ->where('application_status','=','pending')
                             ->where('user_id',Auth::user()->user_id)
-                            ->get();               
+                            ->paginate(10)
+                            ->sortByDesc('created_at');               
         //  dd($application_statuses);
         return view('users.user.user-application', compact([
             'academic_memberships',
