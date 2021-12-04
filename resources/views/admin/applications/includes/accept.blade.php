@@ -16,6 +16,7 @@
                 <input id="application_id" type="hidden" class="form-control @error('application_id') is-invalid @enderror" name="application_id" value="{{ $application->application_id }}" required autocomplete="application_id" autofocus>
                 <input id="membership_id" type="hidden" class="form-control @error('membership_id') is-invalid @enderror" name="membership_id" value="{{ $application->membership_id }}" required autocomplete="membership_id" autofocus>
                 <input id="organization_id" type="hidden" class="form-control @error('organization_id') is-invalid @enderror" name="organization_id" value="{{ $application->organization_id }}" required autocomplete="organization_id" autofocus>
+                <input id="user_id" type="hidden" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ $application->user_id }}" required autocomplete="user_id" autofocus>
 
                 <div class="col-md-4">
                   <label for="first_name" class="form-label">Firstname</label>

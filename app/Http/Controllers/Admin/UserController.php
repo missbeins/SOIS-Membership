@@ -16,11 +16,23 @@ use App\Models\Academic_Membership;
 use App\Models\Academic_Members;
 use Excel;
 use App\Imports\ExpectedStudentsImport;
+use App\Models\AcademicApplication;
 use App\Models\Expected_Applicants;
 use PhpParser\Node\Stmt\If_;
 
 class UserController extends Controller
 {
+     /**
+     * @param Array $roles, String $role
+     * Function to search for a role under 'role' column in $roles Array 
+     * Return Array Key if found, False if not
+     * @return True: Integer, False: Boolean
+     */ 
+    private function hasRole($roles, $role)
+    {
+        return array_search($role, array_column($roles, 'role'));
+    }
+    /**
     /**
      * Display a listing of the resource.
      *
@@ -29,6 +41,22 @@ class UserController extends Controller
     public function index()
 
     {
+         // Pluck all User Roles
+         $userRoleCollection = Auth::user()->roles;
+
+         // Remap User Roles into array with Organization ID
+         $userRoles = array();
+         foreach ($userRoleCollection as $role) 
+         {
+             array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+         }
+ 
+         // If User has AR President Admin role...
+        
+         $memberRoleKey = $this->hasRole($userRoles,'User');
+         // Get the Organization from which the user is Membeship Admin
+         $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+         $organizationID = $userRoles[$userRoleKey]['organization_id'];
        
         if(Gate::denies('logged-in')){
 
@@ -40,29 +68,26 @@ class UserController extends Controller
             $admin_org_id = Auth::user()->course['organization_id'];
             $admin_course = Auth::user()->course_id;
             $members = Academic_Members::all()
-                ->where('subscription','=','paid')
-                ->where('approval_status','=','approved')
+                ->where('membership_status','=','paid')
                 ->where('course_id',$admin_course)
                 ->count();
             
             $unpaid_members = Academic_Members::all()
-                ->where('subscription','=','unpaid')
-                ->where('approval_status','=','approved')
+                ->where('membership_status','=','unpaid')
                 ->where('course_id',$admin_course)
                 ->count();
                 
-            $applications = Academic_Members::all()
-                ->where('subscription','=','unpaid')
-                ->where('approval_status','=','pending')
+            $applications = AcademicApplication::all()
+                
+                ->where('application_status','=','pending')
                 ->where('course_id',$admin_course)
                 ->count();
             
             $users = User::join('courses','courses.course_id','=','users.course_id')
                                 ->join('role_user','role_user.user_id','=','users.user_id')
                                 ->join('organizations','organizations.organization_id','=','courses.organization_id')
-                                ->where('courses.organization_id',$admin_org_id)
-                                ->where('role_user.role_id',5)
-                                ->select()
+                                ->where('courses.organization_id',$organizationID)
+                                ->where('role_user.role_id', 8)
                                 ->paginate(5);
             $academic_memberships = Academic_Membership::where('organization_id','=',Auth::user()->course['organization_id'])
                                 ->select()

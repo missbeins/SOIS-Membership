@@ -15,6 +15,7 @@ class Academic_Members extends Model
         'membership_id',
         'organization_id',
         'course_id',
+        'user_id',
         'first_name',
         'middle_name',
         'last_name',

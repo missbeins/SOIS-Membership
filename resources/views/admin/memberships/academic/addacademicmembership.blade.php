@@ -46,7 +46,7 @@
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
-                      @enderror</div>
+                      @enderror</div> 
                     <div class="col-md-6">
                       <label for="registration_status" class="form-label ">{{ __('Registration Status') }}<span style="color:red">*</span></label>
                       <select aria-label="Default select example" name="registration_status" class="form-control @error('registration_status') is-invalid @enderror"

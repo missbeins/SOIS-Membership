@@ -38,7 +38,7 @@ class AcademicMembershipController extends Controller
     public function store(Request $request)
     {
         $adminOrg = Auth::user()->course['organization_id'];
-        
+          
         $data = $request->validate([
             'semester' => ['required'],
             'membership_fee' => ['required','integer'],

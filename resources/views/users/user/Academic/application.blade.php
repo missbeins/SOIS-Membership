@@ -9,6 +9,7 @@
                     <form class="row g-3" method="POST" action="{{ route('membership.user.academic.application-store') }}">
                         @csrf
                         
+                        
                         <div class="col-md-4">
                             <label for="first_name" class="form-label">Firstname</label>
                             <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name"
@@ -42,7 +43,7 @@
                         <div class="col-12">
                             <label for="inputAddress" class="form-label">Address</label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror" id="inputAddress" placeholder="1234 Main St"
-                                name="address" required>
+                                name="address" value="{{ Auth::user()->address }}"required>
                                 @error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

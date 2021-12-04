@@ -26,10 +26,11 @@
                         <td>{{ $member->year_and_section }}</td>
                         <td>{{ $member->contact }}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm"><i class="fas fa-bell"> Notify</i></button>
+                            <button class="btn btn-secondary btn-sm"><i class="fas fa-bell"> Message</i></button>
                         </td>
                     </tr>
                 @endforeach
+                
             </tbody>
         </table>
     </div>

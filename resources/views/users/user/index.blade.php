@@ -17,13 +17,19 @@
                                 <th>Status</th>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($academic_membership as $member)
+                                @foreach ($organizations as $organization)
                                     <tr>
-                                        <td>{{ $member->organization_name }}</td>
-                                        <td>{{ $member->validity }}</td>
-                                        <td class="text-success">{{ $member->subscription }}</td>
+                                        <td>{{ $organization->organization_name }}</td>
+                                        <td>{{ $organization->start_date }}</td>
+                                        <td>{{ $organization->end_date }}</td>
+                                        @if ($organization->status == 'Close' || $organization->status == 'close')
+                                            <td class="text-danger">{{ $organization->status }}</td>
+                                        @else
+                                            <td class="text-success">{{ $organization->status }}</td>
+                                        @endif
+                                        
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

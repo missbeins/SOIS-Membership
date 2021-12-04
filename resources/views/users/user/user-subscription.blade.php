@@ -18,11 +18,16 @@
                             <th scope="col">Status</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                {{-- <td>{{ $member->organization_name }}</td>
-                                <td>organization name</td>
-                                <td class="text-success">Paid</td> --}}
-                            </tr>
+                           @foreach ($organizations as $organization)
+                               <tr>
+                                   <td>{{ $loop->iteration }}</td>
+                                   <td>{{ $organization->organization_name }}</td>
+                                   <td>{{ $organization->semester }}</td>
+                                   <td>{{ $organization->school_year }}</td>
+                                   <td>₱ {{ $organization->membership_fee }}.00</td>
+                                   <td class="text-danger">{{ $organization->membership_status }}</td>
+                               </tr>
+                           @endforeach
                         </tbody>
                     </table>
                 </div>

@@ -12,7 +12,7 @@
                             @method('PATCH')
                             {{-- <input type="hidden" name="organization_id" value="{{ Auth::user()->course['organization_id'] }}"> --}}
                             <div class=" mb-2 row"> 
-                              <div class="col-md-6">
+                              <div class="col-md-4">
                                 <label for="semester" class="form-label ">{{ __('Semester') }}<span style="color:red">*</span></label>
                                 <select aria-label="Default select example" name="semester" class="form-control @error('semester') is-invalid @enderror"
                                     value="{{ old('semester') }}" required>
@@ -25,7 +25,7 @@
                                     </span>
                                 @enderror
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-4">
                                 <label for="membership_fee" class="form-label">{{ __('Membership Fee') }} <span style="color:red">*</span></label>
                                 <input id="membership_fee" type="number" class="form-control @error('membership_fee') is-invalid @enderror"
                                     name="membership_fee" value="{{ old('membership_fee') }}@isset($academic_membership){{ $academic_membership->membership_fee }}@endisset" required
@@ -37,9 +37,9 @@
                                     </span>
                                 @enderror
                               </div>
-                            </div>
-                            <div class="mb-2 row">
-                              <div class="col-md-6"> <label for="school_year" class="form-label">{{ __('School Year') }} <span style="color:red">*</span></label>
+                            
+                            
+                              <div class="col-md-4"> <label for="school_year" class="form-label">{{ __('School Year') }} <span style="color:red">*</span></label>
                                 <input id="school_year" type="text" class="form-control @error('school_year') is-invalid @enderror"
                                     name="school_year" value="{{ old('school_year') }}@isset($academic_membership){{ $academic_membership->school_year }}@endisset" required
                                     autocomplete="school_year" autofocus>
@@ -48,22 +48,40 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror</div>
-                              <div class="col-md-6">
-                                <label for="status" class="form-label ">{{ __('Status') }}<span style="color:red">*</span></label>
-                            <select aria-label="Default select example" name="status" class="form-control @error('status') is-invalid @enderror"
-                                value="{{ old('status') }}" required>
-                                <option>Open</option>
-                                <option>Close</option>
-                            </select>
-                            @error('status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                              </div>
-                               
+                                @enderror
                             </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <label for="registration_status" class="form-label ">{{ __('Registration Status') }}<span style="color:red">*</span></label>
+                                    <select aria-label="Default select example" name="registration_status" class="form-control @error('registration_status') is-invalid @enderror"
+                                        value="{{ old('registration_status') }}" required>
+                                        <option>Open</option>
+                                        <option>Close</option>
+                                    </select>
+                                    @error('registration_status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                  <div class="col-md-6">
+                                    <label for="status" class="form-label ">{{ __('Status') }}<span style="color:red">*</span></label>
+                                    <select aria-label="Default select example" name="status" class="form-control @error('status') is-invalid @enderror"
+                                        value="{{ old('status') }}" required>
+                                        <option>Active</option>
+                                        <option>Close</option>
+                                    </select>
+                                    @error('status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                  </div>
+                            </div>
+                            
+                               
+                           
                             <div class="mb-2 row">
                               <div class="col-md-6">
                                 <label for="start_date" class="form-label">{{ __('Start Date') }}<span style="color:red">*</span></label>

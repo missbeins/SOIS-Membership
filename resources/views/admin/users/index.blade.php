@@ -80,7 +80,7 @@
                                                     href="{{ route('membership.admin.users.edit', $user->user_id) }}">
                                                     <i class="fas fa-user-edit"></i> Edit
                                                 </a>
-                                                <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                <button type="button" class="btn btn-sm btn-danger"
                                                     onclick="event.preventDefault(); document.getElementById('delete-user-form-{{ $user->user_id }}').submit()">
                                                     <i class="fas fa-trash-alt"></i> Delete
                                                 </button>
