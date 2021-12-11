@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid px-2">
         <div class="row g-3">
-            <div class="col-md-4">
+            {{-- <div class="col-md-6">
                 <div class="cardcon p-3 bg-white d-flex justify-content-around align-items-center rounded">
                     <div>
                         <h3 class="fs-2 text-center">{{ $members }}</h3>
@@ -11,8 +11,8 @@
                     </div>
                     <i class="fas fa-users fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                 </div>
-            </div>
-            <div class="col-md-4">
+            </div> --}}
+            <div class="col-md-5">
                 <div class="cardcon p-3 bg-white d-flex justify-content-around align-items-center rounded">
                     <div>
                         <h3 class="fs-2 text-center">{{ $applications }}</h3>
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="cardcon p-3 bg-white  d-flex justify-content-around align-items-center rounded">
                     <div>
                         <h3 class="fs-2 text-center">{{ $unpaid_members }}</h3>
@@ -30,7 +30,7 @@
                     </div>
                     <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     @if (isset($errors) && $errors->any())
@@ -42,7 +42,7 @@
     @endif
     <div class="container-fluid" >
         <div class="row">
-            <div class="col-md-7">        
+            {{-- <div class="col-md-7">        
                 <div class="mt-3">
                     <div class="card">
                         <div class="card-header">
@@ -99,8 +99,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-5">
+            </div> --}}
+            <div class="col-md-12">
                 <div class="mt-3">
                     <div class="card">
                         <div class="card-header">
@@ -119,15 +119,15 @@
                             <table class="table table-hover table-striped table-bordered table-light ">
                                 <thead>
                                     <tr> 
-                                        <th scope="col">#</th>
-                                        <th scope="col">Semester</th>
-                                        <th scope="col">School Year</th>
-                                        <th scope="col">Fee</th>
-                                        <th scope="col">Start Date</th>
-                                        <th scope="col">End Date</th>
-                                        <th scope="col">Registration Status</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Actions</th>
+                                        <th class="col-sm-1">#</th>
+                                        <th class="col-sm-1">Semester</th>
+                                        <th class="col-sm-1">School Year</th>
+                                        <th class="col-sm-1">Fee</th>
+                                        <th class="col-sm-1">Start Date <br><small>( yyyy-mm-dd )</small></th>
+                                        <th class="col-sm-1">End Date <br><small>( yyyy-mm-dd )</small></th>
+                                        <th class="col-sm-2">Registration Status <br><small>( yyyy-mm-dd )</small></th>
+                                        <th class="col-sm-1">Status</th>
+                                        <th class="col-sm-1">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -137,17 +137,17 @@
                                             <th scope="row" class="pt-4">{{ $loop->iteration }}</th>
                                             <td class="pt-4">{{ $membership->semester }}</td>
                                             <td class="pt-4">{{ $membership->school_year }}</td>
-                                            <td class="pt-4">{{ $membership->membership_fee }}</td>
-                                            <td class="pt-4">{{ $membership->start_date }}</td>
-                                            <td class="pt-4">{{ $membership->end_date }}</td>
-                                            <td class="pt-4">{{ $membership->registration_status }}</td>
+                                            <td class="pt-4">₱ {{ $membership->membership_fee }}.00</td>
+                                            <td class="pt-4">{{ $membership->membership_start_date }}</td>
+                                            <td class="pt-4">{{ $membership->membership_end_date }}</td>
+                                            <td class="pt-4">{{ $membership->registration_status }}<br>( available from {{ $membership->registration_start_date }} to {{ $membership->registration_end_date }} )</td>
                                             <td class="pt-4">{{ $membership->status }}</td>
-                                            <td>
+                                            <td class="pt-4">
                                                     <a role="button" class="btn btn-sm btn-primary"
                                                         href="{{ route('membership.admin.academicmembership.edit', $membership->academic_membership_id) }}">
                                                         <i class="fas fa-user-edit"></i> Edit
                                                     </a>
-                                                    <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                    {{-- <button type="button" class="btn btn-sm btn-danger"
                                                         onclick="event.preventDefault(); document.getElementById('delete-membership-form-{{ $membership->academic_membership_id }}').submit()">
                                                         <i class="fas fa-trash-alt"></i> Delete
                                                     </button>
@@ -156,7 +156,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                    </form>
+                                                    </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

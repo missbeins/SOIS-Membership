@@ -20,7 +20,8 @@ class CreateAcademicMembersTable extends Migration
             $table->unsignedBigInteger('membership_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('organization_id');
-
+            
+            $table->integer('control_number');
             $table->string('student_number');
             $table->string('first_name');
             $table->string('middle_name');
@@ -31,7 +32,7 @@ class CreateAcademicMembersTable extends Migration
             $table->date('date_of_birth');
             $table->string('contact');
             $table->string('address');
-            $table->string('membership_status')->default('unpaid');
+            $table->string('membership_status')->default('paid');
             $table->timestamps();
 
 

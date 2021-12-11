@@ -37,10 +37,12 @@ class AcademicPaymentsController extends Controller
         $organizationID = $userRoles[$userRoleKey]['organization_id'];
 
         
-        $unpaidmembers = Academic_Members::where('membership_status','=','unpaid')
-            ->where('organization_id',$organizationID)
+        $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
+            ->where('academic_members.organization_id',$organizationID)
+            ->paginate(10);
+        $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
             ->get();
-        return view('admin.subscription.subscription',compact('unpaidmembers'));
+        return view('admin.subscription.subscription',compact(['paidmembers','academic_memberships']));
     }
     /**
      * Show the form for creating a new resource.

@@ -141,6 +141,15 @@
                     </span>
                     @enderror
                 </div>
+                <div class="col-md-3">
+                    <label for="control_number" class="form-label">Control Number</label>
+                    <input type="number" class="form-control @error('control_number') is-invalid @enderror" id="control_number" name="control_number" required>
+                    @error('control_number')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                 <div class="mt-3 float-end" >
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Confirm</button>                          

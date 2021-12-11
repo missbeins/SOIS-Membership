@@ -43,10 +43,12 @@ class AcademicMembershipController extends Controller
             'semester' => ['required'],
             'membership_fee' => ['required','integer'],
             'school_year' => ['required'],
+            'membership_start_date' => ['required','date'],
+            'membership_end_date' => ['required', 'date','after:membership_start_date'],
             'status' => ['required','string'],
             'registration_status' => ['required','string'],
-            'start_date' => ['required','date'],
-            'end_date' => ['required', 'date','after:start_date'],
+            'registration_start_date' => ['required','date'],
+            'registration_end_date' => ['required', 'date','after:registration_start_date'],
             
         ]);
         
@@ -55,10 +57,12 @@ class AcademicMembershipController extends Controller
             'semester' => $data['semester'],
             'membership_fee' => $data['membership_fee'],
             'school_year' =>  $data['school_year'],
+            'membership_start_date' =>  $data['membership_start_date'],
+            'membership_end_date' =>  $data['membership_end_date'], 
             'registration_status' =>  $data['registration_status'],
             'status' =>  $data['status'],
-            'start_date' =>  $data['start_date'],
-            'end_date' =>  $data['end_date'],           
+            'registration_start_date' =>  $data['registration_start_date'],
+            'registration_end_date' =>  $data['registration_end_date'],           
         
         ]);
 
@@ -112,22 +116,27 @@ class AcademicMembershipController extends Controller
             'semester' => ['required'],
             'membership_fee' => ['required','integer'],
             'school_year' => ['required'],
+            'membership_start_date' => ['required','date'],
+            'membership_end_date' => ['required', 'date','after:membership_start_date'],
             'status' => ['required','string'],
-            'start_date' => ['required','date'],
-            'end_date' => ['required', 'date','after:start_date'],
-
+            'registration_status' => ['required','string'],
+            'registration_start_date' => ['required','date'],
+            'registration_end_date' => ['required', 'date','after:registration_start_date'],
             
         ]);
         
         $academic_membership = Academic_Membership::where('academic_membership_id',$id)->update([
                                       
-            'organization_id' => $adminOrg,
+            'organization_id' => $adminOrg,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
             'semester' => $data['semester'],
             'membership_fee' => $data['membership_fee'],
             'school_year' =>  $data['school_year'],
+            'membership_start_date' =>  $data['membership_start_date'],
+            'membership_end_date' =>  $data['membership_end_date'], 
+            'registration_status' =>  $data['registration_status'],
             'status' =>  $data['status'],
-            'start_date' =>  $data['start_date'],
-            'end_date' =>  $data['end_date'],           
+            'registration_start_date' =>  $data['registration_start_date'],
+            'registration_end_date' =>  $data['registration_end_date'],
         
         ]);
 

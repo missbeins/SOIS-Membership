@@ -26,7 +26,8 @@ class Academic_Members extends Model
         'date_of_birth',
         'year_and_section',
         'membership_status',
-        'address'
+        'address',
+        'control_number'
         
     ];
 }

@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\DB;
 
 class AcademicApplicationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -100,6 +96,7 @@ class AcademicApplicationController extends Controller
             'membership_id' =>['required'],
             'organization_id' =>['required'],
             'user_id' =>['required'],
+            'control_number' => ['required'],
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -118,6 +115,7 @@ class AcademicApplicationController extends Controller
             'organization_id' => $request['organization_id'],
             'course_id' => $request['course_id'],
             'user_id' => $request['user_id'],
+            'control_number' => $request['control_number'],
             'first_name' => $request['first_name'],
             'middle_name' => $request['middle_name'],
             'last_name' => $request['last_name'],
@@ -128,8 +126,7 @@ class AcademicApplicationController extends Controller
             'contact' => $request['mobile_number'],
             'address' => $request['address'],
             'gender' => $request['gender'],
-            'date_of_birth' => $request['date_of_birth'],
-            'mmbership_status' => 'unpaid'
+            'date_of_birth' => $request['date_of_birth'],          
         ]);
        
         AcademicApplication::where('application_id',$id)->update ([

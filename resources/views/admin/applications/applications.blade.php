@@ -16,10 +16,10 @@
                     <table class="table table-hover table-striped table-bordered table-light">
                         <thead>
                             <tr> 
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Actions</th>
+                                <th class="col-sm-1">#</th>
+                                <th class="col-sm-4">Name</th>
+                                <th class="col-sm-4">Email</th>
+                                <th class="col-sm-3">Actions</th>
                             </tr>
                         </thead>
                         <tbody>

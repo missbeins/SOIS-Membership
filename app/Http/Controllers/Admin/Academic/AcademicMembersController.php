@@ -50,8 +50,9 @@ class AcademicMembersController extends Controller
          $paidmembers = Academic_Members::where('membership_status','=','paid')
              ->where('organization_id',$organizationID)
              ->get();
-            
-        return view('admin.members.members',compact('paidmembers'));
+        $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
+        ->get();
+        return view('admin.members.members',compact(['paidmembers','academic_memberships']));
     }
 
     /**

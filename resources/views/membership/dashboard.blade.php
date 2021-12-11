@@ -50,7 +50,7 @@
                             class="fas fa-users me-2"></i>Members</a>
                     <a href="{{ route('membership.admin.payments.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-money-check me-2"></i>Membership Fees</a>
+                            class="fas fa-money-check me-2"></i>Memberships</a>
                     <a href="{{ route('membership.admin.applications.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-address-book me-2"></i>Applications</a>
