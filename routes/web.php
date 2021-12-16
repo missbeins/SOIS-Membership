@@ -50,15 +50,22 @@ Route::view('/profile/password', 'auth.update-password')->middleware(['auth']);
 
 //membership routes
 
-Route::prefix('membership')->middleware(['auth','auth.isAdmin'])->name('membership.')->group(function () {
+Route::prefix('membership')->middleware('auth')->name('membership.')->group(function () {
 
     //admin routes
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->middleware(['auth','auth.isAdmin'])->name('admin.')->group(function () {
         Route::get('profile', ProfileController::class)->name('profile');
         Route::resource('users', UserController::class);
+
         Route::get('/member/renewals', [AcademicRenewalsController::class, 'index'])->name('member-renewals');
+
+        Route::get('/member/academic/payments/filter', [AcademicPaymentsController::class, 'filterPayments'])->name('filterPayment');
         Route::resource('/member/academic/payments', AcademicPaymentsController::class);
+
+
         Route::resource('/member/academic/official', AcademicMembersController::class);
+        Route::get('/member/academic/members/filter' , [AcademicMembersController::class, 'filterMembers'])->name('member-filter');
+
         Route::resource('/member/academic/applications', AcademicApplicationController::class);
         Route::post('/import', [UserController::class, 'importStudents'])->name('expectedstudent-import');
 
@@ -87,5 +94,5 @@ Route::prefix('membership')->middleware(['auth','auth.isAdmin'])->name('membersh
         //Route::get('application-form', [UserApplicationsController::class, 'applicationForm'])->name('application-form');
 
         
-    });
+    });    
 });

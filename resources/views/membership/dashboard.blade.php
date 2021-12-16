@@ -62,12 +62,13 @@
                     <a href="{{ route('membership.user.my-organizations') }}"
                         class="list-group-item list-group-item-action  second-text fw-bold "><i
                             class="fas fa-address-card me-2"></i>My Organizations</a>
+                    <a href="{{ route('membership.user.my-applications') }}"
+                            class="list-group-item list-group-item-action second-text fw-bold"><i
+                                class="fas fa-address-book me-2"></i>My Applications</a>
                     <a href="{{ route('membership.user.my-subscriptions') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-money-check me-2"></i>My Memberships</a>
-                    <a href="{{ route('membership.user.my-applications') }}"
-                        class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-address-book me-2"></i>My Applications</a>
+                            class="fas fa-comments me-2"></i>Messages</a>
+                    
                 @endcan
 
                 <a class=" list-group-item list-group-item-action second-text fw-bold" href="{{ route('logout') }}"

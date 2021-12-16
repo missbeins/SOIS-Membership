@@ -20,7 +20,7 @@ class StudentAccess
         if(Gate::allows('is-student')){
             return $next($request);
         }
-
+        
         abort(403);
     }
 }

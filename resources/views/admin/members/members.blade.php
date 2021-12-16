@@ -8,15 +8,23 @@
                 <div class="col-md-8">
                     <h4 class="float-left">Official Members</h4>
                 </div>
-                <div class="input-group col-md-4" style="width:30%">
-                    <label class="input-group-text" for="inputGroupSelect01">Filter</label>
-                    <select class="form-select" id="inputGroupSelect01">
-                        @foreach ($academic_memberships as $academic_membership)
-                            <option value="{{ $academic_membership->academic_membership_id }}">{{ $academic_membership->semester }}({{ $academic_membership->school_year }})</option>                          
-                        @endforeach
-                     
-                    </select>
-                </div>
+                <form class="col-md-4 input-group" style="width:30%" action="{{ route('membership.admin.member-filter') }}" method="get">
+                   @csrf
+                            <label class="input-group-text" for="inputGroupSelect01">{{ __('Filter') }}</label>
+                            <select class="form-control @error('query') is-invalid @enderror" id="inputGroupSelect01" name="query">
+                                <option selected>Choose membership...</option>
+                                @foreach ($academic_memberships as $academic_membership)
+                                    <option value="{{ $academic_membership->academic_membership_id }}">{{ $academic_membership->semester }}({{ $academic_membership->school_year }})</option>                          
+                                @endforeach
+                            </select>                        
+                                    @error('query')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            <button class="input-group-text btn-secondary"type="submit">Enter</button>
+                   
+                </form>
             </div>
         </div>
         <div class="card-body table-responsive text-center">
@@ -25,6 +33,7 @@
                 <thead>
                     <tr>
                         <th scope="col" width="50">#</th>
+                        <th scope="col">Membership</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Gender</th>
@@ -37,6 +46,7 @@
                     @foreach ($paidmembers as $member)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $member->semester }}({{ $member->membership_start_date }} to {{ $member->membership_end_date }})</td>
                             <td>{{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name }}</td>
                             <td>{{ $member->email }}</td>
                             <td>{{ $member->gender }}</td>

@@ -91,7 +91,7 @@ class UserController extends Controller
                                 ->paginate(5);
             $academic_memberships = Academic_Membership::where('organization_id','=',Auth::user()->course['organization_id'])
                                 ->select()
-                                ->paginate(3);
+                                ->paginate(1, ['*'], 'academic-memberships');
 
             // $academic_membership = Academic_Membership::all()
             //                     ->where('')

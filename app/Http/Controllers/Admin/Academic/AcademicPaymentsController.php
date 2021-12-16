@@ -18,7 +18,7 @@ class AcademicPaymentsController extends Controller
      */
     
     public function index(){
-
+        
         // Pluck all User Roles
         $userRoleCollection = Auth::user()->roles;
 
@@ -29,9 +29,6 @@ class AcademicPaymentsController extends Controller
             array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
         }
 
-        // If User has AR President Admin role...
-       
-        
         // Get the Organization from which the user is AR President Admin
         $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
         $organizationID = $userRoles[$userRoleKey]['organization_id'];
@@ -43,6 +40,39 @@ class AcademicPaymentsController extends Controller
         $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
             ->get();
         return view('admin.subscription.subscription',compact(['paidmembers','academic_memberships']));
+    }
+    public function filterPayments(Request $request){
+        
+        if(isset($_GET['query'])){
+              // Pluck all User Roles
+            $userRoleCollection = Auth::user()->roles;
+
+            // Remap User Roles into array with Organization ID
+            $userRoles = array();
+            foreach ($userRoleCollection as $role) 
+            {
+                array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+            }       
+            
+            // Get the Organization from which the user is AR President Admin
+            $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+            $organizationID = $userRoles[$userRoleKey]['organization_id'];
+
+            $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
+                ->get();
+            $query = $_GET['query'];
+            $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')        
+                ->where('academic_members.membership_id','LIKE','%'.$query.'%')
+                ->where('academic_members.membership_status','=','paid')
+                ->where('academic_members.organization_id',$organizationID)
+                ->paginate(10);
+            // dd($paidmembers);
+            return view('admin.subscription.filterPayments',compact(['paidmembers','academic_memberships']));
+        
+        }else{
+            return view('admin.subscription.filterPayments',compact(['paidmembers','academic_memberships']));
+
+       }
     }
     /**
      * Show the form for creating a new resource.

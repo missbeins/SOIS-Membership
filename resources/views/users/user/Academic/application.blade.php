@@ -75,7 +75,7 @@
                             <label for="membership_id" class="form-label">Memberships</label>
                             <select id="membership_id" class="form-select" name="membership_id" required>
                                 @foreach ($academic_memberships as $academic_membership)
-                                    <option value="{{ $academic_membership->academic_membership_id }}">{{ $academic_membership->semester }}({{ $academic_membership->start_date }} to {{ $academic_membership->end_date }})</option>
+                                    <option value="{{ $academic_membership->academic_membership_id }}">{{ $academic_membership->semester }}({{ $academic_membership->membership_start_date }} to {{ $academic_membership->membership_end_date }})</option>
                                     
                                 @endforeach
                             </select>

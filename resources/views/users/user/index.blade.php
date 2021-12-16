@@ -20,8 +20,8 @@
                                 @foreach ($organizations as $organization)
                                     <tr>
                                         <td>{{ $organization->organization_name }}</td>
-                                        <td>{{ $organization->start_date }}</td>
-                                        <td>{{ $organization->end_date }}</td>
+                                        <td>{{ $organization->membership_start_date }}</td>
+                                        <td>{{ $organization->membership_end_date }}</td>
                                         @if ($organization->status == 'Close' || $organization->status == 'close')
                                             <td class="text-danger">{{ $organization->status }}</td>
                                         @else
