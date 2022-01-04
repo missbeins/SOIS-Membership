@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrganizationAssetsTable extends Migration
+class CreatePositionTitlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateOrganizationAssetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('organization_assets', function (Blueprint $table) {
-            $table->id('organization_asset_id');
+        Schema::create('position_titles', function (Blueprint $table) {
+            $table->id('position_title_id');
             $table->foreignId('organization_id');
-            $table->foreignId('asset_type_id');
-            $table->string('file');
-            $table->timestamps();
+            $table->foreignId('position_category_id');
+            $table->string('position_title');
 
             $table->foreign('organization_id')->references('organization_id')->on('organizations');
-            $table->foreign('asset_type_id')->references('asset_type_id')->on('asset_types');
+            $table->foreign('position_category_id')->references('position_category_id')->on('position_categories');
         });
     }
 
@@ -32,8 +31,8 @@ class CreateOrganizationAssetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organization_assets');
+        Schema::dropIfExists('position_titles');
         $table->dropForeign('organization_id');
-        $table->dropForeign('organization_asset_type_id');
+        $table->dropForeign('position_category_id');
     }
 }

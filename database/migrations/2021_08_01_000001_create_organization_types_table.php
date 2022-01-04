@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrganizationsTypeTable extends Migration
+class CreateOrganizationTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreateOrganizationsTypeTable extends Migration
         Schema::create('organization_types', function (Blueprint $table) {
             $table->id('organization_type_id');
             $table->string('organization_type');
-            $table->timestamps();
+
         });
     }
 
@@ -27,6 +27,6 @@ class CreateOrganizationsTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organizations_types');
+        Schema::dropIfExists('organization_types');
     }
 }

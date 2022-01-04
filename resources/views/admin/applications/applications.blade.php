@@ -146,7 +146,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{-- {{ $academic_memberships->links() }} --}}
+                    {{ $expected_applicants->links() }}
                 </div>
             </div>
         </div>

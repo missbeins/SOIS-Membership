@@ -16,6 +16,7 @@ class CreateAssetTypesTable extends Migration
         Schema::create('asset_types', function (Blueprint $table) {
             $table->id('asset_type_id');            
             $table->string('type');
+            $table->string('asset_type_description')->nullable();
             $table->timestamps();
         });
     }

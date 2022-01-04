@@ -23,14 +23,14 @@ class AcademicApplicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $expected_applicants = Expected_Applicants::all();
+        $expected_applicants = Expected_Applicants::paginate(5, ['*'], 'expected-applicants');
         $genders = Gender::all();
         $courses = Course::all();
         $acad_applications = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
                         ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                         ->where('application_status','=','pending')
                         ->select()
-                        ->paginate(5);
+                        ->paginate(5, ['*'], 'applicants');
 
         return view('admin.applications.applications', compact(['acad_applications','expected_applicants','courses','genders']));
     }

@@ -18,6 +18,7 @@ use Excel;
 use App\Imports\ExpectedStudentsImport;
 use App\Models\AcademicApplication;
 use App\Models\Expected_Applicants;
+use App\Models\Permission;
 use PhpParser\Node\Stmt\If_;
 
 class UserController extends Controller
@@ -167,6 +168,11 @@ class UserController extends Controller
       
         
         $user->roles()->attach(2);
+
+        $user->permissions()->attach(28);
+        // $user->permissions()->attach(30);
+        // $user->permissions()->attach(31);
+        
         Password::sendResetLink($request->only(['email']));
         $request->session()->flash('success','Successfully added new user!');
         

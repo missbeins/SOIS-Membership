@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
+use App\Models\Permission;
 use App\Models\Non_Academic_Membership;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -65,7 +66,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     //     $this->attributes['password'] = Hash::make($password);
     // }
-
+    
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'permission_user', 'user_id', 'permission_id');
+    }
    /**
      * The roles that belong to the User
      *

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Academic_Membership;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class AcademicMembershipController extends Controller
 {
@@ -38,7 +39,7 @@ class AcademicMembershipController extends Controller
     public function store(Request $request)
     {
         $adminOrg = Auth::user()->course['organization_id'];
-          
+        $registration_status = ['Open','Closed'];
         $data = $request->validate([
             'semester' => ['required'],
             'membership_fee' => ['required','integer'],
@@ -46,7 +47,7 @@ class AcademicMembershipController extends Controller
             'membership_start_date' => ['required','date'],
             'membership_end_date' => ['required', 'date','after:membership_start_date'],
             'status' => ['required','string'],
-            'registration_status' => ['required','string'],
+            'registration_status' => ['required',Rule::in($registration_status)],
             'registration_start_date' => ['required','date'],
             'registration_end_date' => ['required', 'date','after:registration_start_date'],
             

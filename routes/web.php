@@ -57,16 +57,16 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::get('profile', ProfileController::class)->name('profile');
         Route::resource('users', UserController::class);
 
-        Route::get('/member/renewals', [AcademicRenewalsController::class, 'index'])->name('member-renewals');
+        Route::get('/members/renewals', [AcademicRenewalsController::class, 'index'])->name('member-renewals');
 
-        Route::get('/member/academic/payments/filter', [AcademicPaymentsController::class, 'filterPayments'])->name('filterPayment');
-        Route::resource('/member/academic/payments', AcademicPaymentsController::class);
+        Route::get('/members/academic/payments/filter', [AcademicPaymentsController::class, 'filterPayments'])->name('filterPayment');
+        Route::resource('/members/academic/payments', AcademicPaymentsController::class);
 
 
-        Route::resource('/member/academic/official', AcademicMembersController::class);
-        Route::get('/member/academic/members/filter' , [AcademicMembersController::class, 'filterMembers'])->name('member-filter');
+        Route::resource('/members/academic/official', AcademicMembersController::class);
+        Route::get('/members/academic/members/filter' , [AcademicMembersController::class, 'filterMembers'])->name('member-filter');
 
-        Route::resource('/member/academic/applications', AcademicApplicationController::class);
+        Route::resource('/members/academic/applications', AcademicApplicationController::class);
         Route::post('/import', [UserController::class, 'importStudents'])->name('expectedstudent-import');
 
         //Route::post('/addacademicmembership', [AddAcademicMembershipController::class, 'addMembership'])->name('addacademic');
