@@ -22,5 +22,9 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id')->withPivot('organization_id');
     }
+    public function permissions()
+    {
+        return $this->belongsToMany(User::class, 'permission_role', 'role_id', 'permission_id');
+    }
       
 }

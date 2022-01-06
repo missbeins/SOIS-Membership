@@ -42,6 +42,9 @@ class UserController extends Controller
     public function index()
 
     {
+        $role = Role::where('role','=','Super Admin')->with('permissions')->get();
+        
+        dd($role);
          // Pluck all User Roles
          $userRoleCollection = Auth::user()->roles;
 
@@ -164,12 +167,10 @@ class UserController extends Controller
             'address' => $data['address'],
             'date_of_birth' => $data['date_of_birth']
         ]);
-
-      
-        
+        dd($user);
         $user->roles()->attach(2);
 
-        $user->permissions()->attach(28);
+        $user->permissions()->attach([28,30,31]);
         // $user->permissions()->attach(30);
         // $user->permissions()->attach(31);
         

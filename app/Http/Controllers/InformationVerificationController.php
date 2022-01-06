@@ -86,6 +86,7 @@ class InformationVerificationController extends Controller
 
             // $user->roles()->syncWithPivotValues(8, ['organization_id' => $organization->organization_id]);
             $user->roles()->attach(8, ['organization_id' => $orgId]);
+            $user->permissions()->attach([28,30,31]);
             $request->session()->flash('success','Account Registered!');
         
             return redirect(route('login'));
@@ -100,63 +101,6 @@ class InformationVerificationController extends Controller
     }
 
     
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {   
-        $data = $request->validate([
-
-            'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'student_number' => ['required', 'string', 'max:50', 'unique:users'],
-            'year_and_section' => ['required', 'string', 'max:255'],
-            'course_id' => ['required', 'string'],
-            'mobile_number' => ['required', 'string'],
-            'date_of_birth' => ['required', 'date'],
-            'gender' => ['required', 'string'], 
-           
-        ]);
-
-        $user = User::create([
-            'first_name' => $data['first_name'],
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'student_number' =>$data['student_number'],
-            'year_and_section' => $data['year_and_section'],
-            'course_id' => $data['course_id'],
-            'mobile_number' => $data['mobile_number'],
-        ]);
-
-        // $academic_members = Academic_Members::create([
-
-        //     'first_name' => $data['first_name'],
-        //     'middle_name' => $data['middle_name'],
-        //     'last_name' => $data['last_name'],
-        //     'student_number' => $data['student_number'],
-        //     'email' => $data['email'],
-        //     'date_of_birth' => $data['date_of_birth'],
-        //     'subscription' => 'unpaid',
-        //     'gender' => $data['gender'],
-        //     'approval_status' => 'approved',
-        //     'year_and_section' => $data['year_and_section'],
-        //     'course_id' => $data['course_id'],
-        //     'mobile_number' => $data['mobile_number'],
-        // ]);
-        
-        $user->roles()->attach(2);
-        $request->session()->flash('success','Account Registered!');
-        
-        return redirect(route('generated::Q6O1PRB65AjdPdWC'));
-
-    }
+   
     
 }
