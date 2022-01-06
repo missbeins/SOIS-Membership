@@ -64,7 +64,8 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
 
 
         Route::resource('/members/academic/official', AcademicMembersController::class);
-        Route::get('/members/academic/members/filter' , [AcademicMembersController::class, 'filterMembers'])->name('member-filter');
+        Route::post('/members/academic/message/{member}',[ AcademicMembersController::class, 'messageMember'])->name('message-member');
+        Route::get('/members/academic/filter' , [AcademicMembersController::class, 'filterMembers'])->name('member-filter');
 
         Route::resource('/members/academic/applications', AcademicApplicationController::class);
         Route::post('/import', [UserController::class, 'importStudents'])->name('expectedstudent-import');

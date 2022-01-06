@@ -32,28 +32,26 @@
             <table class="table table-light table-sm table-striped table-hover">
                 <thead>
                     <tr>
-                        <th scope="col" width="50">#</th>
-                        <th scope="col">Membership</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Year and Section</th>
-                        <th scope="col">Contact</th>
-                        <th scope="col">Action</th>
+                        
+                        <th class="col-sm-2">Membership <br><small class="text-primary"> Semester ( yyyy-mm-dd )</small></th>
+                        <th class="col-sm-2">Name</th>
+                        <th class="col-sm-1">Year and Section</th>
+                        <th class="col-sm-1">Contact</th>
+                        <th class="col-sm-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($paidmembers as $member)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                           
                             <td>{{ $member->semester }}({{ $member->membership_start_date }} to {{ $member->membership_end_date }})</td>
-                            <td>{{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name }}</td>
-                            <td>{{ $member->email }}</td>
-                            <td>{{ $member->gender }}</td>
+                            <td>{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}</td>
                             <td>{{ $member->year_and_section }}</td>
                             <td>{{ $member->contact }}</td>
                             <td>
-                                <button class="btn btn-secondary btn-sm"><i class="fas fa-bell"> Message</i></button>
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $member->academic_member_id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="message"><i class="fas fa-comments"></i></button>
+                                @include('admin.members.includes.message')  
+                                <a href="{{ route('membership.admin.official.show', $member->academic_member_id) }}" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="view details"><i class="fas fa-eye" ></i></a>
                             </td>
                         </tr>
                     @endforeach

@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Admin\Academic;
 use App\Http\Controllers\Controller;
 use App\Models\Academic_Members;
 use App\Models\Academic_Membership;
+use App\Models\AcadsMembership_Messages;
+use App\Models\Course;
+use App\Models\Organizations;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AcademicMembersController extends Controller
 {
@@ -117,8 +121,40 @@ class AcademicMembersController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        abort_if(! Academic_Members::where('academic_member_id', $id)->exists(), 403);
+        $organizations = Organizations::all();
+        $courses = Course::all();
+        $member_detail = Academic_Members::find($id);
+        return view('admin.members.show',compact([
+            'member_detail',
+            'organizations',
+            'courses'
+        ]));
     }
+    /**
+     * Show the form for messaging the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function messageMember(Request $request, $id)
+    {
+        //dd('message for member', $id , $request->message_member);
+        // dd($request);
+        $request->validate([
+            'message_member' => ['required','string','max:255'],
+            'academic_member_id' =>['required','string']
+        ]);
+
+        $acadsmembership_messages = AcadsMembership_Messages::create([
+            'academic_member_id' => $request['academic_member_id'],
+            'message' => $request['message_member']
+        ]);
+
+        return redirect(route('membership.admin.official.index'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
