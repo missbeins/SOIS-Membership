@@ -23,10 +23,10 @@ class UserApplicationsController extends Controller
                             ->paginate(5);
                             
         $academic_organization = Organizations::join('academic_membership','academic_membership.organization_id','=','organizations.organization_id')   
-                            ->where('academic_membership.status','=','Open')
+                            ->where('academic_membership.am_status','=','Open')
                             ->get();
         $non_academic_organization = Organizations::join('non_academic_membership','non_academic_membership.organization_id','=','organizations.organization_id')    
-                            ->where('non_academic_membership.status','=','Open')
+                            ->where('non_academic_membership.nam_status','=','Open')
                             ->get(); 
         $application_statuses = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')

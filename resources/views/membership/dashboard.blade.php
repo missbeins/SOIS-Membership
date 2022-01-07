@@ -65,7 +65,7 @@
                     <a href="{{ route('membership.user.my-applications') }}"
                             class="list-group-item list-group-item-action second-text fw-bold"><i
                                 class="fas fa-address-book me-2"></i>My Applications</a>
-                    <a href="{{ route('membership.user.my-subscriptions') }}"
+                    <a href="{{ route('membership.user.messages') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-comments me-2"></i>Messages</a>
                     

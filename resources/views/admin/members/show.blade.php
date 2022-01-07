@@ -2,6 +2,22 @@
 
 @section('content')
     <div class="mt-3">
+         {{-- Title and Breadcrumbs --}}
+         <div class="d-flex justify-content-between align-items-center">
+           
+            {{-- Breadcrumbs --}}
+            <nav aria-label="breadcrumb align-items-center">
+                <ol class="breadcrumb justify-content-center ">
+                    <li class="breadcrumb-item">
+                        <a href="{{route('membership.admin.official.index')}}" class="text-decoration-none">Members</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Member Details
+                    </li>
+                   
+                </ol>
+            </nav>
+        </div>
         <div class="card">
             <div class="card-header">{{ __("Members Profile") }}</div>
             <div class="card-body">

@@ -12,7 +12,8 @@
             <form class="row g-3" action="{{ route('membership.admin.message-member', $member->academic_member_id) }}" method="POST">
             
                 @csrf
-                <input type="hidden" name="academic_member_id" value="{{ $member->academic_member_id }}">
+                <input type="hidden" name="organization_id" value="{{ $member->organization_id }}">
+                <input type="hidden" name="user_id" value="{{ $member->user_id }}">
                 <div class="col-md-12 text-start">
                     <label for="message_member" class="form-label">Message</label>
                     <textarea class="form-control" name="message_member" id="message_member" cols="30" rows="8" required></textarea>

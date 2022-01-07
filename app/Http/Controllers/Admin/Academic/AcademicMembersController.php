@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Academic;
 use App\Http\Controllers\Controller;
 use App\Models\Academic_Members;
 use App\Models\Academic_Membership;
-use App\Models\AcadsMembership_Messages;
+use App\Models\Membership_Messages;
 use App\Models\Course;
 use App\Models\Organizations;
 use Illuminate\Support\Facades\Auth;
@@ -141,14 +141,16 @@ class AcademicMembersController extends Controller
     public function messageMember(Request $request, $id)
     {
         //dd('message for member', $id , $request->message_member);
-        // dd($request);
+        //dd($request);
         $request->validate([
             'message_member' => ['required','string','max:255'],
-            'academic_member_id' =>['required','string']
+            'user_id' =>['required','integer'],
+            'organization_id' =>['required','integer']
         ]);
 
-        $acadsmembership_messages = AcadsMembership_Messages::create([
-            'academic_member_id' => $request['academic_member_id'],
+        $acadsmembership_messages = Membership_Messages::create([
+            'user_id' => $request['user_id'],
+            'organization_id' => $request['organization_id'],
             'message' => $request['message_member']
         ]);
 

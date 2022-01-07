@@ -131,35 +131,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
-                                    @foreach ($academic_memberships as $membership)
-                                        <tr>
-                                            <th scope="row" class="pt-4">{{ $loop->iteration }}</th>
-                                            <td class="pt-4">{{ $membership->semester }}</td>
-                                            <td class="pt-4">{{ $membership->school_year }}</td>
-                                            <td class="pt-4">₱ {{ $membership->membership_fee }}.00</td>
-                                            <td class="pt-4">{{ $membership->membership_start_date }}</td>
-                                            <td class="pt-4">{{ $membership->membership_end_date }}</td>
-                                            <td class="pt-4">{{ $membership->registration_status }}<br>( available from {{ $membership->registration_start_date }} to {{ $membership->registration_end_date }} )</td>
-                                            <td class="pt-4">{{ $membership->status }}</td>
-                                            <td class="pt-4">
-                                                    <a role="button" class="btn btn-sm btn-primary"
-                                                        href="{{ route('membership.admin.academicmembership.edit', $membership->academic_membership_id) }}">
-                                                        <i class="fas fa-user-edit"></i> Edit
-                                                    </a>
-                                                    {{-- <button type="button" class="btn btn-sm btn-danger"
-                                                        onclick="event.preventDefault(); document.getElementById('delete-membership-form-{{ $membership->academic_membership_id }}').submit()">
-                                                        <i class="fas fa-trash-alt"></i> Delete
-                                                    </button>
-                                                    <form class="d-none" id="delete-membership-form-{{ $membership->academic_membership_id }}"
-                                                        action="{{ route('membership.admin.academicmembership.destroy',  $membership->academic_membership_id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form> --}}
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    @if ($academic_memberships->isNotEmpty())
+                                        @foreach ($academic_memberships as $membership)
+                                            <tr>
+                                                <th scope="row" class="pt-4">{{ $loop->iteration }}</th>
+                                                <td class="pt-4">{{ $membership->semester }}</td>
+                                                <td class="pt-4">{{ $membership->school_year }}</td>
+                                                <td class="pt-4">₱ {{ $membership->membership_fee }}.00</td>
+                                                <td class="pt-4">{{ $membership->membership_start_date }}</td>
+                                                <td class="pt-4">{{ $membership->membership_end_date }}</td>
+                                                <td class="pt-4">{{ $membership->registration_status }}<br>( available from {{ $membership->registration_start_date }} to {{ $membership->registration_end_date }} )</td>
+                                                <td class="pt-4">{{ $membership->status }}</td>
+                                                <td class="pt-4">
+                                                        <a role="button" class="btn btn-sm btn-primary"
+                                                            href="{{ route('membership.admin.academicmembership.edit', $membership->academic_membership_id) }}">
+                                                            <i class="fas fa-user-edit"></i> Edit
+                                                        </a>
+                                                        {{-- <button type="button" class="btn btn-sm btn-danger"
+                                                            onclick="event.preventDefault(); document.getElementById('delete-membership-form-{{ $membership->academic_membership_id }}').submit()">
+                                                            <i class="fas fa-trash-alt"></i> Delete
+                                                        </button>
+                                                        <form class="d-none" id="delete-membership-form-{{ $membership->academic_membership_id }}"
+                                                            action="{{ route('membership.admin.academicmembership.destroy',  $membership->academic_membership_id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form> --}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                @else
+                                    <tr><td class="text-center" colspan="9">No results found!</td></tr>
+                                @endif
                                 </tbody>
                             </table>
                             {{ $academic_memberships->links() }}

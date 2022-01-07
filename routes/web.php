@@ -11,10 +11,11 @@ use App\Http\Controllers\Admin\Academic\AcademicApplicationController;
 use App\Http\Controllers\Admin\Membership\Academic\AcademicMembershipController;
 use App\Http\Controllers\Admin\Membership\Nonacademic\NonacademicMembershipController;
 use App\Http\Controllers\User\UserOrganizationsController;
-use App\Http\Controllers\User\UserSubscriptionsController;
+
 use App\Http\Controllers\User\UserApplicationsController;
 use App\Http\Controllers\InformationVerificationController;
 use App\Http\Controllers\User\Academic\AcademicApplicationsController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\User\Nonacademic\NonacademicApplicationController;
 
 
@@ -81,15 +82,16 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             
             Route::get('application-form', [AcademicApplicationsController::class, 'showForm'])->name('academic-application');
             Route::post('application',[AcademicApplicationsController::class, 'store'])->name('application-store');
-
+            
         });
         Route::prefix('nonacademic')->name('nonacademic.')->group(function () {
             
             Route::get('application-form', [NonacademicApplicationController::class, 'showForm'])->name('nonacademic-application');
 
         });
+        Route::get('messages', [MessagesController::class, 'index'])->name('messages');
         Route::get('my-organizations', [UserOrganizationsController::class, 'index'])->name('my-organizations');
-        Route::get('my-subscriptions', [UserSubscriptionsController::class, 'index'])->name('my-subscriptions');
+        //Route::get('my-subscriptions', [UserSubscriptionsController::class, 'index'])->name('my-subscriptions');
         Route::get('my-applications', [UserApplicationsController::class, 'index'])->name('my-applications');
         Route::post('my-applications', [UserApplicationsController::class, 'store'])->name('apply');
         //Route::get('application-form', [UserApplicationsController::class, 'applicationForm'])->name('application-form');

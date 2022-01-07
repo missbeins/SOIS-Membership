@@ -13,13 +13,16 @@ class CreateMembershipMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('acadsmembership_messages', function (Blueprint $table) {
+        Schema::create('membership_messages', function (Blueprint $table) {
             $table->id('message_id');
-            $table->foreignId('academic_member_id');
+            $table->foreignId('user_id');
+            $table->foreignId('organization_id');
             $table->string('message');
             $table->timestamps();
 
-            $table->foreign('academic_member_id')->references('academic_member_id')->on('academic_members');
+            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('organization_id')->references('organization_id')->on('organizations');
+
         });
     }
 

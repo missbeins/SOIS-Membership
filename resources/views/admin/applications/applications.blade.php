@@ -23,34 +23,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
-                            @foreach ($acad_applications as $application)
-                                <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}</td>
-                                    <td>{{ $application->email }}</td>
-                                   
-                                    <td>
-                                            
-                                            <!-- Button trigger accept modal -->
-                                            <a type="button" href="{{ route('membership.admin.applications.edit',$application->application_id) }}"class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $application->application_id }}">
-                                                <i class="fas fa-user-check"></i> Accept
-                                            </a>
-                                            @include('admin.applications.includes.accept')
+                            @if ($acad_applications->isNotEmpty())
+                                @foreach ($acad_applications as $application)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}</td>
+                                        <td>{{ $application->email }}</td>
+                                    
+                                        <td>
+                                                
+                                                <!-- Button trigger accept modal -->
+                                                <a type="button" href="{{ route('membership.admin.applications.edit',$application->application_id) }}"class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $application->application_id }}">
+                                                    <i class="fas fa-user-check"></i> Accept
+                                                </a>
+                                                @include('admin.applications.includes.accept')
 
-                                            <button type="button" class="btn btn-sm btn-danger"
-                                                onclick="event.preventDefault(); document.getElementById('delete-membership-form-{{ $application->application_id }}').submit()">
-                                                <i class="fas fa-trash-alt"></i> Decline
-                                            </button>
-                                            <form class="d-none" id="delete-membership-form-{{ $application->application_id }}"
-                                                action="{{ route('membership.admin.applications.destroy', $application->application_id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                                <button type="button" class="btn btn-sm btn-danger"
+                                                    onclick="event.preventDefault(); document.getElementById('delete-membership-form-{{ $application->application_id }}').submit()">
+                                                    <i class="fas fa-trash-alt"></i> Decline
+                                                </button>
+                                                <form class="d-none" id="delete-membership-form-{{ $application->application_id }}"
+                                                    action="{{ route('membership.admin.applications.destroy', $application->application_id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr><td class="text-center" colspan="7">No results found!</td></tr>
+                            @endif    
                         </tbody>
                     </table>
                     {{ $acad_applications->links() }}
@@ -134,16 +137,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
-                            @foreach ($expected_applicants as $expected_applicant)
-                                <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $expected_applicant->first_name }} {{ $expected_applicant->middle_name }} {{ $expected_applicant->last_name }}</td>
-                                    <td>{{ $expected_applicant->student_number }}</td>
-                                    
-                                    
-                                </tr>
-                            @endforeach
+                            @if ($expected_applicants->isNotEmpty())
+                                @foreach ($expected_applicants as $expected_applicant)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $expected_applicant->first_name }} {{ $expected_applicant->middle_name }} {{ $expected_applicant->last_name }}</td>
+                                        <td>{{ $expected_applicant->student_number }}</td>
+                                        
+                                        
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr><td class="text-center" colspan="7">No results found!</td></tr>
+                            @endif
                         </tbody>
                     </table>
                     {{ $expected_applicants->links() }}
