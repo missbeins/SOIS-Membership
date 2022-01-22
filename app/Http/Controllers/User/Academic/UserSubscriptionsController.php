@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Academic;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class UserSubscriptionsController extends Controller
                     ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                     ->where('user_id',$user_id)
                     ->where('membership_status','unpaid')->get();
-       return view('users.user.user-subscription',compact('organizations'));
+       return view('users.user-subscription',compact('organizations'));
     }
 
     

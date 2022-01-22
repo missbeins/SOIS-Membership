@@ -8,13 +8,13 @@
             {{-- Breadcrumbs --}}
             <nav aria-label="breadcrumb align-items-center">
                 <ol class="breadcrumb justify-content-center ">
-                    <li class="breadcrumb-item">
-                        <a href="{{route('membership.admin.official.index')}}" class="text-decoration-none">Members</a>
-                    </li>
+                    
                     <li class="breadcrumb-item active" aria-current="page">
-                        Member Details
+                        Members /  Official Member / Member Details
                     </li>
-                   
+                    <li class="breadcrumb-item">
+                        <a href="{{route('membership.admin.academicmember.index')}}" class="text-decoration-none">Back</a>
+                    </li>
                 </ol>
             </nav>
         </div>

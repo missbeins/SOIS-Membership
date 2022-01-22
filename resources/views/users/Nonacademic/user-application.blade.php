@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card text-dark bg-light mb-3">
-                            <div class=" card-header text-light" style="background-color: #c62128">Academic Organizations
+                            <div class=" card-header text-light" style="background-color: #c62128">Non Academic Organizations
                                 <a href="{{ route('membership.user.academic.academic-application') }}" type="button" class="btn btn-success btn-sm float-end">
                                     Apply
                                  </a>
@@ -43,43 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card text-dark bg-light mb-3">
-                            <div class=" card-header text-light" style="background-color: #c62128">Non Academic Organizations
-                                <a href="{{ route('membership.user.nonacademic.nonacademic-application') }}"type="button" class="btn btn-success btn-sm float-end">
-                                    Apply
-                                 </a>
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-sm table-striped table-hover table-responsive text-center">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Organization</th>
-                                            <th scope="col">Semester</th>
-                                            <th scope="col">School Year</th>
-                                            <th scope="col">Registration</th>
-                                           
-                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($non_academic_memberships as $non_academic_membership)
-                                        <tr>
-                                            <td>{{ $non_academic_membership->organization_name }}</td>
-                                            <td>{{ $non_academic_membership->semester }}</td>
-                                            <td>{{ $non_academic_membership->school_year }}</td>
-                                            <td>{{ $non_academic_membership->registration_status }}</td>
-                                           
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                                {{ $non_academic_memberships->links() }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
             </div>
         
             <div class="col-md-6">

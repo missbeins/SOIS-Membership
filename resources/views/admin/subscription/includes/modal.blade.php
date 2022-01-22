@@ -1,4 +1,4 @@
-<form action="{{ route('membership.admin.payments.update', $member->academic_member_id) }}" method="POST">
+<form action="{{ route('membership.admin.academicpayment.update', $member->academic_member_id) }}" method="POST">
     @csrf
     @method('PATCH')
 

@@ -18,6 +18,7 @@ use Excel;
 use App\Imports\ExpectedStudentsImport;
 use App\Models\AcademicApplication;
 use App\Models\Expected_Applicants;
+use App\Models\Gender;
 use App\Models\Permission;
 use PhpParser\Node\Stmt\If_;
 
@@ -53,7 +54,7 @@ class UserController extends Controller
              array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
          }
  
-         // If User has AR President Admin role...
+         // If User has MEMBERSHIP Admin role...
         
          $memberRoleKey = $this->hasRole($userRoles,'User');
          // Get the Organization from which the user is Membeship Admin
@@ -137,25 +138,29 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-
+            
             'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['string', 'max:255'],
+            'middle_name' => [ 'nullable','max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'suffix' => ['nullable'],
+            'address' => ['required','string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'student_number' => ['required', 'string', 'max:50', 'unique:users'],
-            'year_and_section' => ['required', 'string', 'max:255'],
-            'course_id' => ['required', 'string'],
+            'student_number' => ['nullable', 'string', 'max:50', 'unique:users'],
+            'year_and_section' => ['nullable', 'string', 'max:255'],
+            'course_id' => ['nullable', 'string'],
             'mobile_number' => ['required', 'string'],
             'date_of_birth' => ['required', 'date'],
             'gender' => ['required', 'string'], 
-            'address' => ['required', 'string'], 
+            
+           
         ]);
 
         $user = User::create([
             'first_name' => $data['first_name'],
             'middle_name' => $data['middle_name'],
             'last_name' => $data['last_name'],
+            'suffix' => $data['suffix'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'student_number' =>$data['student_number'],
@@ -163,15 +168,17 @@ class UserController extends Controller
             'course_id' => $data['course_id'],
             'mobile_number' => $data['mobile_number'],
             'address' => $data['address'],
-            'date_of_birth' => $data['date_of_birth']
+            'gender_id' => $data['gender'],
+            'date_of_birth' => $data['date_of_birth'],
+            'status' => 1,
         ]);
-        
-        $user->roles()->attach(2);
 
+        $course = Course::with('organization')->where('course_id', $data['course_id'])->first();
+        $orgId = $course->organization->organization_id;
+
+        $user->roles()->attach(8, ['organization_id' => $orgId]);
         $user->permissions()->attach([28,30,31]);
-        // $user->permissions()->attach(30);
-        // $user->permissions()->attach(31);
-        
+       
         Password::sendResetLink($request->only(['email']));
         $request->session()->flash('success','Successfully added new user!');
         
@@ -187,7 +194,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        echo"member details";
     }
 
     /**
@@ -205,6 +212,7 @@ class UserController extends Controller
             'courses'=>Course::all(),
             'user' => User::find($id),
             'roles' => Role::all(),
+            'genders' => Gender::all(),
 
         ]);
     }
@@ -220,35 +228,38 @@ class UserController extends Controller
     {
     
         $data = $request->validate([
-
+            
             'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
+            'middle_name' => [ 'nullable','max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required', 
-                'string', 
-                'email', 
-                'max:255',
-                Rule::unique('users')->ignore($user->user_id,'user_id')],
-            'student_number' => [
-                'required', 
-                'string', 
-                'max:50', 
-                Rule::unique('users')->ignore($user->user_id,'user_id')],
-            'year_and_section' => ['required', 'string', 'max:255'],
-            'course_id' => ['required', 'string'],
-            'mobile_number' => ['required', 'string'], 
+            'suffix' => ['nullable'],
+            'address' => ['required','string'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'student_number' => ['nullable', 'string', 'max:50'],
+            'year_and_section' => ['nullable', 'string', 'max:255'],
+            'course_id' => ['nullable', 'string'],
+            'mobile_number' => ['required', 'string'],
+            'date_of_birth' => ['required', 'date'],
+            'gender' => ['required', 'string'], 
+            
+           
         ]);
 
         $user->update([
+
             'first_name' => $data['first_name'],
             'middle_name' => $data['middle_name'],
             'last_name' => $data['last_name'],
-            'email' => $data['email'],  
-            'student_number' => $data['student_number'],
-            'course_id' => $data['course_id'],
+            'suffix' => $data['suffix'],
+            'email' => $data['email'],
+            'student_number' =>$data['student_number'],
             'year_and_section' => $data['year_and_section'],
+            'course_id' => $data['course_id'],
             'mobile_number' => $data['mobile_number'],
+            'address' => $data['address'],
+            'gender_id' => $data['gender'],
+            'date_of_birth' => $data['date_of_birth'],
+            'status' => 1,
             
         ]);
 

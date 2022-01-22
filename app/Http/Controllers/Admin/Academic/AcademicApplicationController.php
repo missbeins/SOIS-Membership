@@ -9,7 +9,6 @@ use App\Models\Course;
 use App\Models\Expected_Applicants;
 use App\Models\Gender;
 use Illuminate\Http\Request;
-use App\Models\Membership;
 use App\Models\organizations;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,53 +33,36 @@ class AcademicApplicationController extends Controller
 
         return view('admin.applications.applications', compact(['acad_applications','expected_applicants','courses','genders']));
     }
+    public function expectedRegistrants(){
+        $expected_applicants = Expected_Applicants::where('course_id',Auth::user()->course_id)
+                            ->paginate(5, ['*'], 'expected-applicants');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // 
+        return view('admin.applications.expected-applicants', compact('expected_applicants'));
     }
+    public function addNewRegistrant(Request $request){
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request){
-
-      //
         
-    }
+        $request->validate([
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+            'first_name' => ['required','string'],
+            'middle_name' => ['nullable','string'],
+            'last_name' => ['required','string'],
+            'student_number' => ['nullable','string'],
+            'course_id' => ['nullable','integer'],
+            'suffix' =>['nullable','string']
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        // $courses = Course::all();
-        // return view('admin.applications.includes.accept',compact('courses'));
-    }
+        Expected_Applicants::create([
+            'first_name' => $request['first_name'],
+            'middle_name' => $request['middle_name'],
+            'last_name' => $request['last_name'],
+            'student_number' => $request['student_number'],
+            'suffix' => $request['suffix'],
+            'course_id' => $request['course_id'],
+        ]);
+        return redirect()->back()->with('success','Registrant successfully added!');
 
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -88,7 +70,7 @@ class AcademicApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id )
+    public function accept(Request $request, $id )
     {   
         
         $request->validate([
@@ -142,11 +124,53 @@ class AcademicApplicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function decline(Request $request, $id)
     {   
-        $app_request = AcademicApplication::find($id);
-        $app_request->delete();
-        return redirect()->back()->with('success', ' Application Declined!');
+        
+        $request->validate([
+            'application_id' =>['required'],
+            'membership_id' =>['required'],
+            'organization_id' =>['required'],
+            'user_id' =>['required'],
+            'control_number' => ['required'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'student_number' => ['required', 'string', 'max:50'],
+            'year_and_section' => ['required', 'string', 'max:255'],
+            'course_id' => ['required', 'string'],
+            'mobile_number' => ['required', 'string'],
+            'date_of_birth' => ['required', 'date'],
+            'gender' => ['required', 'string'], 
+            'address' => ['required', 'string'], 
+        ]);
+        
+        Academic_Members::create([
+            'membership_id' => $request['membership_id'],
+            'organization_id' => $request['organization_id'],
+            'course_id' => $request['course_id'],
+            'user_id' => $request['user_id'],
+            'control_number' => $request['control_number'],
+            'first_name' => $request['first_name'],
+            'middle_name' => $request['middle_name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'student_number' =>$request['student_number'],
+            'year_and_section' => $request['year_and_section'],
+            'course_id' => $request['course_id'],
+            'contact' => $request['mobile_number'],
+            'address' => $request['address'],
+            'gender' => $request['gender'],
+            'date_of_birth' => $request['date_of_birth'],          
+        ]);
+       
+        AcademicApplication::where('application_id',$id)->update ([
+           'application_status' => 'declined'
+        ]);
+        
+        
+        return redirect()->back()->with('error', ' Application Declined!');
     }
    
 }

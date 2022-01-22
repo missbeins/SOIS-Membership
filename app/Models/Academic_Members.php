@@ -19,6 +19,7 @@ class Academic_Members extends Model
         'first_name',
         'middle_name',
         'last_name',
+        'suffix',
         'contact',
         'student_number',
         'email',

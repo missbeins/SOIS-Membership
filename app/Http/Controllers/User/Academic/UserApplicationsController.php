@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Academic;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class UserApplicationsController extends Controller
                             ->paginate(10)
                             ->sortByDesc('created_at');               
         //  dd($application_statuses);
-        return view('users.user.user-application', compact([
+        return view('users.Academic.user-application', compact([
             'academic_memberships',
             'non_academic_memberships',
             'non_academic_organization',

@@ -32,42 +32,69 @@
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
 
                 @can('is-admin')
-                    <a class="second-text brand" href="{{ route('membership.admin.users.index') }}"><i
+                    <a class="second-text brand" href="{{ route('membership.admin.academicmembership.index') }}"><i
                             class="fas fa-swatchbook me-2"></i>Membership</a>
                 @elsecan('is-student')
-                    <a class="second-text brand" href="{{ route('membership.user.my-organizations') }}"><i
+                    <a class="second-text brand" href="{{ route('membership.user.academic.my-organizations') }}"><i
                             class="fas fa-swatchbook me-2"></i>Membership</a>
                 @endcan
             </div>
             <div class="list-group list-group-flush my-3" id="myList">
                 @can('is-admin')
-               
-                    <a href="{{ route('membership.admin.users.index') }}"
-                        class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="{{ route('membership.admin.official.index') }}"
+                    <button class="dropdown-btn second-text fw-bold"><i
+                        class="fas fa-file-alt me-2"></i>Organization
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                    <div class="dropdown-container">
+                        <a href="{{ route('membership.admin.academicmembership.index') }}">Memberships</a>
+                        <a href="{{ route('membership.admin.users.index') }}">User Management</a>
+                        <a href="">User Logs</a>
+                    </div>
+                    <a href="{{ route('membership.admin.academicmember.index') }}"
                         class="list-group-item list-group-item-action  second-text fw-bold "><i
                             class="fas fa-users me-2"></i>Members</a>
-                    <a href="{{ route('membership.admin.payments.index') }}"
+                    <a href="{{ route('membership.admin.academicpayment.index') }}"
                         class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-money-check me-2"></i>Memberships</a>
-                    <a href="{{ route('membership.admin.applications.index') }}"
-                        class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-address-book me-2"></i>Applications</a>
+                            class="fas fa-money-check me-2"></i>Payment Details</a>
+                    <button class="dropdown-btn second-text fw-bold"><i
+                        class="fas fa-address-book me-2"></i>Applications
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                    <div class="dropdown-container">
+                        <a href="{{ route('membership.admin.academicapplication.index') }}">Applications Requests</a>
+                        <a href="{{ route('membership.admin.academicapplication.registrants') }}">Account Registrants</a></a>
+                    </div>
                     {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-paperclip me-2"></i>Reports</a> --}}
                             
 
                 @elsecan('is-student')
-                    <a href="{{ route('membership.user.my-organizations') }}"
-                        class="list-group-item list-group-item-action  second-text fw-bold "><i
-                            class="fas fa-address-card me-2"></i>My Organizations</a>
-                    <a href="{{ route('membership.user.my-applications') }}"
-                            class="list-group-item list-group-item-action second-text fw-bold"><i
-                                class="fas fa-address-book me-2"></i>My Applications</a>
-                    <a href="{{ route('membership.user.messages') }}"
-                        class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-comments me-2"></i>Messages</a>
+                    <button class="dropdown-btn second-text fw-bold"><i
+                        class="fas fa-address-book me-2"></i>Organizations
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                    <div class="dropdown-container">
+                        <a href="{{ route('membership.user.academic.my-organizations') }}"><i class="fas fa-user-friends me-2"></i>Academic</a>
+                        <a href=""><i class="fas fa-user-friends me-2"></i>Non-academic</a></a>
+                    </div>
+        
+                    <button class="dropdown-btn second-text fw-bold"><i
+                        class="fas fa-address-book me-2"></i>Applications
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                    <div class="dropdown-container">
+                        <a href="{{ route('membership.user.academic.my-applications') }}"><i class="fas fa-user-check me-2"></i>Academic</a>
+                        <a href=""><i class="fas fa-user-check me-2"></i>Non-cademic</a></a>
+                    </div>
+                    <button class="dropdown-btn second-text fw-bold"><i
+                        class="fas fa-comments me-2"></i>Messages
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                    <div class="dropdown-container">
+                        <a href="{{ route('membership.user.academic.messages') }}"><i class="fas fa-inbox me-2"></i>Inbox</a>
+                        <a href=""><i class="fas fa-paper-plane me-2"></i>Sents</a></a>
+                    </div>
+                   
                     
                 @endcan
 
@@ -167,6 +194,23 @@
                 current[0].className = current[0].className.replace(" active", "");
                 this.className += " active";
             });
+        }
+    </script>
+     <script>
+        //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+            } else {
+            dropdownContent.style.display = "block";
+            }
+        });
         }
     </script>
 </body>

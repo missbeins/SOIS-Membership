@@ -9,8 +9,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form class="row g-3 text-start"action="{{ route('membership.admin.academicapplication.accept', [$application->application_id, $application->organization_id]) }}" method="POST">
-                @method('PUT')
+            <form class="row g-3 text-start"action="{{ route('membership.admin.academicapplication.decline', [$application->application_id, $application->organization_id]) }}" method="POST">
+                @method('put')
                 @csrf
   
                 <input id="application_id" type="hidden" class="form-control @error('application_id') is-invalid @enderror" name="application_id" value="{{ $application->application_id }}" required autocomplete="application_id" autofocus>

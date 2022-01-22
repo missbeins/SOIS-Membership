@@ -20,6 +20,7 @@ class Expected_Applicants extends Model
         'middle_name',
         'last_name',
         'student_number',
+        'suffix',
        
     ];
 }

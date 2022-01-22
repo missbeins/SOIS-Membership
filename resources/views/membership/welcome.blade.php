@@ -21,7 +21,7 @@
                 @can('is-admin')
                     <a href="{{ route('membership.admin.users.index') }}" class="btn btn-primary">Get started</a>
                 @elsecan('is-student')
-                    <a href="{{ route('membership.user.my-organizations') }}" class="btn btn-success">Get started</a>
+                    <a href="{{ route('membership.user.academic.my-organizations') }}" class="btn btn-success">Get started</a>
                 @endcan
 
             </div>

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User\Nonacademic;
 
-use App\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Models\Non_Academic_Applications;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class UserNonAcademicApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +23,9 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showForm()
     {
-        //
+        return view('users.user.Nonacademic.application');
     }
 
     /**
@@ -41,10 +42,10 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Non_Academic_Applications  $non_Academic_Applications
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Non_Academic_Applications $non_Academic_Applications)
     {
         //
     }
@@ -52,10 +53,10 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Non_Academic_Applications  $non_Academic_Applications
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(Non_Academic_Applications $non_Academic_Applications)
     {
         //
     }
@@ -64,10 +65,10 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Non_Academic_Applications  $non_Academic_Applications
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Non_Academic_Applications $non_Academic_Applications)
     {
         //
     }
@@ -75,10 +76,10 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Non_Academic_Applications  $non_Academic_Applications
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Non_Academic_Applications $non_Academic_Applications)
     {
         //
     }

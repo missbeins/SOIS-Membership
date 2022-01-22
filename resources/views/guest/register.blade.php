@@ -129,8 +129,10 @@
                                 <label for="gender" class="form-label ">{{ __('Gender') }}<span style="color:red">*</span></label>
                                 <select aria-label="Default select example" name="gender" class="form-control @error('gender') is-invalid @enderror"
                                     value="{{ old('gender') }}" required>
-                                    @foreach ($genders as $gender)
+                                    
+                                    @foreach(\App\Models\Gender::all() as $gender)
                                         <option value="{{ $gender->gender_id }}">{{ $gender->gender }}</option>
+
                                     @endforeach
 
                                 </select>

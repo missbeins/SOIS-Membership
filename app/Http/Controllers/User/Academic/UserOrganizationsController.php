@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Academic;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academic_Members;
@@ -18,7 +18,7 @@ class UserOrganizationsController extends Controller
                     ->where('user_id',$user_id)
                     ->where('membership_status','paid')->get();
        
-        return view('users.user.index',compact('organizations'));
+        return view('users.academic.academic-organizations',compact('organizations'));
     }
 
 

@@ -18,6 +18,7 @@ class AcademicApplication extends Model
         'first_name',
         'middle_name',
         'last_name',
+        'suffix',
         'email',
         'gender',
         'year_and_section',

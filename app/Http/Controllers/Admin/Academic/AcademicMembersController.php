@@ -92,27 +92,7 @@ class AcademicMembersController extends Controller
 
        }
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+   
     /**
      * Display the specified resource.
      *
@@ -140,8 +120,7 @@ class AcademicMembersController extends Controller
      */
     public function messageMember(Request $request, $id)
     {
-        //dd('message for member', $id , $request->message_member);
-        //dd($request);
+        
         $request->validate([
             'message_member' => ['required','string','max:255'],
             'user_id' =>['required','integer'],
@@ -154,41 +133,7 @@ class AcademicMembersController extends Controller
             'message' => $request['message_member']
         ]);
 
-        return redirect(route('membership.admin.official.index'));
+        return redirect(route('membership.admin.academicmember.index'));
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

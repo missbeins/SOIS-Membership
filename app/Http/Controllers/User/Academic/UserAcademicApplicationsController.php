@@ -8,31 +8,15 @@ use App\Models\Academic_Membership;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class AcademicApplicationsController extends Controller
+class UserAcademicApplicationsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function showForm()
     {
-        $academic_memberships = Academic_Membership::where('registration_status','=','Open')->where('registration_status','=','open')->get();
+        $academic_memberships = Academic_Membership::where('registration_status','=','Open')->where('registration_status','=','open')
+            ->get();
             
-        return view('users.user.Academic.application',compact('academic_memberships'));
+        return view('users.Academic.application',compact('academic_memberships'));
            
-              
-        
     }
 
     /**
@@ -48,11 +32,12 @@ class AcademicApplicationsController extends Controller
 
             'membership_id' => ['required','string'],
             'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'suffix' => ['nullable', 'string'],
             'email' => ['required','string', 'email', 'max:255'],
             'student_number' => ['required', 'string'],
-            'year_and_section' => ['required', 'string', 'max:255'],
+            'year_and_section' => ['required','string', 'max:255'],
             'course' => ['required', 'string'],
             'mobile_number' => ['required', 'string'],
             'date_of_birth' => ['required', 'date'],
@@ -87,6 +72,7 @@ class AcademicApplicationsController extends Controller
                 'first_name' => $data['first_name'],
                 'middle_name' => $data['middle_name'],
                 'last_name' => $data['last_name'],
+                'suffix' => $data['suffix'],
                 'student_number' => $data['student_number'],
                 'email' => $data['email'],
                 'gender' => $data['gender'],
@@ -97,8 +83,9 @@ class AcademicApplicationsController extends Controller
                 'address' => $data['address'],
                 
             ]);
-        
-            return redirect(route('membership.user.my-applications'));
+            $request->session()->flash('success','Application Success!');
+
+            return redirect(route('membership.user.academic.my-applications'));
            
         }       
     
@@ -107,48 +94,4 @@ class AcademicApplicationsController extends Controller
               
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\academic_application  $academic_application
-     * @return \Illuminate\Http\Response
-     */
-    public function show(AcademicApplication $academic_application)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\academic_application  $academic_application
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(AcademicApplication $academic_application)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\academic_application  $academic_application
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, AcademicApplication $academic_application)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\academic_application  $academic_application
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(AcademicApplication $academic_application)
-    {
-        //
-    }
 }

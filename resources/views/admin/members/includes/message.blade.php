@@ -9,7 +9,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form class="row g-3" action="{{ route('membership.admin.message-member', $member->academic_member_id) }}" method="POST">
+            <form class="row g-3" action="{{ route('membership.admin.academicmessage-member', $member->academic_member_id) }}" method="POST">
             
                 @csrf
                 <input type="hidden" name="organization_id" value="{{ $member->organization_id }}">
