@@ -21,13 +21,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         Validator::make($input, [
 
             'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'suffix' => ['nullable','string'],
             'student_number' => [
                 'required', 
                 'string', 
                 'max:50',
                 Rule::unique('users')->ignore($user)],
+            'gender_id' => ['required','string'],
             'course_id' => ['required', 'string'],
             'year_and_section' => ['required', 'string', 'max:255'],
             'mobile_number' => ['required', 'string'], 
@@ -48,10 +50,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'first_name' => $input['first_name'],
                 'middle_name' => $input['middle_name'],
                 'last_name' => $input['last_name'],
+                'suffix' =>$input['suffix'],
                 'email' => $input['email'],
                 'student_number' =>$input['student_number'],
                 'year_and_section' => $input['year_and_section'],
                 'course_id' => $input['course_id'],
+                'gender_id' => $input['gender_id'],
                 'mobile_number' => $input['mobile_number'],
             ])->save();
         }
@@ -67,15 +71,16 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     protected function updateVerifiedUser($user, array $input)
     {
         $user->forceFill([
-                'first_name' => $input['first_name'],
-                'middle_name' => $input['middle_name'],
-                'last_name' => $input['last_name'],
-                'email' => $input['email'],
-                'student_number' =>$input['student_number'],
-                'year_and_section' => $input['year_and_section'],
-                'course_id' => $input['course_id'],
-                'mobile_number' => $input['mobile_number'],
-                'email_verified_at' => null,
+            'first_name' => $input['first_name'],
+            'middle_name' => $input['middle_name'],
+            'last_name' => $input['last_name'],
+            'suffix' =>$input['suffix'],
+            'email' => $input['email'],
+            'student_number' =>$input['student_number'],
+            'year_and_section' => $input['year_and_section'],
+            'course_id' => $input['course_id'],
+            'gender_id' => $input['gender_id'],
+            'mobile_number' => $input['mobile_number'],
         ])->save();
 
         $user->sendEmailVerificationNotification();

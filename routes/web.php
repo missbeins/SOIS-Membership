@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\Academic\AcademicMembersController;
 use App\Http\Controllers\Admin\Academic\AcademicPaymentsController;
 use App\Http\Controllers\Admin\Academic\AcademicApplicationController;
+use App\Http\Controllers\Admin\Academic\MessageController;
 use App\Http\Controllers\Admin\Membership\Academic\AcademicMembershipController;
 use App\Http\Controllers\Admin\Membership\Nonacademic\NonacademicMembershipController;
 
@@ -18,7 +19,8 @@ use App\Http\Controllers\User\Academic\AcademicMessagesController;
 use App\Http\Controllers\User\Nonacademic\UserNonacademicApplicationController;
 
 use App\Http\Controllers\InformationVerificationController;
-
+use App\Http\Controllers\User\UpdateProfileController;
+use App\Http\Controllers\User\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +103,11 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::put('/academicmembership/{academicmembership}/{orgId}', [AcademicMembershipController::class, 'update'])->name('academicmembership.update');
         Route::get('/academicmembership/{academicmembership}/{orgId}', [AcademicMembershipController::class, 'show'])->name('academicmembership.show');
         Route::get('/academicmembership/{academicmembership}/edit/{orgId}', [AcademicMembershipController::class, 'edit'])->name('academicmembership.edit');
+        
+        //ACADEMIC MESSAGES
+        Route::get('messages/inbox', [MessageController::class, 'inbox'])->name('academic.inbox');
+        Route::get('messages/sent', [MessageController::class, 'sent'])->name('academic.sent');
+        Route::post('messages/reply/{message}', [MessageController::class, 'reply'])->name('academic.reply');
 
         //NON ACADEMIC MEMBERSHIP CONTROLLER ROUTES
         Route::get('/nonacademicmembership', [NonAcademicMembershipController::class, 'index'])->name('nonacademicmembership.index');
@@ -120,16 +127,24 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             
             Route::get('application-form', [UserAcademicApplicationsController::class, 'showForm'])->name('academic-application');
             Route::post('application',[UserAcademicApplicationsController::class, 'store'])->name('application-store');
-            Route::get('messages', [AcademicMessagesController::class, 'index'])->name('messages');
+            Route::get('messages/inbox', [AcademicMessagesController::class, 'index'])->name('messages');
+            Route::get('messages/sent', [AcademicMessagesController::class, 'sent'])->name('sent');
             Route::get('my-organizations', [UserOrganizationsController::class, 'index'])->name('my-organizations');
             Route::get('my-applications', [UserApplicationsController::class, 'index'])->name('my-applications');
             Route::post('my-applications', [UserApplicationsController::class, 'store'])->name('apply');
+            Route::post('messages/reply/{message}',[AcademicMessagesController::class, 'replyMessage'])->name('reply');
+            Route::delete('messages/delete/{message}',[AcademicMessagesController::class, 'deleteMessage'])->name('delete');
         });
+
           //USER NON ACADEMIC CONTROLLERS ROUTES
         Route::prefix('nonacademic')->name('nonacademic.')->group(function () {
             
             Route::get('application-form', [UserNonacademicApplicationController::class, 'showForm'])->name('nonacademic-application');
 
         });
+        Route::get('profile', UserProfileController::class)->name('profile');
+        Route::put('profile/update/{user}', [UpdateProfileController::class, 'updateProfile'])->name('update-profile');
+
+
     });    
 });

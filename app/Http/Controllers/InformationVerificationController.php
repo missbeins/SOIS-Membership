@@ -52,7 +52,7 @@ class InformationVerificationController extends Controller
         
         foreach($expected_applicants as $applicant){
 
-            if($applicant['first_name'] == $data['first_name'] && $applicant['middle_name'] == $data['middle_name'] && $applicant['last_name'] == $data['last_name'] && $applicant['student_number'] == $data['student_number']){
+            if($applicant['first_name'] == $data['first_name'] && $applicant['middle_name'] == $data['middle_name'] && $applicant['last_name'] == $data['last_name'] && $applicant['suffix'] == $data['suffix'] && $applicant['student_number'] == $data['student_number']){
               
                 $applicantExist = true;
                             

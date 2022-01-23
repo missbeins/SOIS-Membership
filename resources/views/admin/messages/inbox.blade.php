@@ -26,14 +26,13 @@
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                 {{ $error }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        @endforeach
+            @endforeach
         </div>
-@endif
-
+ @endif
 <div class="card text-dark bg-light mb-3">
     <div class=" card-header text-light" style="background-color: #c62128"><h3>Inbox</h3></div>
     <div class="card-body">
-        @if (isset($messages))
+        @if (isset($membership_messages))
             <table class="table table-striped">
                 
                 <thead>
@@ -43,28 +42,28 @@
                     <th class="col-md-3">Action</th>
                 </thead>
                 <tbody>
-                    @if ($messages->isNotEmpty())
-                        @foreach ($messages as $message)
+                    @if ($membership_messages->isNotEmpty())
+                        @foreach ($membership_messages as $message)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $message->organization_name }}</td>
-                                <td>{{Str::limit( $message->message, 50, $end='.......')}}</td>
+                                <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
+                                <td>{{Str::limit( $message->reply, 20, $end='.......')}}</td>
                                 <td>
                                     <!-- Button trigger accept modal -->
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewmessage{{ $message->message_id }}">
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewmessage{{ $message->reply_id }}">
                                         <i class="fas fa-eye"></i> View
                                     </button>
-                                    @include('users.Academic.includes.inbox.view-message')
+                                    @include('admin.messages.includes.inbox.view-message')
                                     <!-- Button trigger accept modal -->
-                                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#replymessage{{ $message->message_id }}">
+                                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#replymessage{{ $message->reply_id }}">
                                         <i class="fas fa-reply"></i> Reply
                                     </button>
-                                    @include('users.Academic.includes.inbox.reply-message')
+                                    @include('admin.messages.includes.inbox.reply-message')
                                     {{-- <!-- Button trigger accept modal -->
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletemessage">
                                         <i class="fas fa-trash-alt"></i> Delete
                                     </button>
-                                    @include('users.Academic.includes.delete-message') --}}
+                                    @include('admin.messages.includes.delete-message') --}}
                                 </td>
                                 
                             </tr>

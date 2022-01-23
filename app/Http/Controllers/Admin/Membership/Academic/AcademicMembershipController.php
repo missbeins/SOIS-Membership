@@ -62,7 +62,7 @@ class AcademicMembershipController extends Controller
             $applications = AcademicApplication::all()
                 
                 ->where('application_status','=','pending')
-                ->where('course_id',$admin_course)
+                ->where('organization_id',$organizationID)
                 ->count();
             
             $academic_memberships = Academic_Membership::where('organization_id','=',Auth::user()->course['organization_id'])

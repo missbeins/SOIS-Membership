@@ -16,12 +16,39 @@ use Illuminate\Support\Facades\DB;
 
 class AcademicApplicationController extends Controller
 {
+     /**
+     * @param Array $roles, String $role
+     * Function to search for a role under 'role' column in $roles Array 
+     * Return Array Key if found, False if not
+     * @return True: Integer, False: Boolean
+     */ 
+    private function hasRole($roles, $role)
+    {
+        return array_search($role, array_column($roles, 'role'));
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(){
+        // Pluck all User Roles
+        $userRoleCollection = Auth::user()->roles;
+
+        // Remap User Roles into array with Organization ID
+        $userRoles = array();
+        foreach ($userRoleCollection as $role) 
+        {
+            array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+        }
+
+        // If User has MEMBERSHIP Admin role...
+       
+        $memberRoleKey = $this->hasRole($userRoles,'User');
+        // Get the Organization from which the user is Membeship Admin
+        $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+        $organizationID = $userRoles[$userRoleKey]['organization_id'];
+      
         $expected_applicants = Expected_Applicants::paginate(5, ['*'], 'expected-applicants');
         $genders = Gender::all();
         $courses = Course::all();
@@ -34,13 +61,46 @@ class AcademicApplicationController extends Controller
         return view('admin.applications.applications', compact(['acad_applications','expected_applicants','courses','genders']));
     }
     public function expectedRegistrants(){
-        $expected_applicants = Expected_Applicants::where('course_id',Auth::user()->course_id)
+        // Pluck all User Roles
+        $userRoleCollection = Auth::user()->roles;
+
+        // Remap User Roles into array with Organization ID
+        $userRoles = array();
+        foreach ($userRoleCollection as $role) 
+        {
+            array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+        }
+
+        // If User has MEMBERSHIP Admin role...
+       
+        $memberRoleKey = $this->hasRole($userRoles,'User');
+        // Get the Organization from which the user is Membeship Admin
+        $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+        $organizationID = $userRoles[$userRoleKey]['organization_id'];
+      
+        $expected_applicants = Expected_Applicants::where('organization_id',$organizationID)
                             ->paginate(5, ['*'], 'expected-applicants');
 
         return view('admin.applications.expected-applicants', compact('expected_applicants'));
     }
     public function addNewRegistrant(Request $request){
+        // Pluck all User Roles
+        $userRoleCollection = Auth::user()->roles;
 
+        // Remap User Roles into array with Organization ID
+        $userRoles = array();
+        foreach ($userRoleCollection as $role) 
+        {
+            array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+        }
+
+        // If User has MEMBERSHIP Admin role...
+       
+        $memberRoleKey = $this->hasRole($userRoles,'User');
+        // Get the Organization from which the user is Membeship Admin
+        $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+        $organizationID = $userRoles[$userRoleKey]['organization_id'];
+      
         
         $request->validate([
 
@@ -48,17 +108,17 @@ class AcademicApplicationController extends Controller
             'middle_name' => ['nullable','string'],
             'last_name' => ['required','string'],
             'student_number' => ['nullable','string'],
-            'course_id' => ['nullable','integer'],
+            'organization_id' => ['required','integer'],
             'suffix' =>['nullable','string']
         ]);
 
-        Expected_Applicants::create([
+        $expected_applicants = Expected_Applicants::create([
             'first_name' => $request['first_name'],
             'middle_name' => $request['middle_name'],
             'last_name' => $request['last_name'],
             'student_number' => $request['student_number'],
             'suffix' => $request['suffix'],
-            'course_id' => $request['course_id'],
+            'organization_id' => $request['organization_id'],
         ]);
         return redirect()->back()->with('success','Registrant successfully added!');
 
@@ -71,7 +131,23 @@ class AcademicApplicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function accept(Request $request, $id )
-    {   
+    {   // Pluck all User Roles
+        $userRoleCollection = Auth::user()->roles;
+
+        // Remap User Roles into array with Organization ID
+        $userRoles = array();
+        foreach ($userRoleCollection as $role) 
+        {
+            array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+        }
+
+        // If User has MEMBERSHIP Admin role...
+       
+        $memberRoleKey = $this->hasRole($userRoles,'User');
+        // Get the Organization from which the user is Membeship Admin
+        $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+        $organizationID = $userRoles[$userRoleKey]['organization_id'];
+      
         
         $request->validate([
             'application_id' =>['required'],
@@ -125,7 +201,23 @@ class AcademicApplicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function decline(Request $request, $id)
-    {   
+    {   // Pluck all User Roles
+        $userRoleCollection = Auth::user()->roles;
+
+        // Remap User Roles into array with Organization ID
+        $userRoles = array();
+        foreach ($userRoleCollection as $role) 
+        {
+            array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+        }
+
+        // If User has MEMBERSHIP Admin role...
+       
+        $memberRoleKey = $this->hasRole($userRoles,'User');
+        // Get the Organization from which the user is Membeship Admin
+        $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+        $organizationID = $userRoles[$userRoleKey]['organization_id'];
+      
         
         $request->validate([
             'application_id' =>['required'],

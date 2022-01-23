@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Gender;
 
-class ProfileController extends Controller
+use Illuminate\Http\Request;
+
+class UserProfileController extends Controller
 {
     public function __invoke(){
-        return view('admin.users.profile',[
+        return view('users.profile',[
             'courses' => Course::All(),
             'genders' => Gender::All()
         ]);

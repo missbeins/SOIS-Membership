@@ -12,6 +12,7 @@ class AcademicApplication extends Model
     protected $primaryKey ='application_id';
     protected $fillable = [
         'user_id',
+        'organization_id',
         'course_id',
         'membership_id',
         'student_number',

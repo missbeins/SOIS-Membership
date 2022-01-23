@@ -15,7 +15,7 @@ class Expected_Applicants extends Model
 
     protected $fillable = [
         
-        'course_id',
+        'organization_id',
         'first_name',
         'middle_name',
         'last_name',

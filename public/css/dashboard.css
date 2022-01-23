@@ -111,7 +111,7 @@
     -ms-transition: all 0.1s ease;
     transition: all 0.1s ease;
   }
-  
+
   /* On mouse-over */
  .dropdown-btn:hover {
     color: #a00000;
@@ -122,7 +122,7 @@
     background-color: #ffffff;
     text-decoration: underline;
   } 
-  /* Main content */
+ /* Main content */
   .main {
     margin-left: 210px; /* Same as the width of the sidenav */
     font-size: 20px; /* Increased text to enable scrolling */
@@ -164,6 +164,7 @@
     background-color: #ffffff;
    
 }
+
 select[readonly] option, select[readonly] optgroup {
     display: none;
 }

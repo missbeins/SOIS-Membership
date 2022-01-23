@@ -9,10 +9,10 @@
         <ol class="breadcrumb justify-content-center ">
             
             <li class="breadcrumb-item active" aria-current="page">
-                Organization / User Profile
+                User / User Profile
             </li>
             <li class="breadcrumb-item">
-                <a href="{{route('membership.admin.academicmembership.index')}}" class="text-decoration-none">Home</a>
+                <a href="{{ route('membership.user.academic.my-organizations')}}" class="text-decoration-none">Home</a>
             </li>
 
         </ol>

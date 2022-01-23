@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Course;
 use App\Models\Expected_Applicants;
+use App\Models\Organizations;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
@@ -19,10 +20,10 @@ class ExpectedStudentsImport implements ToModel, WithHeadingRow, SkipsOnError, W
 {
     use SkipsErrors, Importable, SkipsFailures;
 
-    private $courses;
+    private $organizations;
 
     public function __construct(){
-        $this->courses = Course::select('course_id','course_acronym')->get();
+        $this->organizations = Organizations::select('organization_id','organization_acronym')->get();
     }
     /**
     * @param array $row
@@ -31,11 +32,11 @@ class ExpectedStudentsImport implements ToModel, WithHeadingRow, SkipsOnError, W
     */
     public function model(array $row)
     {
-        $course = $this->courses->where('course_acronym',$row['course_acronym'])->first();
+        $organization = $this->organizations->where('organization_acronym',$row['organization'])->first();
 
         return new Expected_Applicants([
 
-            'course_id' => $course->course_id ?? NULL,
+            'organization_id' => $organization->organization_id ?? NULL,
             'first_name' => $row['first_name'],
             'middle_name' => $row['middle_name'],
             'last_name' => $row['last_name'],

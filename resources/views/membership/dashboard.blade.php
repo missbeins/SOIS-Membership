@@ -42,13 +42,13 @@
             <div class="list-group list-group-flush my-3" id="myList">
                 @can('is-admin')
                     <button class="dropdown-btn second-text fw-bold"><i
-                        class="fas fa-file-alt me-2"></i>Organization
+                        class="fas fa-folder-open me-2"></i>Organization
                         <i class="fa fa-caret-down"></i>
                         </button>
                     <div class="dropdown-container">
-                        <a href="{{ route('membership.admin.academicmembership.index') }}">Memberships</a>
-                        <a href="{{ route('membership.admin.users.index') }}">User Management</a>
-                        <a href="">User Logs</a>
+                        <a href="{{ route('membership.admin.academicmembership.index') }}"><i class="fas fa-layer-group me-2"></i>Memberships</a>
+                        <a href="{{ route('membership.admin.users.index') }}"><i class="fas fa-users-cog me-2"></i>User Management</a>
+                        <a href=""><i class="fas fa-cogs me-2"></i>User Logs</a>
                     </div>
                     <a href="{{ route('membership.admin.academicmember.index') }}"
                         class="list-group-item list-group-item-action  second-text fw-bold "><i
@@ -61,8 +61,16 @@
                         <i class="fa fa-caret-down"></i>
                         </button>
                     <div class="dropdown-container">
-                        <a href="{{ route('membership.admin.academicapplication.index') }}">Applications Requests</a>
-                        <a href="{{ route('membership.admin.academicapplication.registrants') }}">Account Registrants</a></a>
+                        <a href="{{ route('membership.admin.academicapplication.index') }}"><i class="fas fa-user-check me-2"></i>Applications Requests</a>
+                        <a href="{{ route('membership.admin.academicapplication.registrants') }}"><i class="fas fa-registered me-2"></i>Account Registrants</a></a>
+                    </div>
+                    <button class="dropdown-btn second-text fw-bold"><i
+                        class="fas fa-comments me-2"></i>Messages
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                    <div class="dropdown-container">
+                        <a href="{{ route('membership.admin.academic.inbox') }}"><i class="fas fa-inbox me-2"></i>Inbox</a>
+                        <a href="{{ route('membership.admin.academic.sent') }}"><i class="fas fa-paper-plane me-2"></i>Sent</a></a>
                     </div>
                     {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
                             class="fas fa-paperclip me-2"></i>Reports</a> --}}
@@ -92,7 +100,7 @@
                         </button>
                     <div class="dropdown-container">
                         <a href="{{ route('membership.user.academic.messages') }}"><i class="fas fa-inbox me-2"></i>Inbox</a>
-                        <a href=""><i class="fas fa-paper-plane me-2"></i>Sents</a></a>
+                        <a href="{{ route('membership.user.academic.sent') }}"><i class="fas fa-paper-plane me-2"></i>Sent</a></a>
                     </div>
                    
                     
@@ -125,17 +133,20 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="min-width: 10%">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ auth()->user()->last_name }}, {{ auth()->user()->first_name }}
-                                {{ auth()->user()->middle_name }}
+                            {{ auth()->user()->first_name }} {{ auth()->user()->middle_name }} {{ auth()->user()->last_name }} {{ auth()->user()->suffix }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @can('is-admin')
                                     <li><a class="dropdown-item" href="{{ route('membership.admin.profile') }}"><i
+                                                class="fas fa-user me-2"></i>Profile</a></li>
+                                @endcan
+                                @can('is-student')
+                                    <li><a class="dropdown-item" href="{{ route('membership.user.profile') }}"><i
                                                 class="fas fa-user me-2"></i>Profile</a></li>
                                 @endcan
                                 <li><a class="dropdown-item" href="{{ url('/profile/password') }}"><i
@@ -154,6 +165,7 @@
                         </li>
                     </ul>
                 </div>
+               
             </nav>
             {{-- Table --}}
             <div class="container-fluid">

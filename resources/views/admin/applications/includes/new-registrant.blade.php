@@ -38,12 +38,12 @@
                             <input class="form-control" id="student_number" name="student_number">
                         </div>
                         <div>
-                            <label for="course_id" class="form-label">Course <span class="text-danger">*</span></label>
-                            <select name="course_id" class="form-control" required>
-                                <option selected>Select course</option>
-                                @foreach(\App\Models\Course::all() as $course)
-                                    <option value="{{ $course->course_id }}@isset($course){{ $course->course_id == Auth::user()->course_id ? 'selected' : '' }} @endisset">
-                                        {{ $course->course_name }}
+                            <label for="organization_id" class="form-label">Organization <span class="text-danger">*</span></label>
+                            <select name="organization_id" class="form-control" required>
+                                <option disabled selected>Select organization..</option>
+                                @foreach(\App\Models\Organizations::all() as $organization)
+                                    <option value="{{ $organization->organization_id }}">
+                                        {{ $organization->organization_name }}
                                     </option>
                                 @endforeach
                             </select>

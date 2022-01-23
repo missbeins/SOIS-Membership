@@ -35,7 +35,7 @@ class UserController extends Controller
         return array_search($role, array_column($roles, 'role'));
     }
     /**
-    /**
+    
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

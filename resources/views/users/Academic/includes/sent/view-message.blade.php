@@ -1,4 +1,4 @@
-<div class="modal fade" id="viewmessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="viewmessage{{ $message->reply_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -7,9 +7,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Message from: ORGANIZATION NAME</p>
+                <p>Sent to: {{ $message->organization_name }}</p>
                 <div class="mb-3">
-                    <textarea name="message" id="" cols="60" rows="10" readonly> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic iure dolor dicta, debitis, vel modi temporibus facere quos accusamus non omnis voluptatibus nostrum, ut sed. Iure hic eius tempore! Corporis.</textarea>  
+                    <textarea name="message" id="" cols="60" rows="10" readonly>{{ $message->reply }}</textarea>  
                    
                 </div>
             </div>

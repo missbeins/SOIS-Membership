@@ -46,10 +46,13 @@ class UserAcademicApplicationsController extends Controller
             
         ]);
 
-        $academic_memberships = Academic_Membership::where('registration_status','=','Open')->where('registration_status','=','open')->get();
+        $academic_memberships = Academic_Membership::where('academic_membership_id',$request->membership_id)
+                            ->where('registration_status','=','Open')
+                            ->where('registration_status','=','open')
+                            ->first();
 
         $user_id = Auth::user()->user_id;
-        
+
         $applicationList = AcademicApplication::all();
         
         $applicationExist = false;
@@ -67,6 +70,7 @@ class UserAcademicApplicationsController extends Controller
             AcademicApplication::create([
         
                 'user_id' => $user_id,
+                'organization_id' => $academic_memberships->organization_id,
                 'membership_id' => $data['membership_id'],
                 'course_id' => $data['course'],
                 'first_name' => $data['first_name'],
@@ -88,10 +92,7 @@ class UserAcademicApplicationsController extends Controller
             return redirect(route('membership.user.academic.my-applications'));
            
         }       
-    
-       
-           
-              
+          
     }
 
 }

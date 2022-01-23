@@ -16,6 +16,13 @@
             </ol>
         </nav>
     </div>
+    @if (isset($errors) && $errors->any())
+        <div class="alert alert-danger mt-2">
+            @foreach ($errors->all() as $error )
+                {{ $error }}
+            @endforeach
+        </div>
+     @endif
     <div class="card">
         <div class="card-header">
             <div class="row">

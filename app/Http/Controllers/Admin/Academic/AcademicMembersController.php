@@ -133,7 +133,7 @@ class AcademicMembersController extends Controller
             'message' => $request['message_member']
         ]);
 
-        return redirect(route('membership.admin.academicmember.index'));
+        return redirect(route('membership.admin.academicmember.index'))->with('success','Message sent!');
     }
 
 }
