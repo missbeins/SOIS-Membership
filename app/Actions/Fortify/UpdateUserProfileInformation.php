@@ -25,13 +25,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'last_name' => ['required', 'string', 'max:255'],
             'suffix' => ['nullable','string'],
             'student_number' => [
-                'required', 
+                'nullable', 
                 'string', 
                 'max:50',
                 Rule::unique('users')->ignore($user)],
             'gender_id' => ['required','string'],
             'course_id' => ['required', 'string'],
-            'year_and_section' => ['required', 'string', 'max:255'],
+            'year_and_section' => ['nullable', 'string', 'max:255'],
             'mobile_number' => ['required', 'string'], 
             'email' => [
                 'required',

@@ -14,7 +14,6 @@
             <li class="breadcrumb-item">
                 <a href="{{route('membership.admin.academicmembership.index')}}" class="text-decoration-none">Home</a>
             </li>
-
         </ol>
     </nav>
 </div>

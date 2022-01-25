@@ -60,11 +60,6 @@ class UserController extends Controller
          // Get the Organization from which the user is Membeship Admin
          $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
          $organizationID = $userRoles[$userRoleKey]['organization_id'];
-       
-        if(Gate::denies('logged-in')){
-
-            return redirect()->back();
-        }
 
         if(Gate::allows('is-admin')){
             
@@ -104,13 +99,10 @@ class UserController extends Controller
                 'applications',
                 'users',
                 'academic_memberships'
-        ]));
+            ]));
+        }else{
+            abort(403);
         }
-        
-        return view('users.user.index');
-       
-        
-        
     }
 
     /**
@@ -120,13 +112,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create',
-        [
-        
-            'courses'=>Course::all(),
-            'roles' => Role::all()
-        
-         ]);
+        if(Gate::allows('is-admin')){
+            return view('admin.users.create',
+            [
+                'genders' => Gender::all(),
+                'courses'=>Course::all(),
+                'roles' => Role::all()
+            ]);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -137,55 +132,58 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        if(Gate::allows('is-admin')){
+            $data = $request->validate([
+                
+                'first_name' => ['required', 'string', 'max:255'],
+                'middle_name' => [ 'nullable','max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'suffix' => ['nullable'],
+                'address' => ['required','string'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'student_number' => ['required', 'string', 'max:50', 'unique:users'],
+                'year_and_section' => ['required', 'string', 'max:255'],
+                'course_id' => ['required', 'string'],
+                'mobile_number' => ['required', 'string'],
+                'date_of_birth' => ['required', 'date'],
+                'gender' => ['required', 'string'], 
+                
             
-            'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => [ 'nullable','max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'suffix' => ['nullable'],
-            'address' => ['required','string'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'student_number' => ['nullable', 'string', 'max:50', 'unique:users'],
-            'year_and_section' => ['nullable', 'string', 'max:255'],
-            'course_id' => ['nullable', 'string'],
-            'mobile_number' => ['required', 'string'],
-            'date_of_birth' => ['required', 'date'],
-            'gender' => ['required', 'string'], 
-            
-           
-        ]);
+            ]);
 
-        $user = User::create([
-            'first_name' => $data['first_name'],
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
-            'suffix' => $data['suffix'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'student_number' =>$data['student_number'],
-            'year_and_section' => $data['year_and_section'],
-            'course_id' => $data['course_id'],
-            'mobile_number' => $data['mobile_number'],
-            'address' => $data['address'],
-            'gender_id' => $data['gender'],
-            'date_of_birth' => $data['date_of_birth'],
-            'status' => 1,
-        ]);
+            $user = User::create([
+                'first_name' => $data['first_name'],
+                'middle_name' => $data['middle_name'],
+                'last_name' => $data['last_name'],
+                'suffix' => $data['suffix'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'student_number' =>$data['student_number'],
+                'year_and_section' => $data['year_and_section'],
+                'course_id' => $data['course_id'],
+                'mobile_number' => $data['mobile_number'],
+                'address' => $data['address'],
+                'gender_id' => $data['gender'],
+                'date_of_birth' => $data['date_of_birth'],
+                'status' => 1,
+            ]);
 
-        $course = Course::with('organization')->where('course_id', $data['course_id'])->first();
-        $orgId = $course->organization->organization_id;
+            $course = Course::with('organization')->where('course_id', $data['course_id'])->first();
+            $orgId = $course->organization->organization_id;
 
-        $user->roles()->attach(8, ['organization_id' => $orgId]);
-        $user->permissions()->attach([28,30,31]);
-       
-        Password::sendResetLink($request->only(['email']));
-        $request->session()->flash('success','Successfully added new user!');
+            $user->roles()->attach(8, ['organization_id' => $orgId]);
+            $user->permissions()->attach([28,30,31]);
         
-        return redirect(route('membership.admin.users.index'));
+            Password::sendResetLink($request->only(['email']));
+            $request->session()->flash('success','Successfully added new user!');
+            
+            return redirect(route('membership.admin.users.index'));
 
+        }else{
+            abort(403);
+        }
     }
-
     /**
      * Display the specified resource.
      *
@@ -194,7 +192,55 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        echo"member details";
+        if(Gate::allows('is-admin')){
+            
+            abort_if(! User::where('user_id', $id)->exists(), 403);
+
+            // Pluck all User Roles
+            $userRoleCollection = Auth::user()->roles;
+
+            // Remap User Roles into array with Organization ID
+            $userRoles = array();
+            foreach ($userRoleCollection as $role) 
+            {
+                array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+            }
+    
+            // If User has MEMBERSHIP Admin role...
+            
+            $memberRoleKey = $this->hasRole($userRoles,'User');
+            // Get the Organization from which the user is Membeship Admin
+            $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+            $organizationID = $userRoles[$userRoleKey]['organization_id'];
+        
+            $user = User::join('courses','courses.course_id','=','users.course_id')
+                        ->join('organizations','organizations.organization_id','=','courses.organization_id')
+                        // ->join('role_user','role_user.organization_id','=','organizations.organization_id')
+                        ->join('role_user','role_user.user_id','=','users.user_id')
+                        ->where('users.user_id',$id)
+                        ->where('role_user.role_id',8)
+                        // ->where('role_user.organization_id',$organizationID)
+                        ->first();
+            
+            $hasOrg = isset($user['organization_id']);
+            if ( $hasOrg != NULL) {
+                if ($user->organization_id == $organizationID) {
+                  
+                    return view('admin.users.show',  [
+
+                        'courses'=>Course::all(),
+                        'genders' => Gender::all(),
+                        'user' => User::find($id),
+                    ]);
+                    
+                } else {
+                    
+                    abort(403);
+                }           
+            }else{
+             abort(403);
+            }
+        }
     }
 
     /**
@@ -205,16 +251,58 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        abort_if(! User::where('user_id', Auth::user()->user_id)->exists(), 403);
-       
-        return view('admin.users.edit',
-        [
-            'courses'=>Course::all(),
-            'user' => User::find($id),
-            'roles' => Role::all(),
-            'genders' => Gender::all(),
+        if(Gate::allows('is-admin')){
+                
+            abort_if(! User::where('user_id', $id)->exists(), 403);
 
-        ]);
+            // Pluck all User Roles
+            $userRoleCollection = Auth::user()->roles;
+
+            // Remap User Roles into array with Organization ID
+            $userRoles = array();
+            foreach ($userRoleCollection as $role) 
+            {
+                array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+            }
+    
+            // If User has MEMBERSHIP Admin role...
+            
+            $memberRoleKey = $this->hasRole($userRoles,'User');
+            // Get the Organization from which the user is Membeship Admin
+            $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+            $organizationID = $userRoles[$userRoleKey]['organization_id'];
+
+            $user = User::join('courses','courses.course_id','=','users.course_id')
+                        ->join('organizations','organizations.organization_id','=','courses.organization_id')
+                        // ->join('role_user','role_user.organization_id','=','organizations.organization_id')
+                        ->join('role_user','role_user.user_id','=','users.user_id')
+                        ->where('users.user_id',$id)
+                        ->where('role_user.role_id',8)
+                        // ->where('role_user.organization_id',$organizationID)
+                        ->first();
+            
+            $hasOrg = isset($user['organization_id']);
+            if ( $hasOrg != NULL) {
+                if ($user->organization_id == $organizationID) {
+                  
+                    return view('admin.users.edit',  [
+
+                        'courses'=>Course::all(),
+                        'genders' => Gender::all(),
+                        'user' => User::find($id),
+                    ]);
+                    
+                } else {
+                    
+                    abort(403);
+                }           
+            } else {
+               abort(403);
+           }
+           
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -224,49 +312,91 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        if(Gate::allows('is-admin')){
+                
+            abort_if(! User::where('user_id', $id)->exists(), 403);
+
+            // Pluck all User Roles
+            $userRoleCollection = Auth::user()->roles;
+
+            // Remap User Roles into array with Organization ID
+            $userRoles = array();
+            foreach ($userRoleCollection as $role) 
+            {
+                array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+            }
     
-        $data = $request->validate([
+            // If User has MEMBERSHIP Admin role...
             
-            'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => [ 'nullable','max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'suffix' => ['nullable'],
-            'address' => ['required','string'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'student_number' => ['nullable', 'string', 'max:50'],
-            'year_and_section' => ['nullable', 'string', 'max:255'],
-            'course_id' => ['nullable', 'string'],
-            'mobile_number' => ['required', 'string'],
-            'date_of_birth' => ['required', 'date'],
-            'gender' => ['required', 'string'], 
+            $memberRoleKey = $this->hasRole($userRoles,'User');
+            // Get the Organization from which the user is Membeship Admin
+            $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+            $organizationID = $userRoles[$userRoleKey]['organization_id'];
             
-           
-        ]);
-
-        $user->update([
-
-            'first_name' => $data['first_name'],
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
-            'suffix' => $data['suffix'],
-            'email' => $data['email'],
-            'student_number' =>$data['student_number'],
-            'year_and_section' => $data['year_and_section'],
-            'course_id' => $data['course_id'],
-            'mobile_number' => $data['mobile_number'],
-            'address' => $data['address'],
-            'gender_id' => $data['gender'],
-            'date_of_birth' => $data['date_of_birth'],
-            'status' => 1,
+            $user = User::join('courses','courses.course_id','=','users.course_id')
+                        ->join('organizations','organizations.organization_id','=','courses.organization_id')
+                        // ->join('role_user','role_user.organization_id','=','organizations.organization_id')
+                        ->join('role_user','role_user.user_id','=','users.user_id')
+                        ->where('users.user_id',$id)
+                        ->where('role_user.role_id',8)
+                        // ->where('role_user.organization_id',$organizationID)
+                        ->first();
             
-        ]);
-
-        
-        $request->session()->flash('success','Successfully edited user!');
-        
-        return redirect(route('membership.admin.users.index'));
+            $hasOrg = isset($user['organization_id']);
+            if ( $hasOrg != NULL) {
+                if ($user->organization_id == $organizationID) {
+                  
+                    $data = $request->validate([
+            
+                        'first_name' => ['required', 'string', 'max:255'],
+                        'middle_name' => [ 'nullable','max:255'],
+                        'last_name' => ['required', 'string', 'max:255'],
+                        'suffix' => ['nullable'],
+                        'address' => ['required','string'],
+                        'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->user_id,'user_id')],
+                        'student_number' => ['required', 'string', 'max:50', Rule::unique('users')->ignore($user)],
+                        'year_and_section' => ['required', 'string', 'max:255'],
+                        'course_id' => ['required', 'string'],
+                        'mobile_number' => ['required', 'string'],
+                        'date_of_birth' => ['required', 'date'],
+                        'gender' => ['required', 'string'], 
+                    ]);
+            
+                    $user = User::where('user_id', $id)->update([
+            
+                        'first_name' => $data['first_name'],
+                        'middle_name' => $data['middle_name'],
+                        'last_name' => $data['last_name'],
+                        'suffix' => $data['suffix'],
+                        'email' => $data['email'],
+                        'student_number' =>$data['student_number'],
+                        'year_and_section' => $data['year_and_section'],
+                        'course_id' => $data['course_id'],
+                        'mobile_number' => $data['mobile_number'],
+                        'address' => $data['address'],
+                        'gender_id' => $data['gender'],
+                        'date_of_birth' => $data['date_of_birth'],
+                        'status' => 1,
+                        
+                    ]);
+            
+                    
+                    $request->session()->flash('success','Successfully edited user!');
+                    
+                    return redirect(route('membership.admin.users.index'));
+                    
+                    
+                } else {
+                    
+                    abort(403);
+                }
+            }else{
+                abort(403);
+            }
+       
+        }
     }
 
     /**
@@ -286,22 +416,25 @@ class UserController extends Controller
     }
 
     public function importStudents(Request $request){
+        if(Gate::allows('is-admin')){
+            $request->validate([
+                'file' => 'required|max:10000|mimes:xlsx,xls',
+            ]);
+            
+            $path = $request->file('file');
+            $import = new ExpectedStudentsImport;
+            $import->import($path);
 
-        $request->validate([
-            'file' => 'required|max:10000|mimes:xlsx,xls',
-        ]);
-        
-        $path = $request->file('file');
-        $import = new ExpectedStudentsImport;
-        $import->import($path);
-
-        if ($import->failures()->isNotEmpty()) {
-            return back()->withFailures($import->failures());
+            if ($import->failures()->isNotEmpty()) {
+                return back()->withFailures($import->failures());
+            }
+            //Excel::import(new ExpectedStudentsImport, $path);  
+            //dd($import->failures());
+            $request->session()->flash('success','Imported successfully!');    
+            return redirect()->back();
+        }else{
+            abort(403);
         }
-        //Excel::import(new ExpectedStudentsImport, $path);  
-        //dd($import->failures());
-        $request->session()->flash('success','Imported successfully!');    
-        return redirect()->back();
     }
 
 }

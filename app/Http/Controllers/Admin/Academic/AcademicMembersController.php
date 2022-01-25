@@ -8,9 +8,11 @@ use App\Models\Academic_Membership;
 use App\Models\Membership_Messages;
 use App\Models\Course;
 use App\Models\Organizations;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 
 class AcademicMembersController extends Controller
@@ -47,50 +49,56 @@ class AcademicMembersController extends Controller
         $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
         $organizationID = $userRoles[$userRoleKey]['organization_id'];
 
-       
-        $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
-            ->where('academic_members.membership_status','=','paid')
-            ->where('academic_members.organization_id',$organizationID)
-            ->paginate(10);
-        $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
-            ->get();
-        return view('admin.members.members',compact(['paidmembers','academic_memberships']));
+       if (Gate::allows('is-admin')) {
+            $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
+                ->where('academic_members.membership_status','=','paid')
+                ->where('academic_members.organization_id',$organizationID)
+                ->paginate(10);
+            $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
+                ->get();
+            return view('admin.members.members',compact(['paidmembers','academic_memberships']));
+        } else {
+           abort(403);
+       }
     }
 
     public function filterMembers(Request $request){
+        if (Gate::allows('is-admin')) {
+            if(isset($_GET['query'])){
+                // Pluck all User Roles
+                $userRoleCollection = Auth::user()->roles;
 
-        if(isset($_GET['query'])){
-              // Pluck all User Roles
-            $userRoleCollection = Auth::user()->roles;
+                // Remap User Roles into array with Organization ID
+                $userRoles = array();
+                foreach ($userRoleCollection as $role) 
+                {
+                    array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+                }
 
-            // Remap User Roles into array with Organization ID
-            $userRoles = array();
-            foreach ($userRoleCollection as $role) 
-            {
-                array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
-            }
-
-            // If User has AR President Admin role...
-        
+                // If User has AR President Admin role...
             
-            // Get the Organization from which the user is AR President Admin
-            $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
-            $organizationID = $userRoles[$userRoleKey]['organization_id'];
+                
+                // Get the Organization from which the user is AR President Admin
+                $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+                $organizationID = $userRoles[$userRoleKey]['organization_id'];
 
-            $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
-                ->get();
-            $query = $_GET['query'];
-            $paidmembers = DB::table('academic_members')
-                ->where('membership_id','LIKE','%'.$query.'%')
-                ->where('membership_status','=','paid')
-                ->where('organization_id',$organizationID)
-                ->paginate(1);
-            return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
-        
+                $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
+                    ->get();
+                $query = $_GET['query'];
+                $paidmembers = DB::table('academic_members')
+                    ->where('membership_id','LIKE','%'.$query.'%')
+                    ->where('membership_status','=','paid')
+                    ->where('organization_id',$organizationID)
+                    ->paginate(1);
+                return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
+            
+            }else{
+                return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
+
+            }
         }else{
-            return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
-
-       }
+            abort(403);
+        }
     }
    
     /**
@@ -99,18 +107,38 @@ class AcademicMembersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        
-        abort_if(! Academic_Members::where('academic_member_id', $id)->exists(), 403);
-        $organizations = Organizations::all();
-        $courses = Course::all();
-        $member_detail = Academic_Members::find($id);
-        return view('admin.members.show',compact([
-            'member_detail',
-            'organizations',
-            'courses'
-        ]));
+    public function show($id, $orgId)
+    {   
+        if (Gate::allows('is-admin')) {
+             // Pluck all User Roles
+             $userRoleCollection = Auth::user()->roles;
+
+             // Remap User Roles into array with Organization ID
+             $userRoles = array();
+             foreach ($userRoleCollection as $role) 
+             {
+                 array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+             }
+         
+             // Get the Organization from which the user is Membership Admin
+             $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+             $organizationID = $userRoles[$userRoleKey]['organization_id'];
+            if ($orgId == $organizationID) {
+                abort_if(! Academic_Members::where('academic_member_id', $id)->exists(), 403);
+                $organizations = Organizations::all();
+                $courses = Course::all();
+                $member_detail = Academic_Members::find($id);
+                return view('admin.members.show',compact([
+                    'member_detail',
+                    'organizations',
+                    'courses'
+                ]));
+            } else {
+                abort(403);
+            }
+        }else{
+            abort(403);
+        }
     }
     /**
      * Show the form for messaging the specified resource.
@@ -119,21 +147,26 @@ class AcademicMembersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function messageMember(Request $request, $id)
-    {
-        
-        $request->validate([
-            'message_member' => ['required','string','max:255'],
-            'user_id' =>['required','integer'],
-            'organization_id' =>['required','integer']
-        ]);
+    {   
+        if (Gate::allows('is-admin')) {
+            abort_if(! User::where('user_id', $id)->exists(), 403);
 
-        $acadsmembership_messages = Membership_Messages::create([
-            'user_id' => $request['user_id'],
-            'organization_id' => $request['organization_id'],
-            'message' => $request['message_member']
-        ]);
+            $request->validate([
+                'message_member' => ['required','string','max:255'],
+                'user_id' =>['required','integer'],
+                'organization_id' =>['required','integer']
+            ]);
 
-        return redirect(route('membership.admin.academicmember.index'))->with('success','Message sent!');
+            $acadsmembership_messages = Membership_Messages::create([
+                'user_id' => $request['user_id'],
+                'organization_id' => $request['organization_id'],
+                'message' => $request['message_member']
+            ]);
+
+            return redirect(route('membership.admin.academicmember.index'))->with('success','Message sent!');
+        }else{
+            abort(403);
+        }
+
     }
-
 }

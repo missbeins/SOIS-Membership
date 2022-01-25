@@ -14,7 +14,6 @@
             <li class="breadcrumb-item">
                 <a href="{{route('membership.admin.users.index')}}" class="text-decoration-none">Back</a>
             </li>
-
         </ol>
     </nav>
 </div>
@@ -22,7 +21,7 @@
     <div class="card-header">{{ __('Edit User') }}</div>
     <div class="card-body">
         <form class="row g-3" method="POST"
-            action="{{ route('membership.admin.users.update', [$user->user_id, $user->course_id]) }}">
+            action="{{ route('membership.admin.users.update', $user->user_id) }}">
             @method('PUT')
             @include('admin.users.includes.form')
         </form>

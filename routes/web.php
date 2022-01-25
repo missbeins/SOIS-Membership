@@ -64,28 +64,19 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::get('users', [UserController::class, 'index'])->name('users.index');
         Route::post('users', [UserController::class, 'store'])->name('users.store');
         Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-        Route::put('users/{user}/{courseId}', [UserController::class, 'update'])->name('users.update');
-        Route::get('users/{user}/{courseId}', [UserController::class, 'show'])->name('users.show');
-        Route::get('users/{user}/edit/{courseId}', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
+        Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
         Route::post('/import', [UserController::class, 'importStudents'])->name('expectedstudent-import');
 
         //ACADEMIC PAYMENTS CONTROLLER ROUTES
         Route::get('/members/academic/payments/filter', [AcademicPaymentsController::class, 'filterPayments'])->name('academicfilterPayment');
         Route::get('/members/academic/payments', [AcademicPaymentsController::class, 'index'])->name('academicpayment.index');
-        Route::post('/members/academic/payments', [AcademicPaymentsController::class, 'store'])->name('academicpayment.store');
-        Route::get('/members/academic/payments/create', [AcademicPaymentsController::class, 'create'])->name('academicpayment.create');
-        Route::put('/members/academic/payments/{payment}/{orgId}', [AcademicPaymentsController::class, 'update'])->name('academicpayment.update');
         Route::get('/members/academic/payments/{payment}/{orgId}', [AcademicPaymentsController::class, 'show'])->name('academicpayment.show');
-        Route::get('/members/academic/payments/{payment}/edit/{orgId}', [AcademicPaymentsController::class, 'edit'])->name('academicpayment.edit');
 
         //ACADEMIC MEMBERS CONTROLLER ROUTES
         Route::get('/members/academic/official', [AcademicMembersController::class, 'index'])->name('academicmember.index');
-        Route::post('/members/academic/official', [AcademicMembersController::class, 'store'])->name('academicmember.store');
-        Route::get('/members/academic/official/create', [AcademicMembersController::class, 'create'])->name('academicmember.create');
-        Route::put('/members/academic/official/{member}/{orgId}', [AcademicMembersController::class, 'update'])->name('academicmember.update');
         Route::get('/members/academic/official/{member}/{orgId}', [AcademicMembersController::class, 'show'])->name('academicmember.show');
-        Route::get('/members/academic/official/{member}/edit/{orgId}', [AcademicMembersController::class, 'edit'])->name('academicmember.edit');
-
         Route::post('/members/academic/message/{member}',[ AcademicMembersController::class, 'messageMember'])->name('academicmessage-member');
         Route::get('/members/academic/filter' , [AcademicMembersController::class, 'filterMembers'])->name('academicmember-filter');
 
@@ -101,7 +92,6 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::post('/academicmembership', [AcademicMembershipController::class, 'store'])->name('academicmembership.store');
         Route::get('/academicmembership/create', [AcademicMembershipController::class, 'create'])->name('academicmembership.create');
         Route::put('/academicmembership/{academicmembership}/{orgId}', [AcademicMembershipController::class, 'update'])->name('academicmembership.update');
-        Route::get('/academicmembership/{academicmembership}/{orgId}', [AcademicMembershipController::class, 'show'])->name('academicmembership.show');
         Route::get('/academicmembership/{academicmembership}/edit/{orgId}', [AcademicMembershipController::class, 'edit'])->name('academicmembership.edit');
         
         //ACADEMIC MESSAGES
