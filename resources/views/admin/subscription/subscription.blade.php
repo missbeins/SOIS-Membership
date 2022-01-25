@@ -28,6 +28,7 @@
                   
                     <label class="input-group-text" for="inputGroupSelect01">{{ __('Filter') }}</label>
                     <select class="form-control @error('query') is-invalid @enderror" id="inputGroupSelect01" name="query">
+                        <option disabled selected>Choose a membership...</option>
                         @foreach ($academic_memberships as $academic_membership)
                             <option value="{{ $academic_membership->academic_membership_id }}">{{ $academic_membership->semester }}({{ $academic_membership->school_year }})</option>                          
                         @endforeach
@@ -73,6 +74,7 @@
                         @endif
                     </tbody>
                 </table>
+                {{ $paidmembers->links() }}
             @endif
         </div>
     </div>

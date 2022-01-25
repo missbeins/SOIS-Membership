@@ -11,7 +11,7 @@
             <ol class="breadcrumb justify-content-center ">
                 
                 <li class="breadcrumb-item active" aria-current="page">
-                    Applications / Application Requests
+                    Applications / Declined Applications
                 </li>
 
             </ol>
@@ -21,7 +21,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-12">
-                    <h5 class="float-left">Membership Application Requests</h5>
+                    <h5 class="float-left">Membership Declined Applications</h5>
                 </div>
             </div>
         </div>
@@ -45,17 +45,11 @@
                             
                                 <td>
                                         
-                                        <!-- Button trigger accept modal -->
-                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#accept{{ $application->application_id }}">
-                                            <i class="fas fa-user-check"></i> Accept
-                                        </button>
-                                        @include('admin.applications.includes.accept')
-
-                                        <!-- Button trigger accept modal -->
-                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#decline{{ $application->application_id }}">
-                                            <i class="fas fa-trash-alt"></i> Decline
-                                        </button>
-                                        @include('admin.applications.includes.decline')
+                                    <!-- Button trigger accept modal -->
+                                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#reason{{ $application->application_id }}">
+                                        <i class="fas fa-eye"></i> View Reason
+                                    </button>
+                                    @include('admin.applications.includes.reason')
                                        
                                 </td>
                             </tr>

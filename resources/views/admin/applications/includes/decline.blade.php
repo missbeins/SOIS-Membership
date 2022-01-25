@@ -1,7 +1,7 @@
 
   <!-- Modal -->
   
-  <div class="modal fade" id="staticBackdrop{{ $application->application_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="decline{{ $application->application_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -122,10 +122,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="year_and_section" class="form-label">Year and section</label>
-                    <select id="year_and_section" class="form-select" name="year_and_section" required readonly>
-                        <option selected>{{ $application->year_and_section }}</option>
-
-                    </select>
+                    <input type="text" class="form-control" name="year_and_section" id="year_and_section" value="{{ $application->year_and_section }}" readonly>
                     @error('year_and_section')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -140,22 +137,13 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div>
-                <div class="col-md-3">
-                    <label for="control_number" class="form-label">Control Number</label>
-                    <input type="number" class="form-control @error('control_number') is-invalid @enderror" id="control_number" name="control_number" required>
-                    @error('control_number')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                <div class="mt-3 float-end" >
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Confirm</button>                          
-                </div>   
-            </form>
+                </div> 
         </div>
+        <div class="modal-footer float-end" >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Confirm</button>                          
+        </div> 
+        </form> 
       </div>
     </div>
   </div>

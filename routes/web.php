@@ -86,7 +86,8 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::get('/members/academic/applications', [AcademicApplicationController::class, 'index'])->name('academicapplication.index');
         Route::put('/members/academic/application/accept/{application}/{orgId}', [AcademicApplicationController::class, 'accept'])->name('academicapplication.accept');
         Route::put('/members/academic/application/decline/{application}/{orgId}', [AcademicApplicationController::class, 'decline'])->name('academicapplication.decline');
-        
+        Route::get('/members/academic/applications/declined-applications', [AcademicApplicationController::class, 'declinedApplications'])->name('academicapplication.declinedApplications');
+
         //ACADEMIC MEMBERSHIP CONTROLLER ROUTES
         Route::get('/academicmembership', [AcademicMembershipController::class, 'index'])->name('academicmembership.index');
         Route::post('/academicmembership', [AcademicMembershipController::class, 'store'])->name('academicmembership.store');

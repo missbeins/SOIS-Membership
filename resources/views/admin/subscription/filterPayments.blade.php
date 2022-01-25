@@ -75,6 +75,7 @@
                         @endif
                     </tbody>
                 </table>
+                {{-- {{ $paidmembers->links() }} --}}
             @endif
         </div>
     </div>

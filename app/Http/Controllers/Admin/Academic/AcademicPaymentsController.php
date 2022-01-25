@@ -66,7 +66,7 @@ class AcademicPaymentsController extends Controller
                     ->where('academic_members.membership_id','LIKE','%'.$query.'%')
                     ->where('academic_members.membership_status','=','paid')
                     ->where('academic_members.organization_id',$organizationID)
-                    ->paginate(10);
+                    ->get();
                 // dd($paidmembers);
                 return view('admin.subscription.filterPayments',compact(['paidmembers','academic_memberships']));
             

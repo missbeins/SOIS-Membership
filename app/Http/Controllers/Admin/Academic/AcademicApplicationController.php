@@ -91,6 +91,38 @@ class AcademicApplicationController extends Controller
             abort(403);
         }
     }
+    public function declinedApplications(){
+        if (Gate::allows('is-admin')) {
+            // Pluck all User Roles
+            $userRoleCollection = Auth::user()->roles;
+
+            // Remap User Roles into array with Organization ID
+            $userRoles = array();
+            foreach ($userRoleCollection as $role) 
+            {
+                array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+            }
+
+            // If User has MEMBERSHIP Admin role...
+        
+            $memberRoleKey = $this->hasRole($userRoles,'User');
+            // Get the Organization from which the user is Membeship Admin
+            $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+            $organizationID = $userRoles[$userRoleKey]['organization_id'];
+        
+            $genders = Gender::all();
+            $courses = Course::all();
+            $acad_applications = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
+                            ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
+                            ->where('application_status','=','declined')
+                            ->select()
+                            ->paginate(5, ['*'], 'applicants');
+
+            return view('admin.applications.declined-applications', compact(['acad_applications','courses','genders']));
+        }else{
+            abort(403);
+        }
+    }
     public function addNewRegistrant(Request $request){
         if (Gate::allows('is-admin')) {
             // Pluck all User Roles
@@ -243,7 +275,6 @@ class AcademicApplicationController extends Controller
                 'membership_id' =>['required'],
                 'organization_id' =>['required'],
                 'user_id' =>['required'],
-                'control_number' => ['required'],
                 'first_name' => ['required', 'string', 'max:255'],
                 'middle_name' => ['string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
@@ -257,25 +288,7 @@ class AcademicApplicationController extends Controller
                 'address' => ['required', 'string'], 
             ]);
             if ($orgId == $organizationID) {
-                Academic_Members::create([
-                    'membership_id' => $request['membership_id'],
-                    'organization_id' => $request['organization_id'],
-                    'course_id' => $request['course_id'],
-                    'user_id' => $request['user_id'],
-                    'control_number' => $request['control_number'],
-                    'first_name' => $request['first_name'],
-                    'middle_name' => $request['middle_name'],
-                    'last_name' => $request['last_name'],
-                    'email' => $request['email'],
-                    'student_number' =>$request['student_number'],
-                    'year_and_section' => $request['year_and_section'],
-                    'course_id' => $request['course_id'],
-                    'contact' => $request['mobile_number'],
-                    'address' => $request['address'],
-                    'gender' => $request['gender'],
-                    'date_of_birth' => $request['date_of_birth'],          
-                ]);
-            
+                
                 AcademicApplication::where('application_id',$id)->update ([
                 'application_status' => 'declined'
                 ]);

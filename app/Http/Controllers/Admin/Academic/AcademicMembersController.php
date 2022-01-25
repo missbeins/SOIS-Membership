@@ -53,7 +53,7 @@ class AcademicMembersController extends Controller
             $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
                 ->where('academic_members.membership_status','=','paid')
                 ->where('academic_members.organization_id',$organizationID)
-                ->paginate(10);
+                ->get();
             $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
                 ->get();
             return view('admin.members.members',compact(['paidmembers','academic_memberships']));
@@ -64,23 +64,23 @@ class AcademicMembersController extends Controller
 
     public function filterMembers(Request $request){
         if (Gate::allows('is-admin')) {
+             // Pluck all User Roles
+             $userRoleCollection = Auth::user()->roles;
+
+             // Remap User Roles into array with Organization ID
+             $userRoles = array();
+             foreach ($userRoleCollection as $role) 
+             {
+                 array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+             }
+
+             // If User has AR President Admin role...
+         
+             
+             // Get the Organization from which the user is AR President Admin
+             $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+             $organizationID = $userRoles[$userRoleKey]['organization_id'];
             if(isset($_GET['query'])){
-                // Pluck all User Roles
-                $userRoleCollection = Auth::user()->roles;
-
-                // Remap User Roles into array with Organization ID
-                $userRoles = array();
-                foreach ($userRoleCollection as $role) 
-                {
-                    array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
-                }
-
-                // If User has AR President Admin role...
-            
-                
-                // Get the Organization from which the user is AR President Admin
-                $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
-                $organizationID = $userRoles[$userRoleKey]['organization_id'];
 
                 $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
                     ->get();
@@ -89,12 +89,11 @@ class AcademicMembersController extends Controller
                     ->where('membership_id','LIKE','%'.$query.'%')
                     ->where('membership_status','=','paid')
                     ->where('organization_id',$organizationID)
-                    ->paginate(1);
+                    ->get();
                 return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
             
             }else{
                 return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
-
             }
         }else{
             abort(403);
