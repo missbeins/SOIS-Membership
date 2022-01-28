@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Academic;
 
+use App\Models\Declined_Aapplications;
 use App\Http\Controllers\Controller;
 use App\Models\Academic_Members;
 use App\Models\AcademicApplication;
@@ -114,9 +115,10 @@ class AcademicApplicationController extends Controller
             $courses = Course::all();
             $acad_applications = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
+                            ->join('declined_aapplications','declined_aapplications.application_id','=','academic_applications.application_id')
                             ->where('application_status','=','declined')
-                            ->select()
                             ->paginate(5, ['*'], 'applicants');
+            
 
             return view('admin.applications.declined-applications', compact(['acad_applications','courses','genders']));
         }else{
@@ -286,13 +288,18 @@ class AcademicApplicationController extends Controller
                 'date_of_birth' => ['required', 'date'],
                 'gender' => ['required', 'string'], 
                 'address' => ['required', 'string'], 
+                'reason' => ['required','string'],
             ]);
             if ($orgId == $organizationID) {
                 
                 AcademicApplication::where('application_id',$id)->update ([
                 'application_status' => 'declined'
                 ]);
-                
+
+                Declined_Aapplications::create([
+                    'reason' => $request['reason'],
+                    'application_id' => $id,
+                ]);
                 
                 return redirect()->back()->with('error', ' Application Declined!');
             }else{

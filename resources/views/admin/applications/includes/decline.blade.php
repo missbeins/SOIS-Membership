@@ -138,6 +138,15 @@
                     </span>
                     @enderror
                 </div> 
+                <div class="col-md-3">
+                    <label for="reason" class="form-label">Reason/s</label>
+                    <input type="text" class="form-control @error('reason') is-invalid @enderror" id="reason" name="reason" required>
+                    @error('reason')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div> 
         </div>
         <div class="modal-footer float-end" >
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

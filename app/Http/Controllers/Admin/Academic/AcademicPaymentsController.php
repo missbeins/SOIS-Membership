@@ -71,7 +71,7 @@ class AcademicPaymentsController extends Controller
                 return view('admin.subscription.filterPayments',compact(['paidmembers','academic_memberships']));
             
             }else{
-                return view('admin.subscription.filterPayments',compact(['paidmembers','academic_memberships']));
+                return redirect()->back();
 
             }
         }else{

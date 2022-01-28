@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div class="mb-2">
                         <label for="exampleFormControlInput1" class="form-label float-start" >Reason/s</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" readonly value="Reasons here...">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" readonly value="{{ $application->reason }}" readonly>
                     </div>                    
                 </div>
                 <div class="modal-footer"> 

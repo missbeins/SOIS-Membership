@@ -80,6 +80,8 @@ class AcademicMembersController extends Controller
              // Get the Organization from which the user is AR President Admin
              $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
              $organizationID = $userRoles[$userRoleKey]['organization_id'];
+
+           // dd(isset($_GET['query']));
             if(isset($_GET['query'])){
 
                 $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
@@ -93,7 +95,7 @@ class AcademicMembersController extends Controller
                 return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
             
             }else{
-                return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
+                return redirect()->back();
             }
         }else{
             abort(403);
