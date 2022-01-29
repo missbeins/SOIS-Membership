@@ -12,7 +12,7 @@
                 Organization / Memberships / Edit Membership
             </li>
             <li class="breadcrumb-item">
-                <a href="{{route('membership.admin.academicmembership.index')}}" class="text-decoration-none">Back</a>
+                <a href="{{route('membership.admin.academic.academicmembership.index')}}" class="text-decoration-none">Back</a>
             </li>
 
         </ol>
@@ -21,7 +21,7 @@
 <div class="card">
     <div class="card-header">{{ __('Edit Membership') }}</div>
     <div class="card-body">
-        <form method="POST" action="{{ route('membership.admin.academicmembership.update', [$academic_membership->academic_membership_id, $academic_membership->organization_id]) }}">
+        <form method="POST" action="{{ route('membership.admin.academic.academicmembership.update', [$academic_membership->academic_membership_id, $academic_membership->organization_id]) }}">
             @csrf
             @method('PUT')
             {{-- <input type="hidden" name="organization_id" value="{{ Auth::user()->course['organization_id'] }}"> --}}
@@ -110,8 +110,8 @@
                     <select aria-label="Default select example" name="status" class="form-control @error('status') is-invalid @enderror"
                         value="{{ old('status') }}" required>
                         
-                        <option @isset($academic_membership){{ $academic_membership->status == 'Active' ? 'selected' : '' }} @endisset>Active</option>
-                        <option @isset($academic_membership){{ $academic_membership->status == 'Ended' ? 'selected' : '' }} @endisset>Ended</option>
+                        <option @isset($academic_membership){{ $academic_membership->am_status == 'Active' ? 'selected' : '' }} @endisset>Active</option>
+                        <option @isset($academic_membership){{ $academic_membership->am_status == 'Ended' ? 'selected' : '' }} @endisset>Ended</option>
                     
                     </select>
                     @error('status')

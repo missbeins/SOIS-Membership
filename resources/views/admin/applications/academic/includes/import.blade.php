@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <form action="{{ route('membership.admin.expectedstudent-import') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('membership.admin.academic.expectedstudent-import') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <label for="formFile" class="form-label">Upload all the expected students for Account registration. Upload file ('.xlsx')</label>
                         <p style="color: red">Note: All added registrants will only be allowed to register for accounts.</p>

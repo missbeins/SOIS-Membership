@@ -40,7 +40,7 @@ class AcademicPaymentsController extends Controller
             ->paginate(10);
         $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
             ->get();
-        return view('admin.subscription.subscription',compact(['paidmembers','academic_memberships']));
+        return view('admin.subscription.academic.subscription',compact(['paidmembers','academic_memberships']));
     }
     public function filterPayments(Request $request){
         if (Gate::allows('is-admin')) {
@@ -68,7 +68,7 @@ class AcademicPaymentsController extends Controller
                     ->where('academic_members.organization_id',$organizationID)
                     ->get();
                 // dd($paidmembers);
-                return view('admin.subscription.filterPayments',compact(['paidmembers','academic_memberships']));
+                return view('admin.subscription.academic.filterPayments',compact(['paidmembers','academic_memberships']));
             
             }else{
                 return redirect()->back();

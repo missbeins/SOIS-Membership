@@ -43,7 +43,7 @@ class MessageController extends Controller
                                 ->where('membership_replies.organization_id', $organizationID)
                                 ->get();
 
-            return view('admin.messages.inbox', compact('membership_messages'));
+            return view('admin.messages.academic.inbox', compact('membership_messages'));
         }else{
             abort(403);
         }
@@ -70,7 +70,7 @@ class MessageController extends Controller
                                 ->where('membership_messages.organization_id', $organizationID)
                                 ->get();
 
-            return view('admin.messages.sents', compact('membership_messages'));
+            return view('admin.messages.academic.sents', compact('membership_messages'));
         }else{
             abort(403);
         }

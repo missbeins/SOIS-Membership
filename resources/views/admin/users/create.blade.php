@@ -12,7 +12,7 @@
                 Organization / User Management / Add New User
             </li>
             <li class="breadcrumb-item">
-                <a href="{{route('membership.admin.users.index')}}" class="text-decoration-none">Back</a>
+                <a href="{{route('membership.admin.academic.users.index')}}" class="text-decoration-none">Back</a>
             </li>
 
         </ol>
@@ -21,7 +21,7 @@
 <div class="card">
     <div class="card-header">{{ __('Add New User') }}</div>
     <div class="card-body">
-        <form class="row g-3" method="POST" action="{{ route('membership.admin.users.store') }}">
+        <form class="row g-3" method="POST" action="{{ route('membership.admin.academic.users.store') }}">
             @include('admin.users.includes.form',['create' => true])
         </form>
     </div>

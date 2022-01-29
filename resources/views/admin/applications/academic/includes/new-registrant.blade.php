@@ -2,7 +2,7 @@
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('membership.admin.academicapplication-addnewregistrant') }}" method="POST">
+            <form action="{{ route('membership.admin.academic.academicapplication-addnewregistrant') }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">New Registrant</h5>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Membership\Academic;
 
 use App\Http\Controllers\Controller;
-use App\Models\Academic_Members;
 use Illuminate\Http\Request;
 use App\Models\Academic_Membership;
 use App\Models\AcademicApplication;

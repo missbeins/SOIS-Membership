@@ -1,7 +1,22 @@
 @extends('membership.dashboard')
 @section('content')
 <div class="container">
+    {{-- Title and Breadcrumbs --}}
+    <div class="d-flex justify-content-between align-items-center">
+        
+        {{-- Breadcrumbs --}}
+        <nav aria-label="breadcrumb align-items-center">
+            <ol class="breadcrumb justify-content-center ">
+                
+                <li class="breadcrumb-item active" aria-current="page">
+                    Applications / Academic Organizations / Application form
+                </li>
+
+            </ol>
+        </nav>
+    </div>
     <div class="card">
+        
         <div class="card-header">{{ __('Application Form') }}</div>
         <div class="card-body">
             <form class="row g-3" method="POST" action="{{ route('membership.user.academic.application-store') }}">

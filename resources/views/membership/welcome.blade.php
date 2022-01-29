@@ -8,18 +8,22 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Welcome Back
-                    {{-- @if (Auth::user()->gender)
+                    @if (Auth::user()->gender_id == 1)
                         Mr. {{ Auth::user()->first_name }} {{ Auth::user()->middle_name }}
                         {{ Auth::user()->last_name }}
                     @else
-                        Ms. {{ Auth::user()->first_name }} {{ Auth::user()->middle_name }}
+                        Ms/Mrs. {{ Auth::user()->first_name }} {{ Auth::user()->middle_name }}
                         {{ Auth::user()->last_name }}
-                    @endif --}}
+                    @endif
                 </h5>
                 <p class="card-text">Welcome to PUP - Taguig Student Organizations Information System. A place to manage
                     your organization's membership. </p>
                 @can('is-admin')
-                    <a href="{{ route('membership.admin.users.index') }}" class="btn btn-primary">Get started</a>
+                    @can('is-academic')
+                        <a href="{{ route('membership.admin.academic.users.index') }}" class="btn btn-primary">Get started</a>
+                    @elsecan('is-nonacademic')
+                        <a href="{{ route('membership.admin.nonacademic.nonacademicmembership.index') }}" class="btn btn-primary">Get started</a>
+                    @endcan
                 @elsecan('is-student')
                     <a href="{{ route('membership.user.academic.my-organizations') }}" class="btn btn-success">Get started</a>
                 @endcan

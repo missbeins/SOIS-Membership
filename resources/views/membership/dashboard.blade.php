@@ -32,8 +32,14 @@
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
 
                 @can('is-admin')
-                    <a class="second-text brand" href="{{ route('membership.admin.academicmembership.index') }}"><i
-                            class="fas fa-swatchbook me-2"></i>Membership</a>
+                    @can ('is-academic')
+                    <a class="second-text brand" href="{{ route('membership.admin.academic.academicmembership.index') }}"><i
+                        class="fas fa-swatchbook me-2"></i>Membership</a>
+                    @elsecan('is-nonacademic')
+                    <a class="second-text brand" href="{{ route('membership.admin.nonacademic.nonacademicmembership.index') }}"><i
+                        class="fas fa-swatchbook me-2"></i>Membership</a>
+                    @endcan
+                    
                 @elsecan('is-student')
                     <a class="second-text brand" href="{{ route('membership.user.academic.my-organizations') }}"><i
                             class="fas fa-swatchbook me-2"></i>Membership</a>
@@ -41,40 +47,77 @@
             </div>
             <div class="list-group list-group-flush my-3" id="myList">
                 @can('is-admin')
-                    <button class="dropdown-btn second-text fw-bold"><i
-                        class="fas fa-folder-open me-2"></i>Organization
-                        <i class="fa fa-caret-down"></i>
-                        </button>
-                    <div class="dropdown-container">
-                        <a href="{{ route('membership.admin.academicmembership.index') }}"><i class="fas fa-layer-group me-2"></i>Memberships</a>
-                        <a href="{{ route('membership.admin.users.index') }}"><i class="fas fa-users-cog me-2"></i>User Management</a>
-                        <a href=""><i class="fas fa-cogs me-2"></i>User Logs</a>
-                    </div>
-                    <a href="{{ route('membership.admin.academicmember.index') }}"
-                        class="list-group-item list-group-item-action  second-text fw-bold "><i
-                            class="fas fa-users me-2"></i>Members</a>
-                    <a href="{{ route('membership.admin.academicpayment.index') }}"
-                        class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-money-check me-2"></i>Payment Details</a>
-                    <button class="dropdown-btn second-text fw-bold"><i
-                        class="fas fa-address-book me-2"></i>Applications
-                        <i class="fa fa-caret-down"></i>
-                        </button>
-                    <div class="dropdown-container">
-                        <a href="{{ route('membership.admin.academicapplication.index') }}"><i class="fas fa-user-check me-2"></i>Applications Requests</a>
-                        <a href="{{ route('membership.admin.academicapplication.registrants') }}"><i class="fas fa-registered me-2"></i>Account Registrants</a>
-                        <a href="{{ route('membership.admin.academicapplication.declinedApplications') }}"><i class="fas fa-user-times  me-2"></i>Decline Applications</a>
-                    </div>
-                    <button class="dropdown-btn second-text fw-bold"><i
-                        class="fas fa-comments me-2"></i>Messages
-                        <i class="fa fa-caret-down"></i>
-                        </button>
-                    <div class="dropdown-container">
-                        <a href="{{ route('membership.admin.academic.inbox') }}"><i class="fas fa-inbox me-2"></i>Inbox</a>
-                        <a href="{{ route('membership.admin.academic.sent') }}"><i class="fas fa-paper-plane me-2"></i>Sent</a></a>
-                    </div>
-                    {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
-                            class="fas fa-paperclip me-2"></i>Reports</a> --}}
+                    @can('is-academic')
+                        <button class="dropdown-btn second-text fw-bold"><i
+                            class="fas fa-folder-open me-2"></i>Organization
+                            <i class="fa fa-caret-down"></i>
+                            </button>
+                        <div class="dropdown-container">
+                            <a href="{{ route('membership.admin.academic.academicmembership.index') }}"><i class="fas fa-layer-group me-2"></i>Memberships</a>
+                            <a href="{{ route('membership.admin.academic.users.index') }}"><i class="fas fa-users-cog me-2"></i>User Management</a>
+                            <a href=""><i class="fas fa-cogs me-2"></i>User Logs</a>
+                        </div>
+                        <a href="{{ route('membership.admin.academic.academicmember.index') }}"
+                            class="list-group-item list-group-item-action  second-text fw-bold "><i
+                                class="fas fa-users me-2"></i>Members</a>
+                        <a href="{{ route('membership.admin.academic.academicpayment.index') }}"
+                            class="list-group-item list-group-item-action second-text fw-bold"><i
+                                class="fas fa-money-check me-2"></i>Payment Details</a>
+                        <button class="dropdown-btn second-text fw-bold"><i
+                            class="fas fa-address-book me-2"></i>Applications
+                            <i class="fa fa-caret-down"></i>
+                            </button>
+                        <div class="dropdown-container">
+                            <a href="{{ route('membership.admin.academic.academicapplication.index') }}"><i class="fas fa-user-check me-2"></i>Applications Requests</a>
+                            <a href="{{ route('membership.admin.academic.academicapplication.registrants') }}"><i class="fas fa-registered me-2"></i>Account Registrants</a>
+                            <a href="{{ route('membership.admin.academic.academicapplication.declinedApplications') }}"><i class="fas fa-user-times  me-2"></i>Decline Applications</a>
+                        </div>
+                        <button class="dropdown-btn second-text fw-bold"><i
+                            class="fas fa-comments me-2"></i>Messages
+                            <i class="fa fa-caret-down"></i>
+                            </button>
+                        <div class="dropdown-container">
+                            <a href="{{ route('membership.admin.academic.inbox') }}"><i class="fas fa-inbox me-2"></i>Inbox</a>
+                            <a href="{{ route('membership.admin.academic.sent') }}"><i class="fas fa-paper-plane me-2"></i>Sent</a></a>
+                        </div>
+                        {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
+                                class="fas fa-paperclip me-2"></i>Reports</a> --}}
+                        
+                    @elsecan('is-nonacademic')
+                        <button class="dropdown-btn second-text fw-bold"><i
+                            class="fas fa-folder-open me-2"></i>Organization
+                            <i class="fa fa-caret-down"></i>
+                            </button>
+                        <div class="dropdown-container">
+                            <a href="{{ route('membership.admin.nonacademic.nonacademicmembership.index') }}"><i class="fas fa-layer-group me-2"></i>Memberships</a>
+                            <a href=""><i class="fas fa-cogs me-2"></i>User Logs</a>
+                        </div>
+                        <a href="{{ route('membership.admin.nonacademic.nonacademicmember.index') }}"
+                            class="list-group-item list-group-item-action  second-text fw-bold "><i
+                                class="fas fa-users me-2"></i>Members</a>
+                        <a href="{{ route('membership.admin.nonacademic.nonacademicpayment.index') }}"
+                            class="list-group-item list-group-item-action second-text fw-bold"><i
+                                class="fas fa-money-check me-2"></i>Payment Details</a>
+                        <button class="dropdown-btn second-text fw-bold"><i
+                            class="fas fa-address-book me-2"></i>Applications
+                            <i class="fa fa-caret-down"></i>
+                            </button>
+                        <div class="dropdown-container">
+                            <a href="{{ route('membership.admin.nonacademic.nonacademicapplication.index') }}"><i class="fas fa-user-check me-2"></i>Applications Requests</a>
+                            <a href="{{ route('membership.admin.nonacademic.nonacademicapplication.declinedApplications') }}"><i class="fas fa-user-times  me-2"></i>Decline Applications</a>
+                        </div>
+                        <button class="dropdown-btn second-text fw-bold"><i
+                            class="fas fa-comments me-2"></i>Messages
+                            <i class="fa fa-caret-down"></i>
+                            </button>
+                        <div class="dropdown-container">
+                            <a href="{{ route('membership.admin.nonacademic.inbox') }}"><i class="fas fa-inbox me-2"></i>Inbox</a>
+                            <a href="{{ route('membership.admin.nonacademic.sent') }}"><i class="fas fa-paper-plane me-2"></i>Sent</a></a>
+                        </div>
+                        {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
+                                class="fas fa-paperclip me-2"></i>Reports</a> --}}
+                        
+                    @endcan
                             
 
                 @elsecan('is-student')
@@ -93,7 +136,7 @@
                         </button>
                     <div class="dropdown-container">
                         <a href="{{ route('membership.user.academic.my-applications') }}"><i class="fas fa-user-check me-2"></i>Academic</a>
-                        <a href=""><i class="fas fa-user-check me-2"></i>Non-cademic</a></a>
+                        <a href="{{ route('membership.user.nonacademic.my-applications') }}"><i class="fas fa-user-check me-2"></i>Non-cademic</a></a>
                     </div>
                     <button class="dropdown-btn second-text fw-bold"><i
                         class="fas fa-comments me-2"></i>Messages
@@ -143,8 +186,10 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @can('is-admin')
+                                   
                                     <li><a class="dropdown-item" href="{{ route('membership.admin.profile') }}"><i
-                                                class="fas fa-user me-2"></i>Profile</a></li>
+                                        class="fas fa-user me-2"></i>Profile</a></li>
+                                   
                                 @endcan
                                 @can('is-student')
                                     <li><a class="dropdown-item" href="{{ route('membership.user.profile') }}"><i

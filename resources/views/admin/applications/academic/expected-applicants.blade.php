@@ -32,12 +32,12 @@
                         data-bs-target="#ImportRegistrant">
                         Import Registrants
             </button>
-            @include('admin.applications.includes.import')
+            @include('admin.applications.academic.includes.import')
             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
                         data-bs-target="#addNewRegistrant">
                         New Registrant
             </button>
-            @include('admin.applications.includes.new-registrant')
+            @include('admin.applications.academic.includes.new-registrant')
             @if (session()->has('failures'))
 
                     <button type="button" class="btn btn-danger btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">

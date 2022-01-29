@@ -9,7 +9,7 @@
                     <div class="col-md-12">
                         <div class="card text-dark bg-light mb-3">
                             <div class=" card-header text-light" style="background-color: #c62128">Non Academic Organizations
-                                <a href="{{ route('membership.user.academic.academic-application') }}" type="button" class="btn btn-success btn-sm float-end">
+                                <a href="{{ route('membership.user.nonacademic.nonacademic-application') }}" type="button" class="btn btn-success btn-sm float-end">
                                     Apply
                                  </a>
                             </div>
@@ -27,18 +27,18 @@
                                     </thead>
                                     <tbody>
                                         
-                                            @foreach ($academic_memberships as $academic_membership)
+                                            @foreach ($nonacademic_memberships as $nonacademic_membership)
                                                 <tr>
-                                                    <td>{{ $academic_membership->organization_name }}</td>
-                                                    <td>{{ $academic_membership->semester }}</td>
-                                                    <td>{{ $academic_membership->school_year }}</td>
-                                                    <td>{{ $academic_membership->registration_status }}</td>
+                                                    <td>{{ $nonacademic_membership->organization_name }}</td>
+                                                    <td>{{ $nonacademic_membership->semester }}</td>
+                                                    <td>{{ $nonacademic_membership->school_year }}</td>
+                                                    <td>{{ $nonacademic_membership->registration_status }}</td>
                                                   
                                                 </tr>
                                             @endforeach
                                     </tbody>
                                 </table>
-                                {{ $academic_memberships->links() }}
+                                {{ $nonacademic_memberships->links() }}
                             </div>
                         </div>
                     </div>

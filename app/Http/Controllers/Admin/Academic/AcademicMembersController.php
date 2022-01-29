@@ -56,7 +56,7 @@ class AcademicMembersController extends Controller
                 ->get();
             $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
                 ->get();
-            return view('admin.members.members',compact(['paidmembers','academic_memberships']));
+            return view('admin.members.academic.members',compact(['paidmembers','academic_memberships']));
         } else {
            abort(403);
        }
@@ -92,7 +92,7 @@ class AcademicMembersController extends Controller
                     ->where('membership_status','=','paid')
                     ->where('organization_id',$organizationID)
                     ->get();
-                return view('admin.members.filter',compact(['paidmembers','academic_memberships']));
+                return view('admin.members.academic.filter',compact(['paidmembers','academic_memberships']));
             
             }else{
                 return redirect()->back();
@@ -129,7 +129,7 @@ class AcademicMembersController extends Controller
                 $organizations = Organizations::all();
                 $courses = Course::all();
                 $member_detail = Academic_Members::find($id);
-                return view('admin.members.show',compact([
+                return view('admin.members.academic.show',compact([
                     'member_detail',
                     'organizations',
                     'courses'
@@ -164,7 +164,7 @@ class AcademicMembersController extends Controller
                 'message' => $request['message_member']
             ]);
 
-            return redirect(route('membership.admin.academicmember.index'))->with('success','Message sent!');
+            return redirect(route('membership.admin.academic.academicmember.index'))->with('success','Message sent!');
         }else{
             abort(403);
         }

@@ -7,7 +7,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-                <form method="POST" action="{{ route('membership.admin.academicmembership.store') }}">
+                <form method="POST" action="{{ route('membership.admin.academic.academicmembership.store') }}">
                   @csrf
                   {{-- <input type="hidden" name="organization_id" value="{{ Auth::user()->course['organization_id'] }}"> --}}
                   <div class=" mb-2 row"> 

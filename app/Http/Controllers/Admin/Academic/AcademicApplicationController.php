@@ -61,7 +61,7 @@ class AcademicApplicationController extends Controller
                             ->select()
                             ->paginate(5, ['*'], 'applicants');
 
-            return view('admin.applications.applications', compact(['acad_applications','expected_applicants','courses','genders']));
+            return view('admin.applications.academic.applications', compact(['acad_applications','expected_applicants','courses','genders']));
         }
     }
     public function expectedRegistrants(){
@@ -87,7 +87,7 @@ class AcademicApplicationController extends Controller
             $expected_applicants = Expected_Applicants::where('organization_id',$organizationID)
                                 ->paginate(5, ['*'], 'expected-applicants');
 
-            return view('admin.applications.expected-applicants', compact('expected_applicants'));
+            return view('admin.applications.academic.expected-applicants', compact('expected_applicants'));
         }else{
             abort(403);
         }
@@ -120,7 +120,7 @@ class AcademicApplicationController extends Controller
                             ->paginate(5, ['*'], 'applicants');
             
 
-            return view('admin.applications.declined-applications', compact(['acad_applications','courses','genders']));
+            return view('admin.applications.academic.declined-applications', compact(['acad_applications','courses','genders']));
         }else{
             abort(403);
         }

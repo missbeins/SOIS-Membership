@@ -30,7 +30,7 @@
                         <div class="col-md-12">
                             <h4 class="float-left">User Management</h4>
                             <a role="button" class="btn btn-sm btn-success float-right"
-                                href="{{ route('membership.admin.users.create') }}">
+                                href="{{ route('membership.admin.academic.users.create') }}">
                                 New User
                             </a>
                         </div>
@@ -54,11 +54,11 @@
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         <a role="button" class="btn btn-sm btn-primary"
-                                            href="{{ route('membership.admin.users.edit', $user->user_id) }}">
+                                            href="{{ route('membership.admin.academic.users.edit', $user->user_id) }}">
                                             <i class="fas fa-user-edit"></i> Edit
                                         </a>
                                         <a role="button" class="btn btn-sm btn-info"
-                                        href="{{ route('membership.admin.users.show', $user->user_id) }}">
+                                        href="{{ route('membership.admin.academic.users.show', $user->user_id) }}">
                                         <i class="fas fa-eye"></i> View
                                     </a>
                                         {{-- <button type="button" class="btn btn-sm btn-danger"

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Declined_Nonaapplications extends Model
 {
     use HasFactory;
-    protected $table = 'declined_nonaapplications';
+    protected $table = 'declined_naapplications';
     protected $primaryKey = 'declined_nonaapp_id';
     protected $fillable = ['reason','application_id'];
 }

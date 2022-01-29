@@ -36,21 +36,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($acad_applications->isNotEmpty())
-                        @foreach ($acad_applications as $application)
+                    @if ($nonacad_applications->isNotEmpty())
+                        @foreach ($nonacad_applications as $application)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}</td>
                                 <td>{{ $application->email }}</td>
                             
                                 <td>
-                                        
+                                     <!-- Button trigger accept modal -->
+                                     <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#details{{ $application->application_id }}">
+                                        <i class="fas fa-eye"></i> Details
+                                    </button>
+                                    @include('admin.applications.nonacademic.includes.details')    
                                     <!-- Button trigger accept modal -->
-                                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#reason{{ $application->application_id }}">
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#reason{{ $application->application_id }}">
                                         <i class="fas fa-eye"></i> View Reason
                                     </button>
-                                    @include('admin.applications.includes.reason')
-                                       
+                                    @include('admin.applications.nonacademic.includes.reason')
+                                    
                                 </td>
                             </tr>
                         @endforeach
@@ -59,7 +63,7 @@
                     @endif    
                 </tbody>
             </table>
-            {{ $acad_applications->links() }}
+            {{ $nonacad_applications->links() }}
         </div>
     </div>
 </div>

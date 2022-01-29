@@ -29,13 +29,13 @@
                 <div class="col-md-8">
                     <h4 class="float-left">Official Members</h4>
                 </div>
-                <form class="col-md-4 input-group" style="width:30%" action="{{ route('membership.admin.academicmember-filter') }}" method="get">
+                <form class="col-md-4 input-group" style="width:30%" action="{{ route('membership.admin.nonacademic.nonacademicmember-filter') }}" method="get">
                    @csrf
                             <label class="input-group-text" for="inputGroupSelect01">{{ __('Filter') }}</label>
                             <select class="form-control @error('query') is-invalid @enderror" id="inputGroupSelect01" name="query">
                                 <option selected disabled>Choose a membership...</option>
-                                @foreach ($academic_memberships as $academic_membership)
-                                    <option value="{{ $academic_membership->academic_membership_id }}">{{ $academic_membership->semester }}({{ $academic_membership->school_year }})</option>                          
+                                @foreach ($nonacademic_memberships as $nonacademic_membership)
+                                    <option value="{{ $nonacademic_membership->nonacademic_membership_id }}">{{ $nonacademic_membership->semester }}({{ $nonacademic_membership->school_year }})</option>                          
                                 @endforeach
                             </select>                        
                                     @error('query')
@@ -71,9 +71,9 @@
                                 <td>{{ $member->year_and_section }}</td>
                                 <td>{{ $member->contact }}</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $member->academic_member_id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="message"><i class="fas fa-comments"></i> Message</button>
-                                    @include('admin.members.includes.message')  
-                                    <a href="{{ route('membership.admin.academicmember.show',[ $member->academic_member_id,  $member->organization_id]) }}" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="view details"><i class="fas fa-eye" ></i> View</a>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $member->non_academic_member_id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="message"><i class="fas fa-comments"></i> Message</button>
+                                    @include('admin.members.nonacademic.includes.message')  
+                                    <a href="{{ route('membership.admin.nonacademic.nonacademicmember.show',[ $member->non_academic_member_id,  $member->organization_id]) }}" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="view details"><i class="fas fa-eye" ></i> View</a>
                                 </td>
                             </tr>
                         @endforeach

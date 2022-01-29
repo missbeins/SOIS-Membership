@@ -36,8 +36,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($acad_applications->isNotEmpty())
-                        @foreach ($acad_applications as $application)
+                    @if ($nonacad_applications->isNotEmpty())
+                        @foreach ($nonacad_applications as $application)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}</td>
@@ -49,13 +49,13 @@
                                         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#accept{{ $application->application_id }}">
                                             <i class="fas fa-user-check"></i> Accept
                                         </button>
-                                        @include('admin.applications.includes.accept')
+                                        @include('admin.applications.nonacademic.includes.accept')
 
                                         <!-- Button trigger accept modal -->
                                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#decline{{ $application->application_id }}">
                                             <i class="fas fa-trash-alt"></i> Decline
                                         </button>
-                                        @include('admin.applications.includes.decline')
+                                        @include('admin.applications.nonacademic.includes.decline')
                                        
                                 </td>
                             </tr>
@@ -65,7 +65,7 @@
                     @endif    
                 </tbody>
             </table>
-            {{ $acad_applications->links() }}
+            {{ $nonacad_applications->links() }}
         </div>
     </div>
 </div>

@@ -9,7 +9,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form class="row g-3 text-start"action="{{ route('membership.admin.academicapplication.decline', [$application->application_id, $application->organization_id]) }}" method="POST">
+            <form class="row g-3 text-start"action="{{ route('membership.admin.nonacademic.nonacademicapplication.decline', [$application->application_id, $application->organization_id]) }}" method="POST">
                 @method('put')
                 @csrf
   

@@ -22,9 +22,13 @@
             <div class="col-md-12">
                 <div class="card text-dark bg-light mb-3">
                     <div class=" card-header text-light" style="background-color: #c62128">Academic Organizations
-                        <a href="{{ route('membership.user.academic.academic-application') }}" type="button" class="btn btn-success btn-sm float-end">
-                            Apply
+                        @if ($academic_memberships->isNotEmpty())
+                            <a href="{{ route('membership.user.academic.academic-application') }}" type="button" class="btn btn-success btn-sm float-end">
+                                Apply
                             </a>
+                        @endif
+                            
+                      
                     </div>
                     <div class="card-body">
                         <table class="table table-sm table-striped table-hover table-responsive">

@@ -86,7 +86,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return null !== $this->roles()->where('role', $role)->first();
     }
+    // public function getOrgType(String $type){
 
+    //     return null !== $this->roles()->where('organization_type_id', $type)->first();
+    // }
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');

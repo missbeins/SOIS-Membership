@@ -12,7 +12,7 @@
                 Organization / User Management / User Details
             </li>
             <li class="breadcrumb-item">
-                <a href="{{route('membership.admin.users.index')}}" class="text-decoration-none">Back</a>
+                <a href="{{route('membership.admin.academic.users.index')}}" class="text-decoration-none">Back</a>
             </li>
         </ol>
     </nav>

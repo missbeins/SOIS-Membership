@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Non_Academic_Members extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'non-academic_member_id';
+    protected $primaryKey = 'non_academic_member_id';
     protected $table = 'non_academic_members';
 
     protected $fillable = [

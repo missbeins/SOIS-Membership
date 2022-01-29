@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use phpDocumentor\Reflection\Types\Null_;
 
 class UserSeeder extends Seeder
 {
@@ -37,6 +38,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => '4-1',
             ],
             [
                 //2
@@ -54,6 +56,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => '4-1',
             ],
             [
                 // 3qar
@@ -71,6 +74,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => '4-1',
             ],
             [
                 //4 qar
@@ -88,6 +92,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => '4-1',
             ],
             [
                 //5
@@ -105,6 +110,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => '4-1',
             ],
             [
                 //6
@@ -122,6 +128,8 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => '4-1',
+                
             ],
             [
                 //7
@@ -139,6 +147,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => '4-1',
             ],
             [
                 //8 normal user
@@ -155,7 +164,8 @@ class UserSeeder extends Seeder
                 'address' => 'Taguig',
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
-                'status' => $status,       
+                'status' => $status,      
+                'year_and_section' => '4-1', 
             ],
             [
                 // 9 qar AVP Docu
@@ -173,6 +183,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => '4-1',
             ],
             [
                 // 10 Adviser
@@ -190,6 +201,83 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
+                'year_and_section' => NULL,
+            ],
+
+            //Jones additional users
+             [
+                //11  - BSA - Membership
+                'course_id' => 1,
+                'gender_id' => $gender,
+                'email' => 'bsa-membership2@email.com', 
+                'password' => Hash::make('bsa-membership2@email.com'),
+                'student_number' => '2018-66666-TG-0', 
+                'first_name' => 'JohnMBS2',
+                'middle_name' => 'Faraday2',
+                'last_name' => 'Doe2',
+                'date_of_birth' => '2000-01-01',
+                'mobile_number' => '+639123456666',
+                'address' => 'Taguig',
+                'created_at' => $currentTime,
+                'updated_at' => $currentTime,
+                'status' => $status,
+                'year_and_section' => '4-1',
+            ],
+            [
+                //12 BSA - GPOA
+                'course_id' => 1,
+                'gender_id' => $gender,
+                'email' => 'bsa-gpoa2@email.com', 
+                'password' => Hash::make('bsa-gpoa2@email.com'),
+                'student_number' => '2018-77777-TG-0', 
+                'first_name' => 'JohnGPOA2',
+                'middle_name' => 'Faraday2',
+                'last_name' => 'Doe2',
+                'date_of_birth' => '2000-01-01',
+                'mobile_number' => '+639123457777',
+                'address' => 'Taguig',
+                'created_at' => $currentTime,
+                'updated_at' => $currentTime,
+                'status' => $status,
+                'year_and_section' => '4-1',
+            ],
+
+            [
+                //13 ERG - MEMBERSHIP
+                'course_id' => NULL,
+                'gender_id' => $gender,
+                'email' => 'erg-membership@email.com', 
+                'password' => Hash::make('erg-membership@email.com'),
+                'student_number' => NULL, 
+                'first_name' => 'I',
+                'middle_name' => 'Am',
+                'last_name' => 'Erg',
+                'date_of_birth' => '2000-01-01',
+                'mobile_number' => '+639123457777',
+                'address' => 'Taguig',
+                'created_at' => $currentTime,
+                'updated_at' => $currentTime,
+                'status' => $status,
+                'year_and_section' => NULL,
+            ],
+
+            [
+                //13 pupukaw - MEMBERSHIP
+                'course_id' => NULL,
+                'gender_id' => $gender,
+                'email' => 'pupukaw-membership@email.com', 
+                'password' => Hash::make('pupukaw-membership@email.com'),
+                'student_number' => NULL, 
+                'first_name' => 'I',
+                'middle_name' => 'Am',
+                'last_name' => 'Pupukaw',
+                'date_of_birth' => '2000-01-01',
+                'mobile_number' => '+639123457777',
+                'address' => 'Taguig',
+                'created_at' => $currentTime,
+                'updated_at' => $currentTime,
+                'status' => $status,
+                'year_and_section' => NULL,
             ],
             
             

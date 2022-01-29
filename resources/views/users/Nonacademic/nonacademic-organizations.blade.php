@@ -19,9 +19,9 @@
                             <td>{{ $organization->membership_start_date }}</td>
                             <td>{{ $organization->membership_end_date }}</td>
                             @if ($organization->am_status == 'Close' || $organization->am_status == 'close')
-                                <td class="text-danger">{{ $organization->am_status }}</td>
+                                <td class="text-danger">{{ $organization->nam_status }}</td>
                             @else
-                                <td class="text-success">{{ $organization->am_status }}</td>
+                                <td class="text-success">{{ $organization->nam_status }}</td>
                             @endif
                             
                         </tr>
