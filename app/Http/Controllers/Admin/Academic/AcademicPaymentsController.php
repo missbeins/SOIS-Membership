@@ -37,6 +37,7 @@ class AcademicPaymentsController extends Controller
         
         $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
             ->where('academic_members.organization_id',$organizationID)
+            ->sortable()
             ->paginate(10);
         $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
             ->get();
@@ -66,6 +67,7 @@ class AcademicPaymentsController extends Controller
                     ->where('academic_members.membership_id','LIKE','%'.$query.'%')
                     ->where('academic_members.membership_status','=','paid')
                     ->where('academic_members.organization_id',$organizationID)
+                    ->sortable()
                     ->get();
                 // dd($paidmembers);
                 return view('admin.subscription.academic.filterPayments',compact(['paidmembers','academic_memberships']));

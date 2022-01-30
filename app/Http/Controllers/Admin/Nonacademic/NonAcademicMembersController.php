@@ -52,6 +52,7 @@ class NonAcademicMembersController extends Controller
            $paidmembers = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.membership_id')
                ->where('non_academic_members.membership_status','=','paid')
                ->where('non_academic_members.organization_id',$organizationID)
+               ->sortable()
                ->get();
            $nonacademic_memberships = Non_Academic_Membership::where('organization_id',$organizationID)
                ->get();
@@ -90,6 +91,7 @@ class NonAcademicMembersController extends Controller
                    ->where('membership_id','LIKE','%'.$query.'%')
                    ->where('membership_status','=','paid')
                    ->where('organization_id',$organizationID)
+                   ->sortable()
                    ->get();
                return view('admin.members.nonacademic.filter',compact(['paidmembers','nonacademic_memberships']));
            

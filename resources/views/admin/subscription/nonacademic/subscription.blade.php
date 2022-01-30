@@ -48,11 +48,11 @@
                 <table class="table table-light table-sm table-striped table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th class="col-sm-1">Control Number</th>
-                            <th class="col-sm-1">Name</th>
-                            <th class="col-sm-1">Email</th>
-                            <th class="col-sm-1">Contact</th>
-                            <th class="col-sm-1">Amount Paid</th>
+                            <th class="col-sm-1">@sortablelink('control_number','Control Number')</th>
+                            <th scope="col-sm-3">@sortablelink('last_name','Name')</th>
+                            <th scope="col-sm-2">@sortablelink('year_and_section','Year and Section')</th>
+                            <th scope="col-sm-2">@sortablelink('contact','Contact')</th>
+                            <th class="col-sm-1">@sortablelink('membership_fee','Amount Paid')</th>
                             
                         </tr>
                     </thead>
@@ -61,7 +61,7 @@
                             @foreach ($paidmembers as $member)
                                 <tr>
                                     <td>{{ $member->control_number }}</td>
-                                    <td>{{ $member->last_name }}, {{ $member->first_name }}
+                                    <td>{{ $member->last_name }} {{ $member->suffix }}, {{ $member->first_name }}
                                         {{ $member->middle_name }}</td>
                                     <td>{{ $member->email }}</td>
                                     <td>{{ $member->contact }}</td>

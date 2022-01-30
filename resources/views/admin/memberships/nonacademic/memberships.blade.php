@@ -74,13 +74,13 @@
                         <thead>
                             <tr> 
                                 <th class="col-sm-1">#</th>
-                                <th class="col-sm-1">Semester</th>
-                                <th class="col-sm-1">School Year</th>
-                                <th class="col-sm-1">Fee</th>
-                                <th class="col-sm-1">Start Date <br><small>( yyyy-mm-dd )</small></th>
-                                <th class="col-sm-1">End Date <br><small>( yyyy-mm-dd )</small></th>
-                                <th class="col-sm-2">Registration Status <br><small>( yyyy-mm-dd )</small></th>
-                                <th class="col-sm-1">Status</th>
+                                <th class="col-sm-1">@sortablelink('semester','Semester')</th>
+                                <th class="col-sm-1">@sortablelink('school_year','School Year')</th>
+                                <th class="col-sm-1">@sortablelink('membership_fee','Fee')</th>
+                                <th class="col-sm-1">@sortablelink('membership_start_date','Start Date')<br><small>( yyyy-mm-dd )</small></th>
+                                <th class="col-sm-1">@sortablelink('membership_end_date','End Date')<br><small>( yyyy-mm-dd )</small></th>
+                                <th class="col-sm-2">@sortablelink('registration_status','Registration Status') <br><small>( yyyy-mm-dd )</small></th>
+                                <th class="col-sm-1">@sortablelink('nam_status','Status')</th>
                                 <th class="col-sm-1">Actions</th>
                             </tr>
                         </thead>

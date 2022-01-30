@@ -53,6 +53,7 @@ class AcademicMembersController extends Controller
             $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
                 ->where('academic_members.membership_status','=','paid')
                 ->where('academic_members.organization_id',$organizationID)
+                ->sortable()
                 ->get();
             $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
                 ->get();
@@ -91,6 +92,7 @@ class AcademicMembersController extends Controller
                     ->where('membership_id','LIKE','%'.$query.'%')
                     ->where('membership_status','=','paid')
                     ->where('organization_id',$organizationID)
+                    ->sortable()
                     ->get();
                 return view('admin.members.academic.filter',compact(['paidmembers','academic_memberships']));
             

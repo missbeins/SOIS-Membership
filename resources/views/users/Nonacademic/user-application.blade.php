@@ -17,10 +17,10 @@
                                 <table class="table table-sm table-striped table-hover table-responsive">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Organization</th>
-                                            <th scope="col">Semester</th>
-                                            <th scope="col">School Year</th>
-                                            <th scope="col">Registration</th>
+                                            <th scope="col">@sortablelink('organization_name','Organization')</th>
+                                            <th scope="col">@sortablelink('semester','Semester')</th>
+                                            <th scope="col">@sortablelink('school_year','School Year')</th>
+                                            <th scope="col">@sortablelink('registration_status','Status')</th>
                                            
                                         
                                         </tr>

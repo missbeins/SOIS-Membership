@@ -36,17 +36,17 @@
             <table class="table table-striped">
                 
                 <thead>
-                    <th class="col-md-3">Received At</th>
-                    <th class="col-md-3">Message From</th>
+                    <th class="col-md-3">@sortablelink('created_at','Received At')</th>
+                    <th class="col-md-3">@sortablelink('first_name','Message From')</th>
                     
-                    <th class="col-md-4">Message</th>
+                    <th class="col-md-4">@sortablelink('reply','Message')</th>
                     <th class="col-md-2">Action</th>
                 </thead>
                 <tbody>
                     @if ($membership_messages->isNotEmpty())
                         @foreach ($membership_messages as $message)
                             <tr>
-                                <td>{{date_format(date_create($message->created_at), 'F d, Y / H:i a' )   }}</td>
+                                <td>{{ $message->created_at->format('F d, Y - H:i a') }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
                                
                                 <td>{{Str::limit( $message->reply, 20, $end='.......')}}</td>

@@ -19,6 +19,7 @@ class NonAcadsUserApplicationsController extends Controller
         //                     ->paginate(5);
 
         $nonacademic_memberships = Non_Academic_Membership::join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
+                            ->sortable()
                             ->paginate(5);
                             
         // $nonacademic_organization = Organizations::join('academic_membership','academic_membership.organization_id','=','organizations.organization_id')   
@@ -30,8 +31,9 @@ class NonAcadsUserApplicationsController extends Controller
         $application_statuses = Non_Academic_Applications::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_applications.membership_id')
                             ->join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
                             ->where('user_id',Auth::user()->user_id)
-                            ->paginate(10)
-                            ->sortByDesc('created_at');               
+                            ->sortable()
+                            ->paginate(10);
+                                     
         //  dd($application_statuses);
         return view('users.Nonacademic.user-application', compact([
             'nonacademic_memberships',

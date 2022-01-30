@@ -53,12 +53,11 @@
             <table class="table table-light table-sm table-striped table-hover">
                 <thead>
                     <tr>
-                        
-                        <th class="col-sm-2">Membership <br><small class="text-primary"> Semester ( yyyy-mm-dd )</small></th>
-                        <th class="col-sm-2">Name</th>
-                        <th class="col-sm-1">Year and Section</th>
-                        <th class="col-sm-1">Contact</th>
-                        <th class="col-sm-1">Action</th>
+                        <th class="col-sm-3">@sortablelink('membership_id', 'Membership') <br><small class="text-primary"> Semester ( yyyy-mm-dd )</small></th>
+                        <th scope="col-sm-3">@sortablelink('last_name','Name')</th>
+                        <th scope="col-sm-2">@sortablelink('year_and_section','Year and Section')</th>
+                        <th scope="col-sm-2">@sortablelink('contact','Contact')</th>
+                        <th class="col-sm-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -29,9 +29,9 @@
             <table class="table table-hover table-striped table-bordered table-light">
                 <thead>
                     <tr> 
-                        <th class="col-sm-1">#</th>
-                        <th class="col-sm-4">Name</th>
-                        <th class="col-sm-4">Email</th>
+                        <th class="col-sm-1">@sortablelink('application_id','#')</th>
+                        <th class="col-sm-4">@sortablelink('first_name','Name')</th>
+                        <th class="col-sm-4">@sortablelink('email','Email')</th>
                         <th class="col-sm-3">Actions</th>
                     </tr>
                 </thead>

@@ -40,9 +40,9 @@
                     <table class="table table-hover table-striped table-bordered table-light">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Student Number</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">@sortablelink('user_id','#')</th>
+                                <th scope="col">@sortablelink('student_number','Student Number')</th>
+                                <th scope="col">@sortablelink('email','Email')</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>

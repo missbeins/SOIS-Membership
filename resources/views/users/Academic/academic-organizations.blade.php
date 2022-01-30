@@ -20,10 +20,10 @@
     <div class="card-body">
         <table class="table table-striped">
             <thead>
-                <th>Organization</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Status</th>
+                <th>@sortablelink('organization_name','Organization')</th>
+                <th>@sortablelink('membership_start_date','Start Date')</th>
+                <th>@sortablelink('membership_start_date','End Date')</th>
+                <th>@sortablelink('am_status','Status')</th>
             </thead>
             <tbody>
                 @foreach ($organizations as $organization)

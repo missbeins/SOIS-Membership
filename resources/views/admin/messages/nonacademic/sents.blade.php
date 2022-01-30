@@ -36,16 +36,18 @@
             <table class="table table-striped">
                 
                 <thead>
-                    <th class="col-md-1">#</th>
-                    <th class="col-md-3">Sent To</th>
-                    <th class="col-md-5">Message</th>
+                    <th class="col-md-3">@sortablelink('created_at','Received At')</th>
+                    <th class="col-md-3">@sortablelink('first_name','Sent To')</th>
+                    
+                    <th class="col-md-4">@sortablelink('message','Message')</th>
                     <th class="col-md-3">Action</th>
                 </thead>
                 <tbody>
                     @if ($membership_messages->isNotEmpty())
                         @foreach ($membership_messages as $message)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                
+                                <td>{{date_format(date_create($message->created_at), 'F d, Y / H:i a' )   }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
                                 <td>{{Str::limit( $message->message, 20, $end='.......')}}</td>
                                 <td>

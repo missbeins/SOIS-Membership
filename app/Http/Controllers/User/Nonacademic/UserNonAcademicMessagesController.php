@@ -14,6 +14,7 @@ class NonAcademicMessagesController extends Controller
     public function index(){
         $messages = Membership_Messages::join('organizations','organizations.organization_id','=','membership_messages.organization_id')
                 ->where('user_id',Auth::user()->user_id)
+                ->sortable()
                 ->get();
         return view('users.Nonacademic.messages', compact('messages'));
     }
@@ -21,6 +22,7 @@ class NonAcademicMessagesController extends Controller
     public function sent(){
         $messages = Membership_replies::join('organizations','organizations.organization_id','=','membership_replies.organization_id')
                 ->where('membership_replies.user_id',Auth::user()->user_id)
+                ->sortable()
                 ->get();
         return view('users.Nonacademic.sents', compact('messages'));
     }

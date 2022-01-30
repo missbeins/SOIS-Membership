@@ -40,7 +40,8 @@ class NonAcademicMessagesController extends Controller
             $membership_messages = Membership_replies::join('users','users.user_id','=','membership_replies.user_id')
                                 ->join('organizations','organizations.organization_id','=','membership_replies.organization_id')
                                 ->where('membership_replies.organization_id', $organizationID)
-                                ->orderBy('reply_id', 'DESC')
+                                // ->orderBy('reply_id', 'DESC')
+                                ->sortable()
                                 ->get();
 
             return view('admin.messages.nonacademic.inbox', compact('membership_messages'));
@@ -68,6 +69,7 @@ class NonAcademicMessagesController extends Controller
             $membership_messages = Membership_Messages::join('users','users.user_id','=','membership_messages.user_id')
                                 ->join('organizations','organizations.organization_id','=','membership_messages.organization_id')
                                 ->where('membership_messages.organization_id', $organizationID)
+                                ->sortable()
                                 ->get();
 
             return view('admin.messages.nonacademic.sents', compact('membership_messages'));

@@ -101,9 +101,11 @@
                 <table class="table table-hover table-striped table-bordered table-light">
                 <thead>
                     <tr> 
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Student Number</th>
+                        
+                        <th class="col-sm-1">@sortablelink('applicant_id','#')</th>
+                        <th class="col-sm-4">@sortablelink('first_name','Name')</th>
+                        <th class="col-sm-4">@sortablelink('student_number','Student Number')</th>
+                        
                     </tr>
                 </thead>
                 <tbody>

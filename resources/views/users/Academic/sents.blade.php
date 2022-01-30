@@ -38,9 +38,9 @@
             <table class="table table-striped">
                 
                 <thead>
-                    <th class="col-md-1">#</th>
-                    <th class="col-md-3">Sent To</th>
-                    <th class="col-md-5">Message</th>
+                    <th class="col-md-1">@sortablelink('reply_id','#')</th>
+                    <th class="col-md-3">@sortablelink('organization_id','Sent To') </th>
+                    <th class="col-md-5">@sortablelink('reply','Message')</th>
                     <th class="col-md-3">Action</th>
                 </thead>
                 <tbody>

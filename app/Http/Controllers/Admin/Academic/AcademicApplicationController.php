@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Academic;
 use App\Models\Declined_Aapplications;
 use App\Http\Controllers\Controller;
 use App\Models\Academic_Members;
+use App\Models\Academic_Membership;
 use App\Models\AcademicApplication;
 use App\Models\Course;
 use App\Models\Expected_Applicants;
@@ -58,7 +59,7 @@ class AcademicApplicationController extends Controller
             $acad_applications = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                             ->where('application_status','=','pending')
-                            ->select()
+                            ->sortable()
                             ->paginate(5, ['*'], 'applicants');
 
             return view('admin.applications.academic.applications', compact(['acad_applications','expected_applicants','courses','genders']));
@@ -85,6 +86,7 @@ class AcademicApplicationController extends Controller
             $organizationID = $userRoles[$userRoleKey]['organization_id'];
         
             $expected_applicants = Expected_Applicants::where('organization_id',$organizationID)
+                                ->sortable()
                                 ->paginate(5, ['*'], 'expected-applicants');
 
             return view('admin.applications.academic.expected-applicants', compact('expected_applicants'));
@@ -117,6 +119,7 @@ class AcademicApplicationController extends Controller
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                             ->join('declined_aapplications','declined_aapplications.application_id','=','academic_applications.application_id')
                             ->where('application_status','=','declined')
+                            ->sortable()
                             ->paginate(5, ['*'], 'applicants');
             
 
@@ -213,37 +216,53 @@ class AcademicApplicationController extends Controller
                 'gender' => ['required', 'string'], 
                 'address' => ['required', 'string'], 
             ]);
-            if ($orgId == $organizationID) {
-                Academic_Members::create([
-                    'membership_id' => $request['membership_id'],
-                    'organization_id' => $request['organization_id'],
-                    'course_id' => $request['course_id'],
-                    'user_id' => $request['user_id'],
-                    'control_number' => $request['control_number'],
-                    'first_name' => $request['first_name'],
-                    'middle_name' => $request['middle_name'],
-                    'last_name' => $request['last_name'],
-                    'email' => $request['email'],
-                    'student_number' =>$request['student_number'],
-                    'year_and_section' => $request['year_and_section'],
-                    'course_id' => $request['course_id'],
-                    'contact' => $request['mobile_number'],
-                    'address' => $request['address'],
-                    'gender' => $request['gender'],
-                    'date_of_birth' => $request['date_of_birth'],          
-                ]);
-            
-                AcademicApplication::where('application_id',$id)->update ([
-                'application_status' => 'approved'
-                ]);
+
+            $controlNumber_Exists = false;
+            $applyToMembership_id = AcademicApplication::where('academic_membership_id',$request->membership_id)->first();
+            $application_lists = AcademicApplication::all();
+
+            foreach ($application_lists as $listItem) {
                 
-                return redirect()->back()->with('success','Application approved!');
-            } else {
-                abort(403);
+                if ($listItem->application_id == $applyToMembership_id->application_id && $applyToMembership_id == $listItem->membership_id) {
+                    
+                    $controlNumber_Exists = true;                 
+                    return redirect()->back()->with('error', 'Control number is already taken. Note: no control number is allowred to be repeated in the same membership.');
+                }        
+            } 
+            if ($controlNumber_Exists == false) {
+                    if ($orgId == $organizationID) {
+                    Academic_Members::create([
+                        'membership_id' => $request['membership_id'],
+                        'organization_id' => $request['organization_id'],
+                        'course_id' => $request['course_id'],
+                        'user_id' => $request['user_id'],
+                        'control_number' => $request['control_number'],
+                        'first_name' => $request['first_name'],
+                        'middle_name' => $request['middle_name'],
+                        'last_name' => $request['last_name'],
+                        'email' => $request['email'],
+                        'student_number' =>$request['student_number'],
+                        'year_and_section' => $request['year_and_section'],
+                        'course_id' => $request['course_id'],
+                        'contact' => $request['mobile_number'],
+                        'address' => $request['address'],
+                        'gender' => $request['gender'],
+                        'date_of_birth' => $request['date_of_birth'],          
+                    ]);
+                
+                    AcademicApplication::where('application_id',$id)->update ([
+                    'application_status' => 'approved'
+                    ]);
+                    
+                    return redirect()->back()->with('success','Application approved!');
+                } else {
+                    abort(403);
+                }
             }
         }else{
             abort(403);
        }
+        
     }
     /**
      * Remove the specified resource from storage.

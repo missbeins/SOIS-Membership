@@ -83,6 +83,7 @@ class UserController extends Controller
                                     ->join('organizations','organizations.organization_id','=','courses.organization_id')
                                     ->where('courses.organization_id',$organizationID)
                                     ->where('role_user.role_id', 8)
+                                    ->sortable()
                                     ->paginate(5);
                 $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
                                     ->select()
