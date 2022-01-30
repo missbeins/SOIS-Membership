@@ -36,29 +36,31 @@
             <table class="table table-striped">
                 
                 <thead>
-                    <th class="col-md-1">#</th>
+                    <th class="col-md-3">Received At</th>
                     <th class="col-md-3">Message From</th>
-                    <th class="col-md-5">Message</th>
-                    <th class="col-md-3">Action</th>
+                    
+                    <th class="col-md-4">Message</th>
+                    <th class="col-md-2">Action</th>
                 </thead>
                 <tbody>
                     @if ($membership_messages->isNotEmpty())
                         @foreach ($membership_messages as $message)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{date_format(date_create($message->created_at), 'F d, Y / H:i a' )   }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
+                               
                                 <td>{{Str::limit( $message->reply, 20, $end='.......')}}</td>
                                 <td>
                                     <!-- Button trigger accept modal -->
                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewmessage{{ $message->reply_id }}">
                                         <i class="fas fa-eye"></i> View
                                     </button>
-                                    @include('admin.messages.includes.inbox.view-message')
+                                    @include('admin.messages.nonacademic.includes.inbox.view-message')
                                     <!-- Button trigger accept modal -->
                                     <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#replymessage{{ $message->reply_id }}">
                                         <i class="fas fa-reply"></i> Reply
                                     </button>
-                                    @include('admin.messages.includes.inbox.reply-message')
+                                    @include('admin.messages.nonacademic.includes.inbox.reply-message')
                                     {{-- <!-- Button trigger accept modal -->
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletemessage">
                                         <i class="fas fa-trash-alt"></i> Delete

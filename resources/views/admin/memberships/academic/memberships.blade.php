@@ -98,7 +98,7 @@
                                         <td class="pt-4">{{ $membership->am_status }}</td>
                                         <td class="pt-4">
                                                 <a role="button" class="btn btn-sm btn-primary"
-                                                    href="{{ route('membership.admin.academicmembership.edit',[ $membership->academic_membership_id, $membership->organization_id]) }}">
+                                                    href="{{ route('membership.admin.academic.academicmembership.edit',[ $membership->academic_membership_id, $membership->organization_id]) }}">
                                                     <i class="fas fa-user-edit"></i> Edit
                                                 </a>
                                                 {{-- <button type="button" class="btn btn-sm btn-danger"

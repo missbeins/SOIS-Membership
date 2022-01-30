@@ -24,7 +24,7 @@ class AcademicMembershipController extends Controller
         return array_search($role, array_column($roles, 'role'));
     }
     /**
-    /**
+
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -115,7 +115,7 @@ class AcademicMembershipController extends Controller
             ]);
 
             $request->session()->flash('success','Successfully added new membership!');
-            return redirect(route('membership.admin.academicmembership.index'));
+            return redirect(route('membership.admin.academic.academicmembership.index'));
         }else{
             abort(403);
         }
@@ -227,7 +227,7 @@ class AcademicMembershipController extends Controller
                 ]);
 
                 $request->session()->flash('success','Membership updated!');
-                return redirect(route('membership.admin.academicmembership.index'));
+                return redirect(route('membership.admin.academic.academicmembership.index'));
 
             } else {
                 abort(403);

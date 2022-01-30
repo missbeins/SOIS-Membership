@@ -40,6 +40,7 @@ class NonAcademicMessagesController extends Controller
             $membership_messages = Membership_replies::join('users','users.user_id','=','membership_replies.user_id')
                                 ->join('organizations','organizations.organization_id','=','membership_replies.organization_id')
                                 ->where('membership_replies.organization_id', $organizationID)
+                                ->orderBy('reply_id', 'DESC')
                                 ->get();
 
             return view('admin.messages.nonacademic.inbox', compact('membership_messages'));

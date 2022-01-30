@@ -150,7 +150,7 @@ class AcademicApplicationController extends Controller
                 'first_name' => ['required','string'],
                 'middle_name' => ['nullable','string'],
                 'last_name' => ['required','string'],
-                'student_number' => ['nullable','string'],
+                'student_number' => ['nullable','string','unique:expected_applicants'],
                 'organization_id' => ['required','integer'],
                 'suffix' =>['nullable','string']
             ]);

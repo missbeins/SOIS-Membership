@@ -183,7 +183,7 @@ class UserController extends Controller
                 Password::sendResetLink($request->only(['email']));
                 $request->session()->flash('success','Successfully added new user!');
                 
-                return redirect(route('membership.admin.users.index'));
+                return redirect(route('membership.admin.academic.users.index'));
             }else{
                 abort(403);
             }
@@ -396,7 +396,7 @@ class UserController extends Controller
                         
                         $request->session()->flash('success','Successfully edited user!');
                         
-                        return redirect(route('membership.admin.users.index'));
+                        return redirect(route('membership.admin.academic.users.index'));
                         
                         
                     } else { 

@@ -1,7 +1,7 @@
 
   <!-- Modal -->
   
-  <div class="modal fade" id="staticBackdrop{{ $member->academic_member_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="staticBackdrop{{ $member->non_academic_member_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -9,7 +9,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form class="row g-3" action="{{ route('membership.admin.academicmessage-member', $member->academic_member_id) }}" method="POST">
+            <form class="row g-3" action="{{ route('membership.admin.nonacademic.nonacademicmessage-member', $member->non_academic_member_id) }}" method="POST">
             
                 @csrf
                 <input type="hidden" name="organization_id" value="{{ $member->organization_id }}">

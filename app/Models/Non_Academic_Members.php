@@ -12,21 +12,23 @@ class Non_Academic_Members extends Model
     protected $table = 'non_academic_members';
 
     protected $fillable = [
-        'user_id',
+        'membership_id',
         'organization_id',
-        'course',
+        'course_id',
+        'user_id',
         'first_name',
         'middle_name',
         'last_name',
+        'suffix',
         'contact',
         'student_number',
         'email',
         'gender',
-        'address',
         'date_of_birth',
         'year_and_section',
-        'subscription',
-        'approval_status',
+        'membership_status',
+        'address',
+        'control_number'
         
     ];
 

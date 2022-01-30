@@ -18,7 +18,7 @@ class UserOrganizationsController extends Controller
                     ->where('user_id',$user_id)
                     ->where('membership_status','paid')->get();
        
-        return view('users.academic.academic-organizations',compact('organizations'));
+        return view('users.Academic.academic-organizations',compact('organizations'));
     }
 
 

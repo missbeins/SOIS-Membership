@@ -53,7 +53,7 @@
                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewmessage{{ $message->message_id }}">
                                         <i class="fas fa-eye"></i> View
                                     </button>
-                                    @include('admin.messages.includes.sent.view-message')
+                                    @include('admin.messages.nonacademic.includes.sent.view-message')
                                     {{-- <!-- Button trigger accept modal -->
                                     <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#replymessage">
                                         <i class="fas fa-reply"></i> Reply

@@ -25,6 +25,7 @@ use App\Http\Controllers\User\Nonacademic\UserNonacademicApplicationController;
 
 use App\Http\Controllers\InformationVerificationController;
 use App\Http\Controllers\User\Nonacademic\NonAcadsUserApplicationsController;
+use App\Http\Controllers\User\Nonacademic\UserNonAcademicOrgsController;
 use App\Http\Controllers\User\UpdateProfileController;
 use App\Http\Controllers\User\UserProfileController;
 
@@ -154,7 +155,7 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('my-applications', [UserApplicationsController::class, 'index'])->name('my-applications');
             Route::post('my-applications', [UserApplicationsController::class, 'store'])->name('apply');
             Route::post('messages/reply/{message}',[AcademicMessagesController::class, 'replyMessage'])->name('reply');
-            Route::delete('messages/delete/{message}',[AcademicMessagesController::class, 'deleteMessage'])->name('delete');
+            // Route::delete('messages/delete/{message}',[AcademicMessagesController::class, 'deleteMessage'])->name('delete');
         });
 
           //USER NON ACADEMIC CONTROLLERS ROUTES
@@ -163,7 +164,13 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('my-applications', [NonAcadsUserApplicationsController::class, 'index'])->name('my-applications');
             Route::get('application-form', [UserNonacademicApplicationController::class, 'showForm'])->name('nonacademic-application');
             Route::post('applications',[UserNonacademicApplicationController::class, 'store'])->name('application-store');
-
+            Route::get('my-organizations', [UserNonAcademicOrgsController::class, 'index'])->name('my-organizations');
+            Route::get('my-applications', [NonAcadsUserApplicationsController::class, 'index'])->name('my-applications');
+            Route::get('messages/inbox', [UserNonAcademicMessagesController::class, 'index'])->name('messages');
+            Route::get('messages/sent', [UserNonAcademicMessagesController::class, 'sent'])->name('sent');
+            Route::post('messages/reply/{message}',[UserNonAcademicMessagesController::class, 'replyMessage'])->name('reply');
+            
+            // Route::delete('messages/delete/{message}',[AcademicMessagesController::class, 'deleteMessage'])->name('delete');
         
         });
         Route::get('profile', UserProfileController::class)->name('profile');

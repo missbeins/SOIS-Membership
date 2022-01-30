@@ -53,12 +53,12 @@
                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewmessage{{ $message->reply_id }}">
                                         <i class="fas fa-eye"></i> View
                                     </button>
-                                    @include('admin.messages.includes.inbox.view-message')
+                                    @include('admin.messages.academic.includes.inbox.view-message')
                                     <!-- Button trigger accept modal -->
                                     <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#replymessage{{ $message->reply_id }}">
                                         <i class="fas fa-reply"></i> Reply
                                     </button>
-                                    @include('admin.messages.includes.inbox.reply-message')
+                                    @include('admin.messages.academic.includes.inbox.reply-message')
                                     {{-- <!-- Button trigger accept modal -->
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletemessage">
                                         <i class="fas fa-trash-alt"></i> Delete
