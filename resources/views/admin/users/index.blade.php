@@ -47,6 +47,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if ($users->isNotEmpty())
                             @foreach ($users as $user)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
@@ -74,9 +75,15 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @else
+                            <tr><td colspan="4">No results found!</td></tr>
+                           @endif
                         </tbody>
                     </table>
-                    {{ $users->links() }}
+                    {!! $users->appends(Request::except('page'))->render() !!}
+                    <p class="text-center">
+                        Displaying {{$users->count()}} of {{ $users->total() }} users.
+                </p>
                 </div>
             </div>
         </div>

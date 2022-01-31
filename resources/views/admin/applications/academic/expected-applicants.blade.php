@@ -34,8 +34,8 @@
         </div>
     @endif
     <div class="card">
-        <div class="card-header">
-            <h5 class="float-left">Expected Registrants</h5>
+        <div class=" card-header text-light" style="background-color: #c62128">
+            <h6 class="float-left">Expected Registrants</h6>
             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
                         data-bs-target="#ImportRegistrant">
                         Import Registrants
@@ -124,7 +124,11 @@
                     @endif
                 </tbody>
             </table>
-            {{ $expected_applicants->links() }}
+            {!! $expected_applicants->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+
+                Displaying {{$expected_applicants->count()}} of {{ $expected_applicants->total() }} registrants.
+            </>
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@ class Declined_Nonaapplications extends Model
     use HasFactory;
     use Sortable;
     protected $table = 'declined_naapplications';
-    protected $primaryKey = 'declined_nonaapp_id';
+    protected $primaryKey = 'declined_naapp_id';
     protected $fillable = ['reason','application_id'];
-    protected $sortable = ['reason','application_id','created_at'];
+    protected $sortable = ['declined_naapp_id','reason','application_id','created_at'];
 }

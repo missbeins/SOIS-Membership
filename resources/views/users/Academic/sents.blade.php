@@ -32,7 +32,13 @@
         </div>
 @endif
 <div class="card text-dark bg-light mb-3">
-    <div class=" card-header text-light" style="background-color: #c62128"><h3>Sents</h3></div>
+    <div class=" card-header text-light" style="background-color: #9c0000"><h3>Sents</h3>
+         {{-- <!-- Button trigger accept modal -->
+         <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#newmessage">
+            <i class="fas fa-comments"></i> New Message
+        </button>
+        @include('user.includes.new-message') --}}
+    </div>
     <div class="card-body">
         @if (isset($messages))
             <table class="table table-striped">
@@ -76,6 +82,10 @@
                     
                 </tbody>
             </table>
+            {!! $messages->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+                Displaying {{$messages->count()}} of {{ $messages->total() }} messages.
+            </p>
         @endif
     </div>
 </div>

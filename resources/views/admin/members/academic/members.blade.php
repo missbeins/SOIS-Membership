@@ -24,14 +24,14 @@
         </div>
      @endif
     <div class="card">
-        <div class="card-header">
+        <div class=" card-header text-light" style="background-color: #c62128; padding:10px 10px;">
             <div class="row">
                 <div class="col-md-8">
-                    <h4 class="float-left">Official Members</h4>
+                    <h5 class="float-left">Official Members</h5>
                 </div>
-                <form class="col-md-4 input-group" style="width:30%" action="{{ route('membership.admin.academic.academicmember-filter') }}" method="get">
+                <form class="col-md-4 input-group" style="width:30%; height:2px" action="{{ route('membership.admin.academic.academicmember-filter') }}" method="get">
                    @csrf
-                            <label class="input-group-text" for="inputGroupSelect01">{{ __('Filter') }}</label>
+                            <label class="input-group-text" style="border-top-left-radius:15%; border-bottom-left-radius:15%;" for="inputGroupSelect01">{{ __('Filter') }}</label>
                             <select class="form-control @error('query') is-invalid @enderror" id="inputGroupSelect01" name="query">
                                 <option selected disabled>Choose a membership...</option>
                                 @foreach ($academic_memberships as $academic_membership)
@@ -54,7 +54,7 @@
                 <thead>
                     <tr>
                         
-                        <th class="col-sm-3">@sortablelink('membership_id', 'Membership') <br><small class="text-primary"> Semester ( yyyy-mm-dd )</small></th>
+                        <th class="col-sm-3">@sortablelink('membership_id', 'Membership')</th>
                         <th scope="col-sm-3">@sortablelink('last_name','Name')</th>
                         <th scope="col-sm-2">@sortablelink('year_and_section','Year and Section')</th>
                         <th scope="col-sm-2">@sortablelink('contact','Contact')</th>
@@ -66,7 +66,7 @@
                         @foreach ($paidmembers as $member)
                             <tr>
                             
-                                <td>{{ $member->semester }}({{ $member->membership_start_date }} to {{ $member->membership_end_date }})</td>
+                                <td>{{ $member->semester }}({{date_format(date_create($member->membership_start_date), 'M. d, Y' )   }} - {{date_format(date_create($member->membership_end_date), 'M. d, Y' )   }})</td>
                                 <td>{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}</td>
                                 <td>{{ $member->year_and_section }}</td>
                                 <td>{{ $member->contact }}</td>
@@ -82,6 +82,10 @@
                     @endif
                 </tbody>
             </table>
+            {!! $paidmembers->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+                Displaying {{$paidmembers->count()}} of {{ $paidmembers->total() }} official members.
+            </p>
         </div>
     </div>
 </div>

@@ -21,7 +21,7 @@
            </nav>
        </div>
     <div class="card">
-        <div class="card-header">
+        <div class=" card-header text-light" style="background-color: #c62128">
             <div class="row">
                 <div class="col-md-8">
                     <h5 class="float-left">Membership Payments</h5>
@@ -49,11 +49,11 @@
                 <table class="table table-light table-sm table-striped table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th class="col-sm-1">@sortablelink('control_number','Control Number')</th>
+                            <th class="col-sm-2">@sortablelink('control_number','Control Number')</th>
                             <th scope="col-sm-3">@sortablelink('last_name','Name')</th>
                             <th scope="col-sm-2">@sortablelink('year_and_section','Year and Section')</th>
                             <th scope="col-sm-2">@sortablelink('contact','Contact')</th>
-                            <th class="col-sm-1">@sortablelink('membership_fee','Amount Paid')</th>
+                            <th class="col-sm-2">@sortablelink('membership_fee','Amount Paid')</th>
                             
                         </tr>
                     </thead>
@@ -64,7 +64,7 @@
                                     <td>{{ $member->control_number }}</td>
                                     <td>{{ $member->last_name }} {{ $member->suffix }}, {{ $member->first_name }}
                                         {{ $member->middle_name }}</td>
-                                    <td>{{ $member->email }}</td>
+                                    <td>{{ $member->year_and_section }}</td>
                                     <td>{{ $member->contact }}</td>
                                     <td>₱ {{ $member->membership_fee }}.00</td>
                                   

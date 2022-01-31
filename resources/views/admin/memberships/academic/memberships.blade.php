@@ -73,13 +73,13 @@
                     <table class="table table-hover table-striped table-bordered table-light ">
                         <thead>
                             <tr> 
-                                <th class="col-sm-1">#</th>
+                                <th class="col-sm-1">@sortablelink('academic_membership_id','#')</th>
                                 <th class="col-sm-1">@sortablelink('semester','Semester')</th>
                                 <th class="col-sm-1">@sortablelink('school_year','School Year')</th>
                                 <th class="col-sm-1">@sortablelink('membership_fee','Fee')</th>
-                                <th class="col-sm-1">@sortablelink('membership_start_date','Start Date')<br><small>( yyyy-mm-dd )</small></th>
-                                <th class="col-sm-1">@sortablelink('membership_end_date','End Date')<br><small>( yyyy-mm-dd )</small></th>
-                                <th class="col-sm-2">@sortablelink('registration_status','Registration Status') <br><small>( yyyy-mm-dd )</small></th>
+                                <th class="col-sm-1">@sortablelink('membership_start_date','Start Date')</th>
+                                <th class="col-sm-1">@sortablelink('membership_end_date','End Date')</th>
+                                <th class="col-sm-2">@sortablelink('registration_status','Registration Status')</th>
                                 <th class="col-sm-1">@sortablelink('am_status','Status')</th>
                                 <th class="col-sm-1">Actions</th>
                             </tr>
@@ -92,9 +92,9 @@
                                         <td class="pt-4">{{ $membership->semester }}</td>
                                         <td class="pt-4">{{ $membership->school_year }}</td>
                                         <td class="pt-4">₱ {{ $membership->membership_fee }}.00</td>
-                                        <td class="pt-4">{{ $membership->membership_start_date }}</td>
-                                        <td class="pt-4">{{ $membership->membership_end_date }}</td>
-                                        <td class="pt-4">{{ $membership->registration_status }}<br>( available from {{ $membership->registration_start_date }} to {{ $membership->registration_end_date }} )</td>
+                                        <td class="pt-4">{{date_format(date_create($membership->membership_start_date), 'M. d, Y' )   }}</td>
+                                        <td class="pt-4">{{date_format(date_create($membership->membership_end_date), 'M. d, Y' )   }}</td>
+                                        <td class="pt-4">{{ $membership->registration_status }}<br>( available from {{date_format(date_create($membership->registration_start_date), 'M. d, Y' )   }} to {{date_format(date_create($membership->registration_end_date), 'M. d, Y' )   }} )</td>
                                         <td class="pt-4">{{ $membership->am_status }}</td>
                                         <td class="pt-4">
                                                 <a role="button" class="btn btn-sm btn-primary"
@@ -121,7 +121,7 @@
                     </table>
                     
                     {!! $academic_memberships->appends(Request::except('page'))->render() !!}
-                    <p>
+                    <p class="text-center">
                         Displaying {{$academic_memberships->count()}} of {{ $academic_memberships->total() }} academic membership(s).
                     </p>
                 </div>

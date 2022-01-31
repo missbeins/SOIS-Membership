@@ -28,7 +28,7 @@ class Non_Academic_Membership extends Model
         'registration_status'
     ];
     protected $sortable = [
-        
+        'non_academic_membership_id',
         'semester',
         'school_year',
         'registration_start_date',

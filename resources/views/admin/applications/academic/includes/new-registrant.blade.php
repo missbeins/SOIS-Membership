@@ -4,11 +4,11 @@
         <div class="modal-content">
             <form action="{{ route('membership.admin.academic.academicapplication-addnewregistrant') }}" method="POST">
                 @csrf
-                <div class="modal-header">
+                <div class="modal-header text-dark">
                     <h5 class="modal-title" id="staticBackdropLabel">New Registrant</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-dark">
                        <div class="mb-1">
                         <small style="color: red">Note: All added registrants will only be allowed to register for accounts.</small>
 

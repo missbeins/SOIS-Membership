@@ -53,8 +53,8 @@ class AcademicMembersController extends Controller
             $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
                 ->where('academic_members.membership_status','=','paid')
                 ->where('academic_members.organization_id',$organizationID)
-                ->sortable()
-                ->get();
+                ->sortable(['academic_member_id','DESC'])
+                ->paginate(10);
             $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
                 ->get();
             return view('admin.members.academic.members',compact(['paidmembers','academic_memberships']));
@@ -88,11 +88,11 @@ class AcademicMembersController extends Controller
                 $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
                     ->get();
                 $query = $_GET['query'];
-                $paidmembers = DB::table('academic_members')
+                $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')        
                     ->where('membership_id','LIKE','%'.$query.'%')
                     ->where('membership_status','=','paid')
-                    ->where('organization_id',$organizationID)
-                    ->sortable()
+                    ->where('academic_members.organization_id',$organizationID)
+                    ->sortable(['academic_member_id','DESC'])
                     ->get();
                 return view('admin.members.academic.filter',compact(['paidmembers','academic_memberships']));
             

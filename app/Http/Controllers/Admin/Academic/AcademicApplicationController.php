@@ -59,7 +59,7 @@ class AcademicApplicationController extends Controller
             $acad_applications = AcademicApplication::join('academic_membership','academic_membership.academic_membership_id','=','academic_applications.membership_id')
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                             ->where('application_status','=','pending')
-                            ->sortable()
+                            ->sortable(['application_id','DESC'])
                             ->paginate(5, ['*'], 'applicants');
 
             return view('admin.applications.academic.applications', compact(['acad_applications','expected_applicants','courses','genders']));
@@ -86,7 +86,7 @@ class AcademicApplicationController extends Controller
             $organizationID = $userRoles[$userRoleKey]['organization_id'];
         
             $expected_applicants = Expected_Applicants::where('organization_id',$organizationID)
-                                ->sortable()
+                                ->sortable(['expected_applicant_id','DESC'])
                                 ->paginate(5, ['*'], 'expected-applicants');
 
             return view('admin.applications.academic.expected-applicants', compact('expected_applicants'));
@@ -119,7 +119,7 @@ class AcademicApplicationController extends Controller
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                             ->join('declined_aapplications','declined_aapplications.application_id','=','academic_applications.application_id')
                             ->where('application_status','=','declined')
-                            ->sortable()
+                            ->sortable(['declined_aapp_id','DESC'])
                             ->paginate(5, ['*'], 'applicants');
             
 
@@ -218,12 +218,11 @@ class AcademicApplicationController extends Controller
             ]);
 
             $controlNumber_Exists = false;
-            $applyToMembership_id = AcademicApplication::where('academic_membership_id',$request->membership_id)->first();
-            $application_lists = AcademicApplication::all();
-
-            foreach ($application_lists as $listItem) {
+            $getexistingControlNumber = Academic_Members::select('control_number','membership_id')->get();
+            // dd($getexistingControllNumber);
+            foreach ($getexistingControlNumber as $number) {
                 
-                if ($listItem->application_id == $applyToMembership_id->application_id && $applyToMembership_id == $listItem->membership_id) {
+                if ($number->control_number == $request->control_number && $number->membership_id == $request->membership_id) {
                     
                     $controlNumber_Exists = true;                 
                     return redirect()->back()->with('error', 'Control number is already taken. Note: no control number is allowred to be repeated in the same membership.');

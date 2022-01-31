@@ -12,7 +12,8 @@ class UserAcademicApplicationsController extends Controller
 {
     public function showForm()
     {
-        $academic_memberships = Academic_Membership::where('registration_status','=','Open')->where('registration_status','=','open')
+        $academic_memberships = Academic_Membership::where('registration_status','=','Open')
+            ->where('am_status','=','Active')
             ->get();
             
         return view('users.Academic.application',compact('academic_memberships'));

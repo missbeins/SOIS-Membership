@@ -36,7 +36,7 @@
             <table class="table table-striped">
                 
                 <thead>
-                    <th class="col-md-3">@sortablelink('created_at','Received At')</th>
+                    <th class="col-md-3">@sortablelink('reply_id','Received At')</th>
                     <th class="col-md-3">@sortablelink('first_name','Message From')</th>
                     
                     <th class="col-md-4">@sortablelink('reply','Message')</th>
@@ -46,7 +46,7 @@
                     @if ($membership_messages->isNotEmpty())
                         @foreach ($membership_messages as $message)
                             <tr>
-                                <td>{{ $message->created_at->format('F d, Y - H:i a') }}</td>
+                                <td>{{ $message->created_at->format('F d, Y') }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
                                
                                 <td>{{Str::limit( $message->reply, 20, $end='.......')}}</td>
@@ -76,6 +76,10 @@
                     
                 </tbody>
             </table>
+            {!! $membership_messages->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+                Displaying {{$membership_messages->count()}} of {{ $membership_messages->total() }} messages.
+            </p>
         @endif
     </div>
 </div>

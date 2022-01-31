@@ -55,8 +55,10 @@
                                     @endforeach
                             </tbody>
                         </table>
-                        {{ $academic_memberships->links() }}
-                    </div>
+                        {!! $academic_memberships->appends(Request::except('page'))->render() !!}
+                        <p>
+                            Displaying {{$academic_memberships->count()}} of {{ $academic_memberships->total() }} academic membership(s).
+                        </p>                    </div>
                 </div>
             </div>
         </div>
@@ -71,15 +73,17 @@
                 <table class="table table-sm table-striped table-hover table-responsive text-center">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Organization</th>
-                            <th scope="col">Semester</th>
-                            <th scope="col">Schol Year</th>
-                            <th scope="col">Fee</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">@sortablelink('application_id','#')</th>
+                            <th scope="col">@sortablelink('organization_name','Organization')</th>
+                            <th scope="col">@sortablelink('semester','Semester')</th>
+                            <th scope="col">@sortablelink('school_year','School Year')</th>
+                            <th scope="col">@sortablelink('membership_fee','Fee')</th>
+                            <th scope="col">@sortablelink('application_status','Status')</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @if ($application_statuses->isNotEmpty())
+
                         @foreach ($application_statuses as $application_status)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -90,8 +94,15 @@
                                 <td>{{ $application_status->application_status }}</td>
                             </tr>
                         @endforeach
+                        @else
+                            <tr><td class="text-center" colspan="6">No results found!</td></tr>
+                        @endif
                     </tbody>
                 </table>
+                {!! $application_statuses->appends(Request::except('page'))->render() !!}
+                <p class="text-center">
+                    Displaying {{$application_statuses->count()}} of {{ $application_statuses->total() }} application statuses.
+                </p>
             </div>
         </div>
     </div>

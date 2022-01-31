@@ -25,7 +25,7 @@ use App\Http\Controllers\User\Nonacademic\UserNonacademicApplicationController;
 
 use App\Http\Controllers\InformationVerificationController;
 use App\Http\Controllers\User\Nonacademic\NonAcadsUserApplicationsController;
-use App\Http\Controllers\User\Nonacademic\UserNonAcademicOrgsController;
+use App\Http\Controllers\User\Nonacademic\UserNonAcadsOrgsController;
 use App\Http\Controllers\User\UpdateProfileController;
 use App\Http\Controllers\User\UserProfileController;
 
@@ -107,6 +107,8 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('messages/inbox', [MessageController::class, 'inbox'])->name('inbox');
             Route::get('messages/sent', [MessageController::class, 'sent'])->name('sent');
             Route::post('messages/reply/{message}', [MessageController::class, 'reply'])->name('reply');
+            Route::put('messages/read/{message}', [MessageController::class, 'read'])->name('read');
+
         });
         Route::prefix('nonacademic')->middleware('auth')->name('nonacademic.')->group(function () {
 
@@ -138,6 +140,8 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('messages/inbox', [NonAcademicMessagesController::class, 'inbox'])->name('inbox');
             Route::get('messages/sent', [NonAcademicMessagesController::class, 'sent'])->name('sent');
             Route::post('messages/reply/{message}', [NonAcademicMessagesController::class, 'reply'])->name('reply');
+            Route::put('messages/read/{message}', [NonAcademicMessagesController::class, 'read'])->name('read');
+
         });
     });
      
@@ -155,6 +159,8 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('my-applications', [UserApplicationsController::class, 'index'])->name('my-applications');
             Route::post('my-applications', [UserApplicationsController::class, 'store'])->name('apply');
             Route::post('messages/reply/{message}',[AcademicMessagesController::class, 'replyMessage'])->name('reply');
+            Route::put('messages/read/{message}',[AcademicMessagesController::class, 'read'])->name('read');
+
             // Route::delete('messages/delete/{message}',[AcademicMessagesController::class, 'deleteMessage'])->name('delete');
         });
 
@@ -164,7 +170,7 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('my-applications', [NonAcadsUserApplicationsController::class, 'index'])->name('my-applications');
             Route::get('application-form', [UserNonacademicApplicationController::class, 'showForm'])->name('nonacademic-application');
             Route::post('applications',[UserNonacademicApplicationController::class, 'store'])->name('application-store');
-            Route::get('my-organizations', [UserNonAcademicOrgsController::class, 'index'])->name('my-organizations');
+            Route::get('my-organizations', [UserNonAcadsOrgsController::class, 'index'])->name('my-organizations');
             Route::get('my-applications', [NonAcadsUserApplicationsController::class, 'index'])->name('my-applications');
             Route::get('messages/inbox', [UserNonAcademicMessagesController::class, 'index'])->name('messages');
             Route::get('messages/sent', [UserNonAcademicMessagesController::class, 'sent'])->name('sent');

@@ -1,7 +1,20 @@
 @extends('membership.dashboard')
 
 @section('content')
+    {{-- Title and Breadcrumbs --}}
+<div class="d-flex justify-content-between align-items-center">
+    
+    {{-- Breadcrumbs --}}
+    <nav aria-label="breadcrumb align-items-center">
+        <ol class="breadcrumb justify-content-center ">
+            
+            <li class="breadcrumb-item active" aria-current="page">
+                Organizations / Non Academic Organizations
+            </li>
 
+        </ol>
+    </nav>
+</div>
     <div class="card">
         <div class=" card-header text-light" style="background-color: #c62128">Non-academic Organizations</div>
         <div class="card-body">
@@ -13,6 +26,8 @@
                     <th>@sortablelink('nam_status','Status')</th>
                 </thead>
                 <tbody>
+                    @if ($organizations->isNotEmpty())
+
                     @foreach ($organizations as $organization)
                         <tr>
                             <td>{{ $organization->organization_name }}</td>
@@ -26,8 +41,15 @@
                             
                         </tr>
                     @endforeach
+                    @else
+                    <tr><td colspan="4">No results found!</td></tr>
+                   @endif
                 </tbody>
             </table>
+            {!! $organizations->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+                Displaying {{$organizations->count()}} of {{ $organizations->total() }} organizations.
+            </p>
         </div>
     </div>
 

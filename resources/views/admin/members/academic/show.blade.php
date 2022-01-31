@@ -19,7 +19,7 @@
             </nav>
         </div>
         <div class="card">
-            <div class="card-header">{{ __("Members Profile") }}</div>
+            <div class=" card-header text-light" style="background-color: #c62128">{{ __("Members Profile") }}</div>
             <div class="card-body">
                 <form>
                     <div class="form-group row mb-2">

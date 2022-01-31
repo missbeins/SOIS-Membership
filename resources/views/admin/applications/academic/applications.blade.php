@@ -18,10 +18,10 @@
         </nav>
     </div>
     <div class="card">
-        <div class="card-header">
+        <div class=" card-header text-light" style="background-color: #c62128">
             <div class="row">
                 <div class="col-md-12">
-                    <h5 class="float-left">Membership Application Requests</h5>
+                    <h6 class="float-left">Membership Application Requests</h6>
                 </div>
             </div>
         </div>
@@ -66,6 +66,10 @@
                 </tbody>
             </table>
             {{ $acad_applications->links() }}
+            {!! $acad_applications->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+                Displaying {{$acad_applications->count()}} of {{ $acad_applications->total() }} applications.
+            </p>
         </div>
     </div>
 </div>

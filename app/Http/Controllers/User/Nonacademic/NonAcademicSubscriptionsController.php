@@ -16,7 +16,7 @@ class NonAcademicSubscriptionsController extends Controller
                     ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                     ->where('user_id',$user_id)
                     ->where('membership_status','unpaid')
-                    ->sortable()
+                    ->sortable([''])
                     ->get();
        return view('users.nonacademic.user-subscription',compact('organizations'));
     }

@@ -28,7 +28,8 @@ class Academic_Membership extends Model
         'registration_status'
     ];
     public $sortable = [ 
-        'academic_membership_id','semester',
+        'academic_membership_id',
+        'semester',
         'school_year',
         'registration_start_date',
         'registration_end_date',

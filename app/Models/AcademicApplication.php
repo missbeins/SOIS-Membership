@@ -31,6 +31,7 @@ class AcademicApplication extends Model
         'application_status'
     ];
     protected $sortable = [
+        'application_id',
         'user_id',
         'organization_id',
         'course_id',

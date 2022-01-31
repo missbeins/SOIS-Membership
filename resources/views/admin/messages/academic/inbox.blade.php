@@ -29,8 +29,8 @@
             @endforeach
         </div>
  @endif
-<div class="card text-dark bg-light mb-3">
-    <div class=" card-header text-light" style="background-color: #c62128"><h3>Inbox</h3></div>
+<div class="card">
+    <div class=" card-header text-light" style="background-color: #c62128"><h5>Inbox</h5></div>
     <div class="card-body">
         @if (isset($membership_messages))
             <table class="table table-striped">
@@ -74,6 +74,10 @@
                     
                 </tbody>
             </table>
+            {!! $membership_messages->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+                Displaying {{$membership_messages->count()}} of {{ $membership_messages->total() }} messages.
+            </p>
         @endif
     </div>
 </div>

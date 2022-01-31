@@ -55,7 +55,7 @@ class NonAcademicApplicationsController extends Controller
            $nonacad_applications = Non_Academic_Applications::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_applications.membership_id')
                            ->join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
                            ->where('application_status','=','pending')
-                           ->sortable()
+                           ->sortable(['application_id','DESC'])
                            ->paginate(5, ['*'], 'applicants');
 
            return view('admin.applications.nonacademic.applications', compact(['nonacad_applications','courses','genders']));
@@ -87,7 +87,7 @@ class NonAcademicApplicationsController extends Controller
                            ->join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
                            ->join('declined_naapplications','declined_naapplications.application_id','=','non_academic_applications.application_id')
                            ->where('application_status','=','declined')
-                           ->sortable()
+                           ->sortable(['declined_naapp_id','DESC'])
                            ->paginate(5, ['*'], 'applicants');
            
 
@@ -104,76 +104,91 @@ class NonAcademicApplicationsController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-   public function accept(Request $request, $id, $orgId ){
-       if (Gate::allows('is-admin')) {
-           // Pluck all User Roles
-           $userRoleCollection = Auth::user()->roles;
+    public function accept(Request $request, $id, $orgId ){
+        if (Gate::allows('is-admin')) {
+            // Pluck all User Roles
+            $userRoleCollection = Auth::user()->roles;
 
-           // Remap User Roles into array with Organization ID
-           $userRoles = array();
-           foreach ($userRoleCollection as $role) 
-           {
-               array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
-           }
+            // Remap User Roles into array with Organization ID
+            $userRoles = array();
+            foreach ($userRoleCollection as $role) 
+            {
+                array_push($userRoles, ['role' => $role->role, 'organization_id' => $role->pivot->organization_id]);
+            }
 
-           // If User has MEMBERSHIP Admin role...
-       
-           $memberRoleKey = $this->hasRole($userRoles,'User');
-           // Get the Organization from which the user is Membeship Admin
-           $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
-           $organizationID = $userRoles[$userRoleKey]['organization_id'];
-           
-           
-           $request->validate([
-               'application_id' =>['required'],
-               'membership_id' =>['required'],
-               'organization_id' =>['required'],
-               'user_id' =>['required'],
-               'control_number' => ['required'],
-               'first_name' => ['required', 'string', 'max:255'],
-               'middle_name' => ['string', 'max:255'],
-               'last_name' => ['required', 'string', 'max:255'],
-               'email' => ['required', 'string', 'email', 'max:255'],
-               'student_number' => ['required', 'string', 'max:50'],
-               'year_and_section' => ['required', 'string', 'max:255'],
-               'course_id' => ['required', 'string'],
-               'mobile_number' => ['required', 'string'],
-               'date_of_birth' => ['required', 'date'],
-               'gender' => ['required', 'string'], 
-               'address' => ['required', 'string'], 
-           ]);
-           if ($orgId == $organizationID) {
-               Non_Academic_Members::create([
-                   'membership_id' => $request['membership_id'],
-                   'organization_id' => $request['organization_id'],
-                   'course_id' => $request['course_id'],
-                   'user_id' => $request['user_id'],
-                   'control_number' => $request['control_number'],
-                   'first_name' => $request['first_name'],
-                   'middle_name' => $request['middle_name'],
-                   'last_name' => $request['last_name'],
-                   'email' => $request['email'],
-                   'student_number' =>$request['student_number'],
-                   'year_and_section' => $request['year_and_section'],
-                   'course_id' => $request['course_id'],
-                   'contact' => $request['mobile_number'],
-                   'address' => $request['address'],
-                   'gender' => $request['gender'],
-                   'date_of_birth' => $request['date_of_birth'],          
-               ]);
-           
-               Non_Academic_Applications::where('application_id',$id)->update ([
-               'application_status' => 'approved'
-               ]);
-               
-               return redirect()->back()->with('success','Application approved!');
-           } else {
-               abort(403);
-           }
-       }else{
-           abort(403);
-      }
-   }
+            // If User has MEMBERSHIP Admin role...
+        
+            $memberRoleKey = $this->hasRole($userRoles,'User');
+            // Get the Organization from which the user is Membeship Admin
+            $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
+            $organizationID = $userRoles[$userRoleKey]['organization_id'];
+            
+            
+            $request->validate([
+                'application_id' =>['required'],
+                'membership_id' =>['required'],
+                'organization_id' =>['required'],
+                'user_id' =>['required'],
+                'control_number' => ['required'],
+                'first_name' => ['required', 'string', 'max:255'],
+                'middle_name' => ['string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'student_number' => ['required', 'string', 'max:50'],
+                'year_and_section' => ['required', 'string', 'max:255'],
+                'course_id' => ['required', 'string'],
+                'mobile_number' => ['required', 'string'],
+                'date_of_birth' => ['required', 'date'],
+                'gender' => ['required', 'string'], 
+                'address' => ['required', 'string'], 
+            ]);
+
+            $controlNumber_Exists = false;
+            $getexistingControlNumber = Non_Academic_Members::select('control_number','membership_id')->get();
+            // dd($getexistingControllNumber);
+            foreach ($getexistingControlNumber as $number) {
+                
+                if ($number->control_number == $request->control_number && $number->membership_id == $request->membership_id) {
+                    
+                    $controlNumber_Exists = true;                 
+                    return redirect()->back()->with('error', 'Control number is already taken. Note: no control number is allowred to be repeated in the same membership.');
+                }        
+            } 
+            if ($controlNumber_Exists == false) {
+                    if ($orgId == $organizationID) {
+                        Non_Academic_Members::create([
+                        'membership_id' => $request['membership_id'],
+                        'organization_id' => $request['organization_id'],
+                        'course_id' => $request['course_id'],
+                        'user_id' => $request['user_id'],
+                        'control_number' => $request['control_number'],
+                        'first_name' => $request['first_name'],
+                        'middle_name' => $request['middle_name'],
+                        'last_name' => $request['last_name'],
+                        'email' => $request['email'],
+                        'student_number' =>$request['student_number'],
+                        'year_and_section' => $request['year_and_section'],
+                        'course_id' => $request['course_id'],
+                        'contact' => $request['mobile_number'],
+                        'address' => $request['address'],
+                        'gender' => $request['gender'],
+                        'date_of_birth' => $request['date_of_birth'],          
+                    ]);
+                
+                    Non_Academic_Applications::where('application_id',$id)->update ([
+                    'application_status' => 'approved'
+                    ]);
+                    
+                    return redirect()->back()->with('success','Application approved!');
+                } else {
+                    abort(403);
+                }
+            }
+        }else{
+            abort(403);
+       }
+        
+    }
    /**
     * Remove the specified resource from storage.
     *

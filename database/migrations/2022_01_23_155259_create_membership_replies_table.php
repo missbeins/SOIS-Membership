@@ -21,6 +21,8 @@ class CreateMembershipRepliesTable extends Migration
             $table->foreignId('organization_id');
 
             $table->string('reply');
+            $table->string('status')->default('unread');
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users');

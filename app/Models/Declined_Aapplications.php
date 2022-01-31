@@ -13,5 +13,5 @@ class Declined_Aapplications extends Model
     protected $table = 'declined_aapplications';
     protected $primaryKey = 'declined_aapp_id';
     protected $fillable = ['reason','application_id'];
-    protected $sortable = ['reason','application_id','created_at'];
+    protected $sortable = ['declined_aapp_id','reason','application_id','created_at'];
 }

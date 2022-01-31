@@ -76,6 +76,10 @@
                     
                 </tbody>
             </table>
+            {!! $membership_messages->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+                Displaying {{$membership_messages->count()}} of {{ $membership_messages->total() }} messages.
+            </p>
         @endif
     </div>
 </div>

@@ -18,10 +18,10 @@
         </nav>
     </div>
     <div class="card">
-        <div class="card-header">
+        <div class=" card-header text-light" style="background-color: #c62128">
             <div class="row">
                 <div class="col-md-12">
-                    <h5 class="float-left">Membership Application Requests</h5>
+                    <h6 class="float-left">Membership Application Requests</h6>
                 </div>
             </div>
         </div>
@@ -65,7 +65,10 @@
                     @endif    
                 </tbody>
             </table>
-            {{ $nonacad_applications->links() }}
+            {!! $nonacad_applications->appends(Request::except('page'))->render() !!}
+            <p class="text-center">
+                Displaying {{$nonacad_applications->count()}} of {{ $nonacad_applications->total() }} applications.
+            </p>
         </div>
     </div>
 </div>

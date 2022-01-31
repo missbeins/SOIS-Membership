@@ -63,6 +63,8 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if ($application_statuses->isNotEmpty())
+
                                 @foreach ($application_statuses as $application_status)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -73,8 +75,15 @@
                                         <td>{{ $application_status->application_status }}</td>
                                     </tr>
                                 @endforeach
+                                @else
+                                    <tr><td class="text-center" colspan="6">No results found!</td></tr>
+                                @endif
                             </tbody>
                         </table>
+                        {!! $application_statuses->appends(Request::except('page'))->render() !!}
+                        <p class="text-center">
+                            Displaying {{$application_statuses->count()}} of {{ $application_statuses->total() }} application statuses.
+                        </p>
                     </div>
                 </div>
             </div>

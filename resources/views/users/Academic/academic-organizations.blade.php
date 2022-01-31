@@ -26,6 +26,7 @@
                 <th>@sortablelink('am_status','Status')</th>
             </thead>
             <tbody>
+                @if ($organizations->isNotEmpty())
                 @foreach ($organizations as $organization)
                     <tr>
                         <td>{{ $organization->organization_name }}</td>
@@ -39,8 +40,15 @@
                         
                     </tr>
                 @endforeach
+                @else
+                <tr><td colspan="4">No results found!</td></tr>
+               @endif
             </tbody>
         </table>
+        {!! $organizations->appends(Request::except('page'))->render() !!}
+        <p class="text-center">
+            Displaying {{$organizations->count()}} of {{ $organizations->total() }} organizations.
+                </p>
     </div>
 </div>
 

@@ -128,7 +128,7 @@
                         </button>
                     <div class="dropdown-container">
                         <a href="{{ route('membership.user.academic.my-organizations') }}"><i class="fas fa-user-friends me-2"></i>Academic</a>
-                        <a href=""><i class="fas fa-user-friends me-2"></i>Non-academic</a></a>
+                        <a href="{{ route('membership.user.nonacademic.my-organizations') }}"><i class="fas fa-user-friends me-2"></i>Non-academic</a></a>
                     </div>
         
                     <button class="dropdown-btn second-text fw-bold"><i
