@@ -31,13 +31,13 @@
                       
                     </div>
                     <div class="card-body">
-                        <table class="table table-sm table-striped table-hover table-responsive">
+                        <table class="table table-sm table-striped table-hover table-responsive" id="usermemberships">
                             <thead>
                                 <tr>
-                                    <th scope="col">@sortablelink('organization_name','Organization')</th>
-                                    <th scope="col">@sortablelink('semester','Semester')</th>
-                                    <th scope="col">@sortablelink('school_year','School Year')</th>
-                                    <th scope="col">@sortablelink('registration_status','Status')</th>
+                                    <th scope="col">Organization</th>
+                                    <th scope="col">Semester</th>
+                                    <th scope="col">School Year</th>
+                                    <th scope="col">Status</th>
                                     
                                 
                                 </tr>
@@ -55,10 +55,8 @@
                                     @endforeach
                             </tbody>
                         </table>
-                        {!! $academic_memberships->appends(Request::except('page'))->render() !!}
-                        <p>
-                            Displaying {{$academic_memberships->count()}} of {{ $academic_memberships->total() }} academic membership(s).
-                        </p>                    </div>
+                        {{ $academic_memberships->links() }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,15 +68,15 @@
             <div class=" card-header text-light" style="background-color: #c62128">Application Status
             </div>
             <div class="card-body">
-                <table class="table table-sm table-striped table-hover table-responsive text-center">
+                <table class="table table-sm table-striped table-hover table-responsive text-center" id="appStatuses">
                     <thead>
                         <tr>
-                            <th scope="col">@sortablelink('application_id','#')</th>
-                            <th scope="col">@sortablelink('organization_name','Organization')</th>
-                            <th scope="col">@sortablelink('semester','Semester')</th>
-                            <th scope="col">@sortablelink('school_year','School Year')</th>
-                            <th scope="col">@sortablelink('membership_fee','Fee')</th>
-                            <th scope="col">@sortablelink('application_status','Status')</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Organization</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">School Year</th>
+                            <th scope="col">Fee</th>
+                            <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,14 +97,41 @@
                         @endif
                     </tbody>
                 </table>
-                {!! $application_statuses->appends(Request::except('page'))->render() !!}
-                <p class="text-center">
-                    Displaying {{$application_statuses->count()}} of {{ $application_statuses->total() }} application statuses.
-                </p>
+                {{ $application_statuses->links() }}
             </div>
         </div>
     </div>
 </div>
 
         
+@endsection
+@push('scripts')
+    {{-- Import Datatables --}}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+@endpush
+
+@section('scripts')
+    <script type="module">
+        // Simple-DataTables
+        // https://github.com/fiduswriter/Simple-DataTables
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#appStatuses", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+            const dataTable2 = new simpleDatatables.DataTable("#usermemberships", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+        });
+    </script>
 @endsection

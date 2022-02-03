@@ -70,17 +70,17 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive text-center">
-                    <table class="table table-hover table-striped table-bordered table-light ">
+                    <table class="table table-hover table-striped table-bordered table-light " id="memberships">
                         <thead>
                             <tr> 
-                                <th class="col-sm-1">@sortablelink('academic_membership_id','#')</th>
-                                <th class="col-sm-1">@sortablelink('semester','Semester')</th>
-                                <th class="col-sm-1">@sortablelink('school_year','School Year')</th>
-                                <th class="col-sm-1">@sortablelink('membership_fee','Fee')</th>
-                                <th class="col-sm-1">@sortablelink('membership_start_date','Start Date')</th>
-                                <th class="col-sm-1">@sortablelink('membership_end_date','End Date')</th>
-                                <th class="col-sm-2">@sortablelink('registration_status','Registration Status')</th>
-                                <th class="col-sm-1">@sortablelink('am_status','Status')</th>
+                                <th class="col-sm-1">#</th>
+                                <th class="col-sm-1">Semester</th>
+                                <th class="col-sm-1">School Year</th>
+                                <th class="col-sm-1">Fee</th>
+                                <th class="col-sm-1">Start Date</th>
+                                <th class="col-sm-1">End Date</th>
+                                <th class="col-sm-2">Registration Status</th>
+                                <th class="col-sm-1">Status</th>
                                 <th class="col-sm-1">Actions</th>
                             </tr>
                         </thead>
@@ -120,12 +120,32 @@
                         </tbody>
                     </table>
                     
-                    {!! $academic_memberships->appends(Request::except('page'))->render() !!}
-                    <p class="text-center">
-                        Displaying {{$academic_memberships->count()}} of {{ $academic_memberships->total() }} academic membership(s).
-                    </p>
+                    {{ $academic_memberships->links() }}
                 </div>
             </div>
         </div>
     </div>
 @endsection
+@push('scripts')
+    {{-- Import Datatables --}}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+@endpush
+
+@section('scripts')
+    <script type="module">
+        // Simple-DataTables
+        // https://github.com/fiduswriter/Simple-DataTables
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#memberships", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+        });
+    </script>
+@endsection
+

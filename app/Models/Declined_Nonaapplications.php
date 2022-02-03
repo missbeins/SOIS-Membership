@@ -4,14 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 
 class Declined_Nonaapplications extends Model
 {
     use HasFactory;
-    use Sortable;
     protected $table = 'declined_naapplications';
     protected $primaryKey = 'declined_naapp_id';
     protected $fillable = ['reason','application_id'];
-    protected $sortable = ['declined_naapp_id','reason','application_id','created_at'];
 }

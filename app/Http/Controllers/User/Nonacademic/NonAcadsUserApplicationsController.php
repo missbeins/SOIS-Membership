@@ -14,7 +14,7 @@ class NonAcadsUserApplicationsController extends Controller
     public function index(){
 
         $nonacademic_memberships = Non_Academic_Membership::join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
-                            ->sortable(['non_Academic_membership_id','DESC'])
+                            ->orderBy('non_Academic_membership_id','DESC')
                             ->paginate(5);
                             
        
@@ -24,7 +24,7 @@ class NonAcadsUserApplicationsController extends Controller
         $application_statuses = Non_Academic_Applications::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_applications.membership_id')
                             ->join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
                             ->where('user_id',Auth::user()->user_id)
-                            ->sortable(['application_id','DESC'])
+                            ->orderBy('application_id','DESC')
                             ->paginate(10);
                                      
         //  dd($application_statuses);

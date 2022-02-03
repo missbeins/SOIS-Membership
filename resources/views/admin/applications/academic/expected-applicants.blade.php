@@ -48,63 +48,63 @@
             @include('admin.applications.academic.includes.new-registrant')
             @if (session()->has('failures'))
 
-                    <button type="button" class="btn btn-danger btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    View Errors
-                    </button>
-                    <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Importing Errors</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table table-danger table-responsive table-hover table-striped mt-2">
-                                        <thead>
-                                            <tr>
-                                                <th>Row</th>
-                                                <th>Attribute</th>
-                                                <th>Errors</th>
-                                                <th>Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (session()->get('failures') as $failure)
-                                            <tr>
-                                                <td>{{ $failure->row() }}</td>
-                                                <td>{{ $failure->attribute() }}</td>
-                                                <td>
-                                                    <ul>
-                                                        @foreach ($failure->errors() as $e)
-                                                            <li>{{ $e }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </td>
-                                                <td>{{ $failure->values()[$failure->attribute()] }}</td>
-                                            </tr>    
-                                            @endforeach
-                                            
-                                        </tbody>
-                                    </table>  
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            
-                                </div>
+                <button type="button" class="btn btn-danger btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                View Errors
+                </button>
+                <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Importing Errors</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
+                            <div class="modal-body">
+                                <table class="table table-danger table-responsive table-hover table-striped mt-2">
+                                    <thead>
+                                        <tr>
+                                            <th>Row</th>
+                                            <th>Attribute</th>
+                                            <th>Errors</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (session()->get('failures') as $failure)
+                                        <tr>
+                                            <td>{{ $failure->row() }}</td>
+                                            <td>{{ $failure->attribute() }}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach ($failure->errors() as $e)
+                                                        <li>{{ $e }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
+                                            <td>{{ $failure->values()[$failure->attribute()] }}</td>
+                                        </tr>    
+                                        @endforeach
+                                        
+                                    </tbody>
+                                </table>  
                             </div>
-                        </div>                                      
-                    @endif
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        
+                            </div>
+                        </div>
+                        </div>
+                    </div>                                      
+                @endif
         </div>
         <div class="card-body table-responsive text-center">
-                <table class="table table-hover table-striped table-bordered table-light">
+                <table class="table table-hover table-striped table-bordered table-light" id="expected">
                 <thead>
                     <tr> 
                         
-                        <th class="col-sm-1">@sortablelink('applicant_id','#')</th>
-                        <th class="col-sm-4">@sortablelink('first_name','Name')</th>
-                        <th class="col-sm-4">@sortablelink('student_number','Student Number')</th>
+                        <th class="col-sm-1">#</th>
+                        <th class="col-sm-4">Name</th>
+                        <th class="col-sm-4">Student Number</th>
                         
                     </tr>
                 </thead>
@@ -124,13 +124,31 @@
                     @endif
                 </tbody>
             </table>
-            {!! $expected_applicants->appends(Request::except('page'))->render() !!}
-            <p class="text-center">
-
-                Displaying {{$expected_applicants->count()}} of {{ $expected_applicants->total() }} registrants.
-            </>
+           {{ $expected_applicants->links() }}
         </div>
     </div>
 </div>
   
+@endsection
+@push('scripts')
+    {{-- Import Datatables --}}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+@endpush
+
+@section('scripts')
+    <script type="module">
+        // Simple-DataTables
+        // https://github.com/fiduswriter/Simple-DataTables
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#expected", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+        });
+    </script>
 @endsection

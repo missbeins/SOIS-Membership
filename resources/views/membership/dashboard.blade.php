@@ -21,7 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
-
+    @stack('scripts')
 
 </head>
 
@@ -119,11 +119,11 @@
                                 class="fas fa-paperclip me-2"></i>Reports</a> --}}
                         
                     @endcan
-                            
+                @endcan           
 
-                @elsecan('is-student')
+                @can('is-student')
                     <button class="dropdown-btn second-text fw-bold"><i
-                        class="fas fa-address-book me-2"></i>Organizations
+                        class="fas fa-address-book me-2"></i> My Organizations
                         <i class="fa fa-caret-down"></i>
                         </button>
                     <div class="dropdown-container">
@@ -132,7 +132,7 @@
                     </div>
         
                     <button class="dropdown-btn second-text fw-bold"><i
-                        class="fas fa-address-book me-2"></i>Applications
+                        class="fas fa-address-book me-2"></i>My Applications
                         <i class="fa fa-caret-down"></i>
                         </button>
                     <div class="dropdown-container">
@@ -140,7 +140,7 @@
                         <a href="{{ route('membership.user.nonacademic.my-applications') }}"><i class="fas fa-user-check me-2"></i>Non-cademic</a></a>
                     </div>
                     <button class="dropdown-btn second-text fw-bold"><i
-                        class="fas fa-comments me-2"></i>Messages
+                        class="fas fa-comments me-2"></i>My Messages
                         <i class="fa fa-caret-down"></i>
                         </button>
                     <div class="dropdown-container">
@@ -190,9 +190,7 @@
                                    
                                     <li><a class="dropdown-item" href="{{ route('membership.admin.profile') }}"><i
                                         class="fas fa-user me-2"></i>Profile</a></li>
-                                   
-                                @endcan
-                                @can('is-student')
+                                @elsecan('is-student')
                                     <li><a class="dropdown-item" href="{{ route('membership.user.profile') }}"><i
                                                 class="fas fa-user me-2"></i>Profile</a></li>
                                 @endcan
@@ -272,6 +270,7 @@
         });
         }
     </script>
+    @yield('scripts')
 </body>
 
 </html>

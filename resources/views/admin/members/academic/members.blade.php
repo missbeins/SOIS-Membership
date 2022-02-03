@@ -50,14 +50,14 @@
         </div>
         <div class="card-body table-responsive text-center">
        
-            <table class="table table-light table-sm table-striped table-hover">
+            <table class="table table-light table-sm table-striped table-hover" id="members">
                 <thead>
                     <tr>
                         
-                        <th class="col-sm-3">@sortablelink('membership_id', 'Membership')</th>
-                        <th scope="col-sm-3">@sortablelink('last_name','Name')</th>
-                        <th scope="col-sm-2">@sortablelink('year_and_section','Year and Section')</th>
-                        <th scope="col-sm-2">@sortablelink('contact','Contact')</th>
+                        <th class="col-sm-3">Membership</th>
+                        <th scope="col-sm-3">Name</th>
+                        <th scope="col-sm-2">Year and Section</th>
+                        <th scope="col-sm-2">Contact</th>
                         <th class="col-sm-2">Action</th>
                     </tr>
                 </thead>
@@ -82,11 +82,30 @@
                     @endif
                 </tbody>
             </table>
-            {!! $paidmembers->appends(Request::except('page'))->render() !!}
-            <p class="text-center">
-                Displaying {{$paidmembers->count()}} of {{ $paidmembers->total() }} official members.
-            </p>
+            {{ $paidmembers->links() }}
         </div>
     </div>
 </div>
+@endsection
+@push('scripts')
+    {{-- Import Datatables --}}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+@endpush
+
+@section('scripts')
+    <script type="module">
+        // Simple-DataTables
+        // https://github.com/fiduswriter/Simple-DataTables
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#members", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+        });
+    </script>
 @endsection

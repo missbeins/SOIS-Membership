@@ -26,12 +26,12 @@
             </div>
         </div>
         <div class="card-body table-responsive text-center">
-            <table class="table table-hover table-striped table-bordered table-light">
+            <table class="table table-hover table-striped table-bordered table-light" id="applications">
                 <thead>
                     <tr> 
-                        <th class="col-sm-1">@sortablelink('application_id','#')</th>
-                        <th class="col-sm-4">@sortablelink('first_name','Name')</th>
-                        <th class="col-sm-4">@sortablelink('email','Email')</th>
+                        <th class="col-sm-1">#</th>
+                        <th class="col-sm-4">Name</th>
+                        <th class="col-sm-4">Email</th>
                         <th class="col-sm-3">Actions</th>
                     </tr>
                 </thead>
@@ -66,13 +66,32 @@
                 </tbody>
             </table>
             {{ $acad_applications->links() }}
-            {!! $acad_applications->appends(Request::except('page'))->render() !!}
-            <p class="text-center">
-                Displaying {{$acad_applications->count()}} of {{ $acad_applications->total() }} applications.
-            </p>
+           
         </div>
     </div>
 </div>
 
    
+@endsection
+@push('scripts')
+    {{-- Import Datatables --}}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+@endpush
+
+@section('scripts')
+    <script type="module">
+        // Simple-DataTables
+        // https://github.com/fiduswriter/Simple-DataTables
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#applications", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+        });
+    </script>
 @endsection

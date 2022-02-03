@@ -46,14 +46,14 @@
         </div>
         <div class="card-body table-responsive text-center">        
             @if (isset($paidmembers))
-                <table class="table table-light table-sm table-striped table-hover table-responsive">
+                <table class="table table-light table-sm table-striped table-hover table-responsive" id="nonafilterpayments">
                     <thead>
                         <tr>
-                            <th class="col-sm-2">@sortablelink('control_number','Control Number')</th>
-                            <th scope="col-sm-3">@sortablelink('last_name','Name')</th>
-                            <th scope="col-sm-2">@sortablelink('year_and_section','Year and Section')</th>
-                            <th scope="col-sm-2">@sortablelink('contact','Contact')</th>
-                            <th class="col-sm-2">@sortablelink('membership_fee','Amount Paid')</th>
+                            <th class="col-sm-2">Control Number</th>
+                            <th scope="col-sm-3">Name</th>
+                            <th scope="col-sm-2">Year and Section</th>
+                            <th scope="col-sm-2">Contact</th>
+                            <th class="col-sm-2">Amount Paid</th>
                             
                         </tr>
                     </thead>
@@ -80,4 +80,26 @@
         </div>
     </div>
 </div>
+@endsection
+@push('scripts')
+    {{-- Import Datatables --}}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+@endpush
+
+@section('scripts')
+    <script type="module">
+        // Simple-DataTables
+        // https://github.com/fiduswriter/Simple-DataTables
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#nonafilterpayments", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+        });
+    </script>
 @endsection

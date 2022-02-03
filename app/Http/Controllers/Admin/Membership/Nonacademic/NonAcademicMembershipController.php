@@ -64,7 +64,7 @@ class NonAcademicMembershipController extends Controller
                 ->count();
             
             $nonacademic_memberships = Non_Academic_Membership::where('organization_id',$organizationID)
-                                ->sortable(['non_academic_membership_id','DESC'])
+                                ->orderBy('non_academic_membership_id','DESC')
                                 ->paginate(1, ['*'], 'nonacademic-memberships');
             return view('admin.memberships.nonacademic.memberships',compact([
                 'applications',

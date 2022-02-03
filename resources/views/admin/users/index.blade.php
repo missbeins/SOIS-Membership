@@ -1,13 +1,13 @@
 @extends('membership.dashboard')
 
 @section('content')
-    @if (isset($errors) && $errors->any())
+    {{-- @if (isset($errors) && $errors->any())
         <div class="alert alert-danger mt-2">
             @foreach ($errors->all() as $error )
                 {{ $error }}
             @endforeach
         </div>
-    @endif
+    @endif --}}
     <div class="container-fluid" >   
         <div class="mt-3">
             {{-- Title and Breadcrumbs --}}
@@ -37,55 +37,74 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive text-center">
-                    <table class="table table-hover table-striped table-bordered table-light">
+                    <table class="table table-hover table-striped table-bordered table-light" id="users">
                         <thead>
                             <tr>
-                                <th scope="col">@sortablelink('user_id','#')</th>
-                                <th scope="col">@sortablelink('student_number','Student Number')</th>
-                                <th scope="col">@sortablelink('email','Email')</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Student Number</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if ($users->isNotEmpty())
-                            @foreach ($users as $user)
-                                <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $user->student_number }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-                                        <a role="button" class="btn btn-sm btn-primary"
-                                            href="{{ route('membership.admin.academic.users.edit', $user->user_id) }}">
-                                            <i class="fas fa-user-edit"></i> Edit
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $user->student_number }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>
+                                            <a role="button" class="btn btn-sm btn-primary"
+                                                href="{{ route('membership.admin.academic.users.edit', $user->user_id) }}">
+                                                <i class="fas fa-user-edit"></i> Edit
+                                            </a>
+                                            <a role="button" class="btn btn-sm btn-info"
+                                            href="{{ route('membership.admin.academic.users.show', $user->user_id) }}">
+                                            <i class="fas fa-eye"></i> View
                                         </a>
-                                        <a role="button" class="btn btn-sm btn-info"
-                                        href="{{ route('membership.admin.academic.users.show', $user->user_id) }}">
-                                        <i class="fas fa-eye"></i> View
-                                    </a>
-                                        {{-- <button type="button" class="btn btn-sm btn-danger"
-                                            onclick="event.preventDefault(); document.getElementById('delete-user-form-{{ $user->user_id }}').submit()">
-                                            <i class="fas fa-trash-alt"></i> Delete
-                                        </button>
-                                        <form class="d-none" id="delete-user-form-{{ $user->user_id }}"
-                                            action="{{ route('membership.admin.users.destroy', $user->user_id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
+                                            {{-- <button type="button" class="btn btn-sm btn-danger"
+                                                onclick="event.preventDefault(); document.getElementById('delete-user-form-{{ $user->user_id }}').submit()">
+                                                <i class="fas fa-trash-alt"></i> Delete
+                                            </button>
+                                            <form class="d-none" id="delete-user-form-{{ $user->user_id }}"
+                                                action="{{ route('membership.admin.users.destroy', $user->user_id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @else
-                            <tr><td colspan="4">No results found!</td></tr>
+                                <tr><td colspan="4">No results found!</td></tr>
                            @endif
                         </tbody>
                     </table>
-                    {!! $users->appends(Request::except('page'))->render() !!}
-                    <p class="text-center">
-                        Displaying {{$users->count()}} of {{ $users->total() }} users.
-                </p>
+                   {{ $users->links() }}
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@push('scripts')
+    {{-- Import Datatables --}}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+@endpush
+
+@section('scripts')
+    <script type="module">
+        // Simple-DataTables
+        // https://github.com/fiduswriter/Simple-DataTables
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#users", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+        });
+    </script>
 @endsection

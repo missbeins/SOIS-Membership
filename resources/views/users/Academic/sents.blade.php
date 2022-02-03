@@ -41,12 +41,12 @@
     </div>
     <div class="card-body">
         @if (isset($messages))
-            <table class="table table-striped">
+            <table class="table table-striped" id="usersents">
                 
                 <thead>
-                    <th class="col-md-1">@sortablelink('reply_id','#')</th>
-                    <th class="col-md-3">@sortablelink('organization_id','Sent To') </th>
-                    <th class="col-md-5">@sortablelink('reply','Message')</th>
+                    <th class="col-md-1">#</th>
+                    <th class="col-md-3">Sent To</th>
+                    <th class="col-md-5">Message</th>
                     <th class="col-md-3">Action</th>
                 </thead>
                 <tbody>
@@ -82,13 +82,32 @@
                     
                 </tbody>
             </table>
-            {!! $messages->appends(Request::except('page'))->render() !!}
-            <p class="text-center">
-                Displaying {{$messages->count()}} of {{ $messages->total() }} messages.
-            </p>
+          {{ $messages->links() }}
         @endif
     </div>
 </div>
 
 
+@endsection
+@push('scripts')
+    {{-- Import Datatables --}}
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+@endpush
+
+@section('scripts')
+    <script type="module">
+        // Simple-DataTables
+        // https://github.com/fiduswriter/Simple-DataTables
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#usersents", {
+                perPage: 10,
+                searchable: true,
+                labels: {
+                    placeholder: "Search on current page...",
+                    noRows: "No data to display in this page or try in the next page.",
+                },
+            });
+        });
+    </script>
 @endsection

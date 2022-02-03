@@ -12,12 +12,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
 use App\Models\Permission;
 use App\Models\Non_Academic_Membership;
-use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -44,25 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender_id'
         
     ];
-    protected $sortable = [
-
-        'first_name',
-        'middle_name',
-        'last_name',
-        'mobile_number',
-        'student_number',
-        'course_id',
-        'year_and_section',
-        'email',
-        'password',
-        'date_of_birth',
-        'suffix',
-        'address',
-        'status',
-        'gender_id',
-        'created_at'
-        
-    ];
+    
 
     /**
      * The attributes that should be hidden for serialization.
