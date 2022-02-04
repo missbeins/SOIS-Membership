@@ -69,7 +69,7 @@ class MessageController extends Controller
             $membership_messages = Membership_Messages::join('users','users.user_id','=','membership_messages.user_id')
                                 ->join('organizations','organizations.organization_id','=','membership_messages.organization_id')
                                 ->where('membership_messages.organization_id', $organizationID)
-                                ->orderBy('reply_id','DESC')
+                                ->orderBy('message_id','DESC')
                                 ->paginate(10);
 
             return view('admin.messages.academic.sents', compact('membership_messages'));

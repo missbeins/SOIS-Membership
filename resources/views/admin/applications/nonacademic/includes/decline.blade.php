@@ -8,10 +8,11 @@
           <h5 class="modal-title" id="staticBackdropLabel">Application Request Confirmation</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <form class="row g-3 text-start"action="{{ route('membership.admin.nonacademic.nonacademicapplication.decline', [$application->application_id, $application->organization_id]) }}" method="POST">
-                @method('put')
-                @csrf
+        <form class=" text-start"action="{{ route('membership.admin.nonacademic.nonacademicapplication.decline', [$application->application_id, $application->organization_id]) }}" method="POST">
+            @method('put')
+            @csrf
+        <div class="row g-3 modal-body">
+            
   
                 <input id="application_id" type="hidden" class="form-control @error('application_id') is-invalid @enderror" name="application_id" value="{{ $application->application_id }}" required autocomplete="application_id" autofocus>
                 <input id="membership_id" type="hidden" class="form-control @error('membership_id') is-invalid @enderror" name="membership_id" value="{{ $application->membership_id }}" required autocomplete="membership_id" autofocus>

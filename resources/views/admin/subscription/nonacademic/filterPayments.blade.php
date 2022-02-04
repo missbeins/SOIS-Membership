@@ -50,6 +50,7 @@
                     <thead>
                         <tr>
                             <th class="col-sm-2">Control Number</th>
+                            <th class="col-sm-2">Membership</th>
                             <th scope="col-sm-3">Name</th>
                             <th scope="col-sm-2">Year and Section</th>
                             <th scope="col-sm-2">Contact</th>
@@ -62,6 +63,7 @@
                             @foreach ($paidmembers as $member)
                                 <tr>
                                     <td>{{ $member->control_number }}</td>
+                                    <td>{{ $member->semester }}({{date_format(date_create($member->membership_start_date), 'M. d, Y' )   }} - {{date_format(date_create($member->membership_end_date), 'M. d, Y' )   }})</td>
                                     <td>{{ $member->last_name }} {{ $member->suffix }}, {{ $member->first_name }}
                                         {{ $member->middle_name }}</td>
                                     <td>{{ $member->year_and_section }}</td>

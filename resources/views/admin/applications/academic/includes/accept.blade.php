@@ -1,6 +1,5 @@
 
   <!-- Modal -->
-  
   <div class="modal fade" id="accept{{ $application->application_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -8,10 +7,11 @@
           <h5 class="modal-title" id="staticBackdropLabel">Application Request Confirmation</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <form class="row g-3 text-start"action="{{ route('membership.admin.academic.academicapplication.accept', [$application->application_id, $application->organization_id]) }}" method="POST">
-                @method('PUT')
-                @csrf
+        <form class="text-start" action="{{ route('membership.admin.academic.academicapplication.accept', [$application->application_id, $application->organization_id]) }}" method="POST">
+            @method('PUT')
+            @csrf
+        <div class=" row g-3  modal-body">
+            
   
                 <input id="application_id" type="hidden" class="form-control @error('application_id') is-invalid @enderror" name="application_id" value="{{ $application->application_id }}" required autocomplete="application_id" autofocus>
                 <input id="membership_id" type="hidden" class="form-control @error('membership_id') is-invalid @enderror" name="membership_id" value="{{ $application->membership_id }}" required autocomplete="membership_id" autofocus>
@@ -31,7 +31,7 @@
                 <div class="col-md-4">
                     <label for="middle_name" class="form-label">Middlename</label>
                     <input type="text" class="form-control @error('middle_name') is-invalid @enderror" id="middle_name" name="middle_name"
-                        value="{{ $application->middle_name }}" required readonly>
+                        value="{{ $application->middle_name }}" readonly>
                         @error('middle_name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -148,11 +148,11 @@
                     @enderror
                 </div>  
         </div>
-        <div class="modal-footer float-end" >
+        <div class="modal-footer float-end">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Confirm</button>                          
         </div>  
-        </form>
+    </form>
       </div>
     </div>
   </div>

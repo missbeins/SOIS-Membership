@@ -24,14 +24,14 @@
         </div>
      @endif
     <div class="card">
-        <div class="card-header">
+        <div class=" card-header text-light" style="background-color: #c62128">
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="float-left">Official Members</h4>
                 </div>
                 <form class="col-md-4 input-group" style="width:30%" action="{{ route('membership.admin.nonacademic.nonacademicmember-filter') }}" method="get">
                    @csrf
-                            <label class="input-group-text" style="border-top-left-radius:15%; border-bottom-left-radius:15%;"for="inputGroupSelect01">{{ __('Filter') }}</label>
+                            <label class="input-group-text" for="inputGroupSelect01">{{ __('Filter') }}</label>
                             <select class="form-control @error('query') is-invalid @enderror" id="inputGroupSelect01" name="query">
                                 <option selected disabled>Choose a membership...</option>
                                 @foreach ($nonacademic_memberships as $nonacademic_membership)
