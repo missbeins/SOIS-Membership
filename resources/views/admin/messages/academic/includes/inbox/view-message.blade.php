@@ -13,7 +13,16 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Close</button>
+                    @if ($message->message_status == "unread")
+                        <form action="{{ route('membership.admin.academic.read-reply',$message->reply_id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" class="btn btn-danger">Close</button>
+                        </form>
+                    @else
+                        <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+                    @endif
                 </div>
             </div>
         </div>

@@ -115,9 +115,16 @@ class MessageController extends Controller
         }
     }
 
-    public function read($id){
-        abort_if(! Membership_replies::where('reply_id', $id)->exists(), 403);
-        Membership_replies::where('reply_id',$id)->update(['status' => 'read']);
+    public function readMessage($id){
+        abort_if(! Membership_Messages::where('message_id', $id)->exists(), 404);
+        Membership_Messages::where('message_id',$id)->update(['message_status' => 'read']);
+        return redirect()->back();
+
+    }
+
+    public function readReply($id){
+        abort_if(! Membership_replies::where('reply_id', $id)->exists(), 404);
+        Membership_replies::where('reply_id',$id)->update(['message_status' => 'read']);
         return redirect()->back();
 
     }

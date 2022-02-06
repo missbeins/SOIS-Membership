@@ -107,7 +107,9 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('messages/inbox', [MessageController::class, 'inbox'])->name('inbox');
             Route::get('messages/sent', [MessageController::class, 'sent'])->name('sent');
             Route::post('messages/reply/{message}', [MessageController::class, 'reply'])->name('reply');
-            Route::put('messages/read/{message}', [MessageController::class, 'read'])->name('read');
+            Route::put('messages/read/message/{message}', [MessageController::class, 'readMessage'])->name('read-message');
+            Route::put('messages/read/reply/{message}', [MessageController::class, 'readReply'])->name('read-reply');
+
 
         });
         Route::prefix('nonacademic')->middleware('auth')->name('nonacademic.')->group(function () {
@@ -140,7 +142,8 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('messages/inbox', [NonAcademicMessagesController::class, 'inbox'])->name('inbox');
             Route::get('messages/sent', [NonAcademicMessagesController::class, 'sent'])->name('sent');
             Route::post('messages/reply/{message}', [NonAcademicMessagesController::class, 'reply'])->name('reply');
-            Route::put('messages/read/{message}', [NonAcademicMessagesController::class, 'read'])->name('read');
+            Route::put('messages/read/message/{message}', [NonAcademicMessagesController::class, 'readMessage'])->name('read-message');
+            Route::put('messages/read/reply/{message}', [NonAcademicMessagesController::class, 'readReply'])->name('read-reply');
 
         });
     });
@@ -159,7 +162,9 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('my-applications', [UserApplicationsController::class, 'index'])->name('my-applications');
             Route::post('my-applications', [UserApplicationsController::class, 'store'])->name('apply');
             Route::post('messages/reply/{message}',[AcademicMessagesController::class, 'replyMessage'])->name('reply');
-            Route::put('messages/read/{message}',[AcademicMessagesController::class, 'read'])->name('read');
+            Route::put('messages/read/message/{message}',[AcademicMessagesController::class, 'readMessage'])->name('read-message');
+            Route::put('messages/read/reply/{message}',[AcademicMessagesController::class, 'readReply'])->name('read-reply');
+
 
             // Route::delete('messages/delete/{message}',[AcademicMessagesController::class, 'deleteMessage'])->name('delete');
         });

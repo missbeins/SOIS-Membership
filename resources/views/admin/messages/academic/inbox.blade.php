@@ -47,7 +47,12 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
-                                <td>{{Str::limit( $message->reply, 20, $end='.......')}}</td>
+                                @if ($message->message_status == "unread")
+                                    <td class="text-info">{{Str::limit( $message->reply, 20, $end='.......')}}</td>
+                                @else
+                                    <td>{{Str::limit( $message->reply, 20, $end='.......')}}</td>
+
+                                @endif
                                 <td>
                                     <!-- Button trigger accept modal -->
                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewmessage{{ $message->reply_id }}">

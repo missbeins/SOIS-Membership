@@ -47,7 +47,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
-                                <td>{{Str::limit( $message->message, 20, $end='.......')}}</td>
+                                <td>{{Str::limit( $message->message, 50, $end='.......')}}</td>
                                 <td>
                                     <!-- Button trigger accept modal -->
                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewmessage{{ $message->message_id }}">

@@ -18,7 +18,7 @@ class CreateMembershipMessagesTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('organization_id');
             $table->string('message');
-            $table->string('status')->default('unread');
+            $table->string('message_status')->default('unread');
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users');

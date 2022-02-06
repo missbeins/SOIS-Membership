@@ -49,7 +49,12 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $message->organization_name }}</td>
-                                <td>{{Str::limit( $message->message, 50, $end='.......')}}</td>
+                                @if ($message->message_status == "unread")
+                                    <td class="text-primary">{{Str::limit( $message->message, 20, $end='.......')}}</td>
+                                @else
+                                    <td>{{Str::limit( $message->message, 50, $end='.......')}}</td>
+                                @endif
+                                
                                 <td>
                                     <!-- Button trigger accept modal -->
                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#viewmessage{{ $message->message_id }}">
