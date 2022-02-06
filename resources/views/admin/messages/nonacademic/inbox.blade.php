@@ -49,7 +49,7 @@
                                 <td>{{ $message->created_at->format('F d, Y') }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
                                 @if ($message->message_status == "unread")
-                                    <td class="text-info">{{Str::limit( $message->reply, 20, $end='.......')}}</td>
+                                    <td class="text-primary">{{Str::limit( $message->reply, 20, $end='.......')}}</td>
                                 @else
                                     <td>{{Str::limit( $message->reply, 20, $end='.......')}}</td>
 
