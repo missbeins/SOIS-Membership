@@ -12,7 +12,8 @@ class UserNonAcademicApplicationController extends Controller
 {
     public function showForm()
     {
-        $nonacademic_memberships = Non_Academic_Membership::where('registration_status','=','Open')->orWhere('registration_status','=','open')
+        $nonacademic_memberships = Non_Academic_Membership::where('registration_status','=','Open')
+            ->where('am_status','=','Active')
             ->get();
             
         return view('users.Nonacademic.application',compact('nonacademic_memberships'));
