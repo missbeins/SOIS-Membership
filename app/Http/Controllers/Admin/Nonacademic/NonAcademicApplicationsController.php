@@ -55,7 +55,7 @@ class NonAcademicApplicationsController extends Controller
            $nonacad_applications = Non_Academic_Applications::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_applications.membership_id')
                            ->join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
                            ->where('application_status','=','pending')
-                           ->orderBy(['application_id','DESC'])
+                           ->orderBy('application_id','DESC')
                            ->paginate(5, ['*'], 'applicants');
 
            return view('admin.applications.nonacademic.applications', compact(['nonacad_applications','courses','genders']));

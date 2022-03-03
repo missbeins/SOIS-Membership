@@ -116,7 +116,7 @@ class NonAcademicMembershipController extends Controller
             ]);
             $activeMembership = false;
             $isMembershipExisting = false;
-            $getActiveMembership = Non_Academic_Membership::where('am_status','=','Active')->select('am_status')->get();
+            $getActiveMembership = Non_Academic_Membership::where('nam_status','=','Active')->select('nam_status')->get();
             $getExistingMemberships = Non_Academic_Membership::all();
 
             // dd($getExistingMemberships);

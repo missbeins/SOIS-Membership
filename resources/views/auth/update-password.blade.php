@@ -21,8 +21,8 @@
                         <a href="{{route('membership.admin.nonacademic.nonacademicmembership.index')}}" class="text-decoration-none">Home</a>
                     </li>
                 @endcan
-            @endcan
-            @can('is-student')
+            
+            @elsecan('is-student')
                 <li class="breadcrumb-item">
                     <a href="{{route('membership.user.academic.my-organizations')}}" class="text-decoration-none">Home</a>
                 </li>

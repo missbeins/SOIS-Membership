@@ -31,9 +31,9 @@
                     @foreach ($organizations as $organization)
                         <tr>
                             <td>{{ $organization->organization_name }}</td>
-                            <td>{{ $organization->membership_start_date }}</td>
-                            <td>{{ $organization->membership_end_date }}</td>
-                            @if ($organization->am_status == 'Close' || $organization->am_status == 'close')
+                            <td>{{date_format(date_create($organization->membership_start_date ), 'F d, Y' )   }}</td>
+                            <td>{{date_format(date_create($organization->membership_end_date ), 'F d, Y' )   }}</td>
+                            @if ($organization->nam_status == 'Ended' || $organization->nam_status == 'ended')
                                 <td class="text-danger">{{ $organization->nam_status }}</td>
                             @else
                                 <td class="text-success">{{ $organization->nam_status }}</td>
@@ -42,7 +42,7 @@
                         </tr>
                     @endforeach
                     @else
-                    <tr><td colspan="4">No results found!</td></tr>
+                    <tr><td  class="text-center"  colspan="4">No results found!</td></tr>
                    @endif
                 </tbody>
             </table>

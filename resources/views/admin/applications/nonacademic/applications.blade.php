@@ -13,7 +13,7 @@
                 <li class="breadcrumb-item active" aria-current="page">
                     Applications / Application Requests
                 </li>
-
+                
             </ol>
         </nav>
     </div>
@@ -40,7 +40,7 @@
                         @foreach ($nonacad_applications as $application)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }}</td>
+                                <td>{{ $application->first_name }} {{ $application->middle_name }} {{ $application->last_name }} {{ $application->suffix }}</td>
                                 <td>{{ $application->email }}</td>
                             
                                 <td>

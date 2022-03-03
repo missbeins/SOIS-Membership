@@ -35,7 +35,7 @@
                             <select class="form-control @error('query') is-invalid @enderror" id="inputGroupSelect01" name="query">
                                 <option selected disabled>Choose a membership...</option>
                                 @foreach ($nonacademic_memberships as $nonacademic_membership)
-                                    <option value="{{ $nonacademic_membership->nonacademic_membership_id }}">{{ $nonacademic_membership->semester }}({{ $nonacademic_membership->school_year }})</option>                          
+                                    <option value="{{ $nonacademic_membership->non_academic_membership_id }}">{{ $nonacademic_membership->semester }}({{ $nonacademic_membership->school_year }})</option>                          
                                 @endforeach
                             </select>                        
                                     @error('query')

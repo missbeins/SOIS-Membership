@@ -19,7 +19,7 @@
                 <input id="organization_id" type="hidden" class="form-control @error('organization_id') is-invalid @enderror" name="organization_id" value="{{ $application->organization_id }}" required autocomplete="organization_id" autofocus>
                 <input id="user_id" type="hidden" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ $application->user_id }}" required autocomplete="user_id" autofocus>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label for="first_name" class="form-label">Firstname</label>
                   <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name"
                       value="{{ $application->first_name }}" required readonly>
@@ -29,7 +29,7 @@
                       </span>
                     @enderror
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="middle_name" class="form-label">Middlename</label>
                     <input type="text" class="form-control @error('middle_name') is-invalid @enderror" id="middle_name" name="middle_name"
                         value="{{ $application->middle_name }}" required readonly>
@@ -39,7 +39,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="last_name" class="form-label">Lastname</label>
                     <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name"
                         value="{{ $application->last_name }}" required readonly>
@@ -48,6 +48,16 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+                </div>
+                <div class="col-md-3">
+                    <label for="suffix" class="form-label">Suffix</label>
+                    <input type="text" class="form-control @error('suffix') is-invalid @enderror" id="suffix" name="suffix"
+                        value="{{ $application->suffix }}" readonly>
+                        @error('suffix')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="col-12">
                     <label for="inputAddress" class="form-label">Address</label>

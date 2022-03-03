@@ -11,7 +11,9 @@
                 <li class="breadcrumb-item active" aria-current="page">
                     Applications / Non Academic Organizations / Application form
                 </li>
-
+                <li class="breadcrumb-item">
+                    <a href="{{route('membership.user.nonacademic.my-applications')}}" class="text-decoration-none">Back</a>
+                </li>
             </ol>
         </nav>
     </div>

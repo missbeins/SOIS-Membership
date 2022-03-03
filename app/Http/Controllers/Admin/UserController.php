@@ -179,7 +179,7 @@ class UserController extends Controller
                 $orgId = $course->organization->organization_id;
     
                 $user->roles()->attach(8, ['organization_id' => $orgId]);
-                $user->permissions()->attach([28,30,31]);
+                $user->permissions()->attach([28,30,31,18,19]);
             
                 Password::sendResetLink($request->only(['email']));
                 $request->session()->flash('success','Successfully added new user!');

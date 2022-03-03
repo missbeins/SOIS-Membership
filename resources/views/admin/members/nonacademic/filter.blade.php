@@ -10,9 +10,11 @@
             <ol class="breadcrumb justify-content-center ">
                 
                 <li class="breadcrumb-item active" aria-current="page">
-                Members / Official Members
+                    Members / Official Members / Filter Members
                 </li>
-
+                <li class="breadcrumb-item">
+                    <a href="{{route('membership.admin.nonacademic.nonacademicmember.index')}}" class="text-decoration-none">Back</a>
+                </li>
             </ol>
         </nav>
     </div>
@@ -27,7 +29,7 @@
         <div class=" card-header text-light" style="background-color: #c62128">
             <div class="row">
                 <div class="col-md-8">
-                    <h6 class="float-left">Official Members</h6>
+                    <h4 class="float-left">Official Members</h4>
                 </div>
                 <form class="col-md-4 input-group" style="width:30%" action="{{ route('membership.admin.nonacademic.nonacademicmember-filter') }}" method="get">
                    @csrf
@@ -35,7 +37,7 @@
                             <select class="form-control @error('query') is-invalid @enderror" id="inputGroupSelect01" name="query">
                                 <option selected disabled>Choose a membership...</option>
                                 @foreach ($nonacademic_memberships as $nonacademic_membership)
-                                    <option value="{{ $nonacademic_membership->nonacademic_membership_id }}">{{ $nonacademic_membership->semester }}({{ $nonacademic_membership->school_year }})</option>                          
+                                    <option value="{{ $nonacademic_membership->non_academic_membership_id }}">{{ $nonacademic_membership->semester }}({{ $nonacademic_membership->school_year }})</option>                          
                                 @endforeach
                             </select>                        
                                     @error('query')

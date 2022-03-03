@@ -91,7 +91,23 @@
                             @enderror
                         </div>
                     </div>
-                    
+                    <div class="form-group row mb-2">
+                        <label for="last_name"
+                            class="col-md-4 col-form-label text-md-right">{{ __('Suffix') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="suffix" type="text"
+                                class="form-control @error('suffix') is-invalid @enderror" name="suffix"
+                                value="{{ $member_detail->suffix }}" required autocomplete="suffix"
+                                autofocus readonly>
+
+                            @error('suffix')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="form-group row mb-2">
                         <label for="address"
                             class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>

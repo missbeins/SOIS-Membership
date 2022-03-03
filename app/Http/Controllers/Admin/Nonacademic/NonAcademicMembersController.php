@@ -52,7 +52,7 @@ class NonAcademicMembersController extends Controller
            $paidmembers = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.membership_id')
                ->where('non_academic_members.membership_status','=','paid')
                ->where('non_academic_members.organization_id',$organizationID)
-               ->orderBy(['non_academic_member_id','DESC'])
+               ->orderBy('non_academic_member_id','DESC')
                ->paginate(10);
            $nonacademic_memberships = Non_Academic_Membership::where('organization_id',$organizationID)
                ->get();
@@ -81,18 +81,20 @@ class NonAcademicMembersController extends Controller
             $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
             $organizationID = $userRoles[$userRoleKey]['organization_id'];
 
-          // dd(isset($_GET['query']));
+        //   dd(isset($_GET['query']));
+        // dd($request);
            if(isset($_GET['query'])){
 
                $nonacademic_memberships = Non_Academic_Membership::where('organization_id',$organizationID)
                    ->get();
                $query = $_GET['query'];
-               $paidmembers = DB::table('non_academic_members')
+               $paidmembers = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.membership_id')
                    ->where('membership_id','LIKE','%'.$query.'%')
                    ->where('membership_status','=','paid')
-                   ->where('organization_id',$organizationID)
-                   ->orderBy(['non_academic_member_id','DESC'])
+                   ->where('non_academic_membership.organization_id',$organizationID)
+                   ->orderBy('non_academic_member_id','DESC')
                    ->get();
+                //    dd($paidmembers);
                return view('admin.members.nonacademic.filter',compact(['paidmembers','nonacademic_memberships']));
            
            }else{

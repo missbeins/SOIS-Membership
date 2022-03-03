@@ -27,7 +27,7 @@
         <div class=" card-header text-light" style="background-color: #c62128; padding:10px 10px;">
             <div class="row">
                 <div class="col-md-8">
-                    <h5 class="float-left">Official Members</h5>
+                    <h4 class="float-left">Official Members</h4>
                 </div>
                 <form class="col-md-4 input-group" style="width:30%; height:2px" action="{{ route('membership.admin.academic.academicmember-filter') }}" method="get">
                    @csrf

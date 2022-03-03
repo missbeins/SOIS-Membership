@@ -129,7 +129,7 @@
                         @endif
                         </tbody>
                     </table>
-                    {{ $nonacademic_memberships->link() }}
+                    {{ $nonacademic_memberships->links() }}
             </div>
         </div>
     </div>
