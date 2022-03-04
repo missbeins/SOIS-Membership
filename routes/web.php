@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\Academic\AcademicApplicationController;
 use App\Http\Controllers\Admin\Academic\MessageController;
 use App\Http\Controllers\Admin\Membership\Academic\AcademicMembershipController;
 
-use App\Http\Controllers\Admin\Membership\Nonacademic\NonacademicMembershipController;
+use App\Http\Controllers\Admin\Membership\Nonacademic\NonAcademicMembershipController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicApplicationsController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicMembersController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicPaymentsController;
