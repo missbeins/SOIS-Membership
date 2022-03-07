@@ -21,7 +21,7 @@ use App\Http\Controllers\User\Academic\UserApplicationsController;
 use App\Http\Controllers\User\Academic\UserAcademicApplicationsController;
 use App\Http\Controllers\User\Academic\AcademicMessagesController;
 
-use App\Http\Controllers\User\Nonacademic\UserNonacademicApplicationController;
+use App\Http\Controllers\User\Nonacademic\UserNonAcademicApplicationController;
 
 use App\Http\Controllers\InformationVerificationController;
 use App\Http\Controllers\User\Nonacademic\NonAcadsUserApplicationsController;
