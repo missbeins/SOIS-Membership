@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>General Plan of Activities</title>
+    <title>Organization's Membership</title>
     <link rel="stylesheet" href="{{ public_path('css/pdf-file.css') }}">
 </head>
 <body>
