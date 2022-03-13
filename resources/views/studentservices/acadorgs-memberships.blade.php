@@ -60,9 +60,9 @@
                                 <td>{{ $membership->semester }} / {{ $membership->school_year }}</td>
                                 <td>{{ $membership->membership_fee }}</td>
                                 @if ($membership->am_status == 'Active')
-                                    <td class="text-success">{{ $membership->am_status }}</td>
+                                    <td><span class="badge bg-success">{{ $membership->am_status }}</span></td>
                                 @else
-                                    <td class="text-danger">{{ $membership->am_status }}</td>
+                                    <td><span class="badge bg-danger">{{ $membership->am_status }}</span></td>
                                 @endif
                                 
                                 <td>

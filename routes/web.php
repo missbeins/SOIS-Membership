@@ -209,6 +209,7 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::get('organizations/academic-organizations/memberships/member-details/{member}', [StudentServicesController::class, 'showAcadMemberDetails'])->name('showAcadMemberDetails');
         Route::get('organizations/nonacademic-organizations/memberships/member-details/{member}', [StudentServicesController::class, 'showNonacadMemberDetails'])->name('showNonacadMemberDetails');
         Route::post('organizations/academic-organizations/memberships/generate-pdf',[StudentServicesController::class, 'generateAcadMembershipPDF'])->name('generateAcadMembershipPDF');
+        Route::post('organizations/academic-organizations/memberships/generate-pdf/per-year-level',[StudentServicesController::class, 'generateAcadMembershipPDFperYearLevel'])->name('generateAcadMembershipPDFperYearLevel');
         Route::post('organizations/nonacademic-organizations/memberships/generate-pdf',[StudentServicesController::class, 'generateNonacadMembershipPDF'])->name('generateNonacadMembershipPDF');
 
     });

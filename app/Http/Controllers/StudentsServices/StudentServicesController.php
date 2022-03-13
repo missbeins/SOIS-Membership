@@ -25,7 +25,19 @@ class StudentServicesController extends Controller
     }
     public function acadOrgsMemberships($org){
         $acads_memberships = Academic_Membership::where('organization_id',$org)->paginate(6);
-        return view('studentservices.acadorgs-memberships',compact('acads_memberships'));
+        $year_and_sections = Academic_Membership::join('academic_members','academic_members.membership_id','=','academic_membership.academic_membership_id')
+                ->where('academic_membership.organization_id',$org)
+                ->select('academic_members.year_and_section')
+                ->get();
+
+        $yearLevels = collect([]);
+
+        foreach ($year_and_sections as  $year_and_section) {
+        $yearLevels->push($year_and_section);
+        }
+        $newyearLevelscollection = $yearLevels->unique('year_and_section');
+           
+        return view('studentservices.acadorgs-memberships',compact(['acads_memberships','newyearLevelscollection']));
     }
     public function nonacadOrgsMemberships($org){
         $nonacads_memberships = Non_Academic_Membership::where('organization_id',$org)->paginate(6);
@@ -63,6 +75,7 @@ class StudentServicesController extends Controller
         $member_detail = Non_Academic_Members::where('non_academic_member_id', $id)->first();
         return view('studentservices.nonacad-showdetails', compact(['member_detail','courses']));
     }
+
     public function generateAcadMembershipPDF(Request $request){
         $id = $request->membership_id;
         abort_if(! Academic_Membership::where('academic_membership_id', $id)->exists(), 404);
@@ -90,6 +103,37 @@ class StudentServicesController extends Controller
         
         return $pdf->stream('Memberships.pdf');
     }
+
+    public function generateAcadMembershipPDFperYearLevel(Request $request){
+        $id = $request->membership_id;
+        $yearLevel = $request->yearLevel;
+        abort_if(! Academic_Membership::where('academic_membership_id', $id)->exists(), 404);
+
+        $acad_membership = Academic_Membership::where('academic_membership_id', $id)->first();
+        $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
+                    ->join('courses','courses.course_id','=','academic_members.course_id')
+                    ->where('academic_membership_id',$id)
+                    ->where('year_and_section',$yearLevel)
+                    ->get();
+        $courses = Course::all();
+        $gender = Gender::all();
+        $organization = Organizations::join('academic_members','academic_members.organization_id','=','organizations.organization_id')
+                    ->where('academic_members.membership_id',$id)
+                    ->first();
+        $membersCount = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
+                    ->where('membership_id',$id)
+                    ->count();
+        $pdf = PDF::loadView('studentservices.academic-pdf-file', compact([
+           'acad_membership',
+           'members',
+           'membersCount',
+           'gender',
+           'organization'
+        ]))->setPaper('legal', 'landscape');
+        
+        return $pdf->stream('Memberships.pdf');
+    }
+
     public function generateNonacadMembershipPDF($id){
         abort_if(! Non_Academic_Membership::where('non_academic_membership_id', $id)->exists(), 404);
 
