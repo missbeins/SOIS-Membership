@@ -25,6 +25,7 @@ class CreateEventSignaturesTable extends Migration
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->foreign('organization_id')->references('organization_id')->on('organizations');
             $table->foreign('role_id')->references('role_id')->on('roles');
+            
         });
     }
 

@@ -26,6 +26,8 @@
                     @endcan
                 @elsecan('is-student')
                     <a href="{{ route('membership.user.academic.my-organizations') }}" class="btn btn-success">Get started</a>
+                @elsecan('is-studentservices')
+                    <a href="{{ route('membership.student-services.academicOrgs') }}" class="btn btn-success">Get started</a>
                 @endcan
 
             </div>

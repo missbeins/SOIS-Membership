@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\upcoming_events;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventsForArTable extends Migration
+class CreateDisapprovedEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +14,17 @@ class CreateEventsForArTable extends Migration
      */
     public function up()
     {
-        Schema::create('events_for_ar', function (Blueprint $table) {
+        Schema::create('disapproved_events', function (Blueprint $table) {
+            $table->id('disapproved_event_id');
             
-           
             $table->foreignId('upcoming_event_id');
-            $table->foreignId('accomplished_event_id')->nullable()->default(null);
-          
+            $table->foreignId('disapproved_by');
+
+            $table->string('reason');
+            $table->timestamps();
+
+            $table->foreign('disapproved_by')->references('user_id')->on('users');
             $table->foreign('upcoming_event_id')->references('upcoming_event_id')->on('upcoming_events');
-            $table->foreign('accomplished_event_id')->references('accomplished_event_id')->on('accomplished_events');
-           
         });
     }
 
@@ -32,6 +35,6 @@ class CreateEventsForArTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events_for_ars');
+        Schema::dropIfExists('disapproved_events');
     }
 }

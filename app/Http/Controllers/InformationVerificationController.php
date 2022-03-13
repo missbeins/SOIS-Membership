@@ -87,9 +87,9 @@ class InformationVerificationController extends Controller
             // $user->roles()->syncWithPivotValues(8, ['organization_id' => $organization->organization_id]);
             $user->roles()->attach(8, ['organization_id' => $orgId]);
             $user->permissions()->attach([28,30,31,18,19]);
-            $request->session()->flash('success','Account Registered!');
-        
-            return redirect(route('login'));
+            $request->session()->flash('success','Account Registered!. Please continue to login page.');
+
+            return redirect()->back();
         }
 
         else{

@@ -41,8 +41,10 @@
                         class="fas fa-swatchbook me-2"></i>Membership</a>
                     @endcan
                     
+                @elsecan('is-studentservices')
+                    <a class="second-text brand" href=""><i class="fas fa-swatchbook me-2"></i>Membership</a>
                 @elsecan('is-student')
-                    <a class="second-text brand" href="{{ route('membership.user.academic.my-organizations') }}"><i
+                    <a class="second-text brand" href=""><i
                             class="fas fa-swatchbook me-2"></i>Membership</a>
                 @endcan
             </div>
@@ -56,7 +58,7 @@
                         <div class="dropdown-container">
                             <a href="{{ route('membership.admin.academic.academicmembership.index') }}"><i class="fas fa-layer-group me-2"></i>Memberships</a>
                             <a href="{{ route('membership.admin.academic.users.index') }}"><i class="fas fa-users-cog me-2"></i>User Management</a>
-                            {{-- <a href=""><i class="fas fa-cogs me-2"></i>User Logs</a> --}}
+                            <a href=""><i class="fas fa-folder-open me-2"></i>Reports</a>
                         </div>
                         <a href="{{ route('membership.admin.academic.academicmember.index') }}"
                             class="list-group-item list-group-item-action  second-text fw-bold "><i
@@ -150,6 +152,16 @@
                    
                     
                 @endcan
+                @can('is-studentservices')
+                <button class="dropdown-btn second-text fw-bold"><i
+                    class="fas fa-folder-open me-2"></i>Organization
+                    <i class="fa fa-caret-down"></i>
+                    </button>
+                <div class="dropdown-container">
+                    <a href="{{ route('membership.student-services.academicOrgs') }}"><i class="fas fa-layer-group me-2"></i>Academic</a>
+                    <a href="{{ route('membership.student-services.nonacademicOrgs') }}"><i class="fas fa-layer-group me-2"></i>Non-Academic</a>
+                </div>
+                @endcan
 
                 <a class=" list-group-item list-group-item-action second-text fw-bold" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
@@ -193,6 +205,9 @@
                                 @elsecan('is-student')
                                     <li><a class="dropdown-item" href="{{ route('membership.user.profile') }}"><i
                                                 class="fas fa-user me-2"></i>Profile</a></li>
+                                @elsecan('is-studentservices')
+                                    <li><a class="dropdown-item" href="{{ route('membership.student-services.profile') }}"><i
+                                        class="fas fa-user me-2"></i>Profile</a></li>
                                 @endcan
                                 <li><a class="dropdown-item" href="{{ url('/profile/password') }}"><i
                                             class="fas fa-user-lock me-2"></i>Change Password</a></li>

@@ -6,7 +6,39 @@
       <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
     </symbol>
 </svg>
-<div class="mt-3">
+<div class="container-fluid px-2">
+    <div class="row g-3">
+        {{-- <div class="col-md-6">
+            <div class="cardcon p-3 bg-white d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2 text-center">{{ $members }}</h3>
+                    <p class="fs-5">Members</p>
+                </div>
+                <i class="fas fa-users fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+        </div> --}}
+        <div class="col-md-4">
+            <div class="cardcon p-3 bg-white d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2 text-center">{{ $registrantsCount }}</h3>
+                    <p class="fs-5">Expected Registrants</p>
+                </div>
+                <i class="fas fa-registered fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="cardcon p-3 bg-white d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2 text-center">{{ $registeredCount }}</h3>
+                    <p class="fs-5">Registered Accounts</p>
+                </div>
+                <i class="fas fa-user-check fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-2">
     
     {{-- Title and Breadcrumbs --}}
     <div class="d-flex justify-content-between align-items-center">

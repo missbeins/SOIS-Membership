@@ -13,6 +13,7 @@ use App\Models\Gender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\organizations;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -85,12 +86,19 @@ class AcademicApplicationController extends Controller
             // Get the Organization from which the user is Membeship Admin
             $userRoleKey = $this->hasRole($userRoles, 'Membership Admin');
             $organizationID = $userRoles[$userRoleKey]['organization_id'];
-        
+            $registeredCount = User::join('courses','courses.course_id','=','users.course_id')
+                        ->join('role_user','role_user.user_id','=','users.user_id')
+                        ->join('organizations','organizations.organization_id','=','courses.organization_id')
+                        ->where('courses.organization_id',$organizationID)
+                        ->where('role_user.role_id', 8)
+                        ->count();
+            $registrantsCount = Expected_Applicants::where('organization_id',$organizationID)->count();
+            
             $expected_applicants = Expected_Applicants::where('organization_id',$organizationID)
                                 ->orderBy('expected_applicant_id','DESC')
-                                ->paginate(5, ['*'], 'expected-applicants');
+                                ->paginate(4, ['*'], 'expected-applicants');
 
-            return view('admin.applications.academic.expected-applicants', compact('expected_applicants'));
+            return view('admin.applications.academic.expected-applicants', compact(['expected_applicants','registrantsCount','registeredCount']));
         }else{
             abort(403);
         }

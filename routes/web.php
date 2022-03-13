@@ -29,6 +29,10 @@ use App\Http\Controllers\User\Nonacademic\UserNonAcadsOrgsController;
 use App\Http\Controllers\User\UpdateProfileController;
 use App\Http\Controllers\User\UserProfileController;
 
+use App\Http\Controllers\StudentsServices\SSProfileController;
+use App\Http\Controllers\StudentsServices\SSUpdateProfileController;
+use App\Http\Controllers\StudentsServices\StudentServicesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +48,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+// Route for SOIS-Homepage Redirect
+Route::get('/$0lsL0gIn/idem/{id}/gateportal/{key}', [App\Http\Controllers\AutoLoginController::class, 'login']);
 
 Route::get('/membership', function () {
     return view('membership.welcome');
@@ -188,5 +194,22 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::put('profile/update/{user}', [UpdateProfileController::class, 'updateProfile'])->name('update-profile');
 
 
-    });    
+    }); 
+    
+    // student affairs routes
+    Route::prefix('student-services')->name('student-services.')->group(function (){
+        Route::get('profile', SSProfileController::class)->name('profile');
+        Route::put('profile/update/{user}', [SSUpdateProfileController::class, 'updateProfile'])->name('update-profile');
+        Route::get('organizations/academic-organizations', [StudentServicesController::class, 'academicOrgs'])->name('academicOrgs');
+        Route::get('organizations/nonacademic-organizations', [StudentServicesController::class, 'nonacademicOrgs'])->name('nonacademicOrgs');
+        Route::get('organizations/academic-organizations/memberships/{organization}', [StudentServicesController::class, 'acadOrgsMemberships'])->name('acadOrgsMemberships');
+        Route::get('organizations/nonacademic-organizations/memberships/{organization}', [StudentServicesController::class, 'nonacadOrgsMemberships'])->name('nonacadOrgsMemberships');
+        Route::get('organizations/academic-organizations/memberships/details/{membership}', [StudentServicesController::class, 'showAcadsMembershipDetails'])->name('showAcadsMembershipDetails');
+        Route::get('organizations/nonacademic-organizations/memberships/details/{membership}', [StudentServicesController::class, 'showNonacadsMembershipDetails'])->name('showNonacadsMembershipDetails');
+        Route::get('organizations/academic-organizations/memberships/member-details/{member}', [StudentServicesController::class, 'showAcadMemberDetails'])->name('showAcadMemberDetails');
+        Route::get('organizations/nonacademic-organizations/memberships/member-details/{member}', [StudentServicesController::class, 'showNonacadMemberDetails'])->name('showNonacadMemberDetails');
+        Route::post('organizations/academic-organizations/memberships/generate-pdf',[StudentServicesController::class, 'generateAcadMembershipPDF'])->name('generateAcadMembershipPDF');
+        Route::post('organizations/nonacademic-organizations/memberships/generate-pdf',[StudentServicesController::class, 'generateNonacadMembershipPDF'])->name('generateNonacadMembershipPDF');
+
+    });
 });

@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use phpDocumentor\Reflection\Types\Null_;
 
 class UserSeeder extends Seeder
 {
@@ -38,7 +37,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
-                'year_and_section' => '4-1',
+                'year_and_section' => NULL,
             ],
             [
                 //2
@@ -74,7 +73,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
-                'year_and_section' => '4-1',
+                'year_and_section' => '3-1',
             ],
             [
                 //4 qar
@@ -129,7 +128,6 @@ class UserSeeder extends Seeder
                 'updated_at' => $currentTime,
                 'status' => $status,
                 'year_and_section' => '4-1',
-                
             ],
             [
                 //7
@@ -164,8 +162,8 @@ class UserSeeder extends Seeder
                 'address' => 'Taguig',
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
-                'status' => $status,      
-                'year_and_section' => '4-1', 
+                'status' => $status, 
+                'year_and_section' => '4-1',      
             ],
             [
                 // 9 qar AVP Docu
@@ -183,7 +181,7 @@ class UserSeeder extends Seeder
                 'created_at' => $currentTime,
                 'updated_at' => $currentTime,
                 'status' => $status,
-                'year_and_section' => '4-1',
+                'year_and_section' => '3-1',
             ],
             [
                 // 10 Adviser
@@ -203,9 +201,9 @@ class UserSeeder extends Seeder
                 'status' => $status,
                 'year_and_section' => NULL,
             ],
-
+            
             //Jones additional users
-             [
+            [
                 //11  - BSA - Membership
                 'course_id' => 1,
                 'gender_id' => $gender,
@@ -262,7 +260,7 @@ class UserSeeder extends Seeder
             ],
 
             [
-                //13 pupukaw - MEMBERSHIP
+                //14 pupukaw - MEMBERSHIP
                 'course_id' => NULL,
                 'gender_id' => $gender,
                 'email' => 'pupukaw-membership@email.com', 
@@ -279,8 +277,45 @@ class UserSeeder extends Seeder
                 'status' => $status,
                 'year_and_section' => NULL,
             ],
-            
-            
+            [
+                //15 - Director
+                'course_id' => NULL,
+                'gender_id' => $gender,
+                'email' => 'director@email.com', 
+                'password' => Hash::make('director@email.com'),
+                'student_number' => NULL, 
+                'first_name' => 'I',
+                'middle_name' => 'Am',
+                'last_name' => 'Director',
+                'date_of_birth' => '2000-01-01',
+                'mobile_number' => '+639123457777',
+                'address' => 'Taguig',
+                'created_at' => $currentTime,
+                'updated_at' => $currentTime,
+                'status' => $status,
+                'year_and_section' => NULL,
+            ],
+
+            // Bernadeth Canlas Account
+            [
+                //16 - Head of Student Services
+                'course_id' => NULL,
+                'gender_id' => 2,
+                'email' => 'brndtt_canlas@yahoo.com', 
+                'password' => Hash::make('brndtt_canlas@yahoo.com'),
+                'student_number' => 'BC-96030-TG', 
+                'first_name' => 'Bernadette',
+                'middle_name' => 'Ignacio',
+                'last_name' => 'Canlas',
+                'date_of_birth' => '2000-11-06',
+                'mobile_number' => '+639267008824',
+                'address' => 'Taguig',
+                'created_at' => $currentTime,
+                'updated_at' => $currentTime,
+                'status' => $status,
+                'year_and_section' => NULL,
+            ],
+
         ];
 
         DB::table('users')->insert($data);
