@@ -55,7 +55,8 @@ class AcademicMembershipController extends Controller
         }
 
         if(Gate::allows('is-admin')){
-            
+            $getActiveMembership = Academic_Membership::where('am_status','=','Active')->select('am_status')->first();
+
             $admin_course = Auth::user()->course_id;
            
             $applications = AcademicApplication::all()
@@ -68,7 +69,8 @@ class AcademicMembershipController extends Controller
                                 ->paginate(1, ['*'], 'academic-memberships');
             return view('admin.memberships.academic.memberships',compact([
                 'applications',
-                'academic_memberships'
+                'academic_memberships',
+                'getActiveMembership'
              ]));
         }else{
             abort(403);
@@ -125,7 +127,7 @@ class AcademicMembershipController extends Controller
             foreach ($getActiveMembership as $membership) {
                 if ($data['status'] == $membership->am_status) {
                     $activeMembership == true;       
-                    return redirect()->back()->with('error', "There is a currently active membership. Please set it to 'ended' first.");
+                    return redirect()->back()->with('error', "There is a currently active membership.");
                 }
             }
             foreach($getExistingMemberships as $existingmembership){

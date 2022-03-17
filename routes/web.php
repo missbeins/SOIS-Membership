@@ -115,6 +115,9 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::post('messages/reply/{message}', [MessageController::class, 'reply'])->name('reply');
             Route::put('messages/read/message/{message}', [MessageController::class, 'readMessage'])->name('read-message');
             Route::put('messages/read/reply/{message}', [MessageController::class, 'readReply'])->name('read-reply');
+            Route::post('messages/sent/new-message', [MessageController::class, 'showMassMessage'])->name('show-massMessageForm');
+            Route::post('messages/sent/send/all-members', [MessageController::class, 'massMessageAllMembers'])->name('massMessage-allmembers');
+            Route::post('messages/sent/send/by-year-level', [MessageController::class, 'massMessageByYearLevel'])->name('massMessage-yearlevel');
 
 
         });

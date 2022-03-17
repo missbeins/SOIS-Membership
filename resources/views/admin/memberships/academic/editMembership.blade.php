@@ -148,9 +148,8 @@
                 </div>
                 </div>
             </div>                      
-            <div class="modal-footer justify-content-end">
+            <div class="modal-footer justify-content-start">
                 <button type="submit" class="btn btn-primary ">Submit</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
             </div>
         </form>  
     </div>

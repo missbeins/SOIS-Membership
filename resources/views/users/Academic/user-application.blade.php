@@ -25,7 +25,7 @@
                         @if ($academic_memberships->isNotEmpty())
                             <a href="{{ route('membership.user.academic.academic-application') }}" type="button" class="btn btn-success btn-sm float-end">
                                 Apply
-                            </a>
+                            </a> 
                         @endif
                             
                       

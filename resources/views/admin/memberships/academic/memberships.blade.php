@@ -73,10 +73,13 @@
                         <div class="col-md-12">
                             <h4 class="float-left">Organization Memberships</h4>
                             <!-- Button trigger modal -->
+                            @if (!isset($getActiveMembership))
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addmembership">
                                     Start New Membership
                                 </button>
-                            @include('admin.memberships.academic.addacademicmembership')
+                                @include('admin.memberships.academic.addacademicmembership')
+                            @endif
+                                
                         </div>
                     </div>
                 </div>

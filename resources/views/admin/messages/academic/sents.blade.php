@@ -30,7 +30,13 @@
         </div>
 @endif
 <div class="card">
-    <div class=" card-header text-light" style="background-color: #c62128"><h5>Sent</h5></div>
+    <div class="card-header text-light" style="background-color: #c62128"><span>Sent</span>
+        
+         <button class="btn btn-warning btn-sm float-end" data-bs-toggle="modal" data-bs-target="#chooseyearlevel">
+            <i class="fas fa-plus me-2"></i> New
+        </button>
+        @include('admin.messages.academic.includes.sent.choose-yearlevel')
+    </div>
     <div class="card-body">
         @if (isset($membership_messages))
             <table class="table table-striped" id="sents">
