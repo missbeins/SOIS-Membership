@@ -3,13 +3,15 @@
     <div class="modal-dialog">
         <div class="modal-content text-dark">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Please select a Recipient(s).</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Please select a Recipient(s). </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                
             </div>
             <div class="modal-body row">
                 <form action="{{ route('membership.admin.academic.show-massMessageForm') }}" method="POST">
                     @csrf
                 <label for="recipients" class="col-md-12 col-form-label text-md-right">{{ __('Message by Year Level') }}</label>
+                <small class="text-danger">Note: If no year level are displayed, it means there are no members on the current active membership.</small>
                     <div class="col-md-12">
                         <select class="form-control" id="year_and_section" name="year_and_section[]" multiple id="year_and_section">
                             

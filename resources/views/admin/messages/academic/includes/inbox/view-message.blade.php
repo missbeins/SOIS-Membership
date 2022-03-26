@@ -11,6 +11,7 @@
                     <div class="mb-3">
                         <textarea name="message" id="" cols="60" rows="10" readonly >{{ $message->reply }}</textarea>  
                     </div>
+                  
                 </div>
                 <div class="modal-footer">
                     @if ($message->message_status == "unread")

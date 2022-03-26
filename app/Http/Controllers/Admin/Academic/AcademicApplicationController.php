@@ -235,7 +235,7 @@ class AcademicApplicationController extends Controller
                 if ($number->control_number == $request->control_number && $number->membership_id == $request->membership_id) {
                     
                     $controlNumber_Exists = true;                 
-                    return redirect()->back()->with('error', 'Control number is already taken. Note: no control number is allowred to be repeated in the same membership.');
+                    return redirect()->back()->with('error', 'Control number is already taken. Note: No control number is allowed to be repeated in the same membership.');
                 }        
             } 
             if ($controlNumber_Exists == false) {

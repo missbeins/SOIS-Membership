@@ -160,7 +160,7 @@ class AcademicMembersController extends Controller
                 'organization_id' =>['required','integer']
             ]);
 
-            $acadsmembership_messages = Membership_Messages::create([
+            Membership_Messages::create([
                 'user_id' => $request['user_id'],
                 'organization_id' => $request['organization_id'],
                 'message' => $request['message_member']

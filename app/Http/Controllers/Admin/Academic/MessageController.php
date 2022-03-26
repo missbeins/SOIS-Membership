@@ -44,7 +44,7 @@ class MessageController extends Controller
                                 ->where('membership_replies.organization_id', $organizationID)
                                 ->orderBy('reply_id','DESC')
                                 ->paginate(7);
-
+            // dd($membership_messages);
             return view('admin.messages.academic.inbox', compact('membership_messages'));
         }else{
             abort(403);
@@ -113,7 +113,7 @@ class MessageController extends Controller
                 'organization_id' => ['required','integer']
             ]);
 
-            $membership_replies = Membership_Messages::create([
+            Membership_Messages::create([
                 
                 'user_id' => $request['user_id'],
                 'organization_id' => $request['organization_id'],

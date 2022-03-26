@@ -32,7 +32,7 @@
 <div class="card">
     <div class="card-header text-light" style="background-color: #c62128"><span>Sent</span>
         
-         <button class="btn btn-warning btn-sm float-end" data-bs-toggle="modal" data-bs-target="#chooseyearlevel">
+        <button class="btn btn-warning btn-sm float-end" data-bs-toggle="modal" data-bs-target="#chooseyearlevel">
             <i class="fas fa-plus me-2"></i> New
         </button>
         @include('admin.messages.academic.includes.sent.choose-yearlevel')

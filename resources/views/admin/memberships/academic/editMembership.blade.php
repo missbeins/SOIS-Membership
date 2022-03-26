@@ -24,7 +24,6 @@
         <form method="POST" action="{{ route('membership.admin.academic.academicmembership.update', [$academic_membership->academic_membership_id, $academic_membership->organization_id]) }}">
             @csrf
             @method('PUT')
-            {{-- <input type="hidden" name="organization_id" value="{{ Auth::user()->course['organization_id'] }}"> --}}
             <div class=" mb-2 row"> 
                 <div class="col-md-4">
                 <label for="semester" class="form-label ">{{ __('Semester') }}<span style="color:red">*</span></label>
