@@ -30,13 +30,19 @@
         </div>
 @endif
 <div class="card text-dark bg-light mb-3">
-    <div class=" card-header text-light" style="background-color: #c62128"><h3>Inbox</h3></div>
+    <div class=" card-header text-light" style="background-color: #c62128"><span style="font-size: 1.8rem; font-weight: 500">Sent</span>
+     
+        <button class="btn btn-warning btn-sm float-end" data-bs-toggle="modal" data-bs-target="#chooseyearlevel">
+            <i class="fas fa-plus me-2"></i> New
+        </button>
+        @include('admin.messages.nonacademic.includes.sent.choose-yearlevel')
+    </div>
     <div class="card-body">
         @if (isset($membership_messages))
             <table class="table table-striped" id="nonasents">
                 
                 <thead>
-                    <th class="col-md-3">Received At</th>
+                    <th class="col-md-3">Sent At</th>
                     <th class="col-md-3">Sent To</th>
                     
                     <th class="col-md-4">Message</th>
@@ -47,7 +53,7 @@
                         @foreach ($membership_messages as $message)
                             <tr>
                                 
-                                <td>{{date_format(date_create($message->created_at), 'F d, Y / H:i a' )   }}</td>
+                                <td>{{date_format(date_create($message->created_at), 'F d, Y' )   }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
                                 <td>{{Str::limit( $message->message, 50, $end='.......')}}</td>
                                 

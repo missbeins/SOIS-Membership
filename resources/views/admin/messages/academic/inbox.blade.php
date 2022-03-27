@@ -36,7 +36,7 @@
             <table class="table table-striped" id="inbox">
                 
                 <thead>
-                    <th class="col-md-1">#</th>
+                    <th class="col-md-3">Received At</th>
                     <th class="col-md-3">Message From</th>
                     <th class="col-md-5">Message</th>
                     <th class="col-md-3">Action</th>
@@ -45,7 +45,7 @@
                     @if ($membership_messages->isNotEmpty())
                         @foreach ($membership_messages as $message)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $message->created_at->format('F d, Y') }}</td>
                                 <td>{{ $message->first_name }} {{ $message->middle_name }} {{ $message->last_name }} {{ $message->suffix }}</td>
                                 @if ($message->message_status == "unread")
                                     <td class="text-primary">{{Str::limit( $message->reply, 20, $end='.......')}}</td>

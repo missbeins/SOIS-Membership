@@ -153,6 +153,9 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::post('messages/reply/{message}', [NonAcademicMessagesController::class, 'reply'])->name('reply');
             Route::put('messages/read/message/{message}', [NonAcademicMessagesController::class, 'readMessage'])->name('read-message');
             Route::put('messages/read/reply/{message}', [NonAcademicMessagesController::class, 'readReply'])->name('read-reply');
+            Route::post('messages/sent/new-message', [NonAcademicMessagesController::class, 'showMassMessage'])->name('show-massMessageForm');
+            Route::post('messages/sent/send/all-members', [NonAcademicMessagesController::class, 'massMessageAllMembers'])->name('massMessage-allmembers');
+            Route::post('messages/sent/send/by-year-level', [NonAcademicMessagesController::class, 'massMessageByYearLevel'])->name('massMessage-yearlevel');
 
         });
     });
