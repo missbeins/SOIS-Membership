@@ -109,7 +109,11 @@
                                         <td class="pt-4">{{date_format(date_create($membership->membership_start_date), 'M. d, Y' )   }}</td>
                                         <td class="pt-4">{{date_format(date_create($membership->membership_end_date), 'M. d, Y' )   }}</td>
                                         <td class="pt-4">{{ $membership->registration_status }}<br>( available from {{date_format(date_create($membership->registration_start_date), 'M. d, Y' )   }} to {{date_format(date_create($membership->registration_end_date), 'M. d, Y' )   }} )</td>
-                                        <td class="pt-4">{{ $membership->am_status }}</td>
+                                        @if ($membership->am_status== 'Ended' || $membership->am_status == 'ended')
+                                            <td class="pt-4"><span class="badge bg-danger">{{ $membership->am_status }}</span></td>
+                                        @else
+                                            <td class="pt-4"><span class="badge bg-success">{{ $membership->am_status }}</span></td>
+                                        @endif
                                         <td class="pt-4">
                                                 <a role="button" class="btn btn-sm btn-primary"
                                                     href="{{ route('membership.admin.academic.academicmembership.edit',[ $membership->academic_membership_id, $membership->organization_id]) }}">

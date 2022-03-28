@@ -105,8 +105,11 @@
                                         <td class="pt-4">{{date_format(date_create($membership->membership_start_date), 'M. d, Y' )   }}</td>
                                         <td class="pt-4">{{date_format(date_create($membership->membership_end_date), 'M. d, Y' )   }}</td>
                                         <td class="pt-4">{{ $membership->registration_status }}<br>( available from {{date_format(date_create($membership->registration_start_date), 'M. d, Y' )   }} to {{date_format(date_create($membership->registration_end_date), 'M. d, Y' )   }} )</td>
-                                        <td class="pt-4">{{ $membership->nam_status }}</td>
-                                        <td class="pt-4">
+                                        @if ($membership->nam_status== 'Ended' || $membership->nam_status == 'ended')
+                                            <td class="pt-4"><span class="badge bg-danger">{{ $membership->nam_status }}</span></td>
+                                        @else
+                                            <td class="pt-4"><span class="badge bg-success">{{ $membership->nam_status }}</span></td>
+                                        @endif                                        <td class="pt-4">
                                                 <a role="button" class="btn btn-sm btn-primary"
                                                     href="{{ route('membership.admin.nonacademic.nonacademicmembership.edit',[ $membership->non_academic_membership_id, $membership->organization_id]) }}">
                                                     <i class="fas fa-user-edit"></i> Edit

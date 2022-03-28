@@ -34,9 +34,9 @@
                             <td>{{date_format(date_create($organization->membership_start_date ), 'F d, Y' )   }}</td>
                             <td>{{date_format(date_create($organization->membership_end_date ), 'F d, Y' )   }}</td>
                             @if ($organization->nam_status == 'Ended' || $organization->nam_status == 'ended')
-                                <td class="text-danger">{{ $organization->nam_status }}</td>
+                                <td><span class="badge bg-danger">{{ $organization->nam_status }}</span></td>
                             @else
-                                <td class="text-success">{{ $organization->nam_status }}</td>
+                                <td><span class="badge bg-success">{{ $organization->nam_status }}</span></td>
                             @endif
                             
                         </tr>
