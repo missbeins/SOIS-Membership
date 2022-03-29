@@ -56,9 +56,9 @@
                             <i class="fa fa-caret-down"></i>
                             </button>
                         <div class="dropdown-container">
+                            <a href="{{ route('membership.admin.academic.memberships-reports') }}"><i class="fa fa-dashboard me-2"></i>Dashboard</a>
                             <a href="{{ route('membership.admin.academic.academicmembership.index') }}"><i class="fas fa-layer-group me-2"></i>Memberships</a>
                             <a href="{{ route('membership.admin.academic.users.index') }}"><i class="fas fa-users-cog me-2"></i>User Management</a>
-                            <a href=""><i class="fas fa-folder-open me-2"></i>Reports</a>
                         </div>
                         <a href="{{ route('membership.admin.academic.academicmember.index') }}"
                             class="list-group-item list-group-item-action  second-text fw-bold "><i

@@ -20,7 +20,7 @@
                     your organization's membership. </p>
                 @can('is-admin')
                     @can('is-academic')
-                        <a href="{{ route('membership.admin.academic.users.index') }}" class="btn btn-primary">Get started</a>
+                        <a href="{{ route('membership.admin.academic.memberships-reports') }}" class="btn btn-primary">Get started</a>
                     @elsecan('is-nonacademic')
                         <a href="{{ route('membership.admin.nonacademic.nonacademicmembership.index') }}" class="btn btn-primary">Get started</a>
                     @endcan

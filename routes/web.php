@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Academic\AcademicPaymentsController;
 use App\Http\Controllers\Admin\Academic\AcademicApplicationController;
 use App\Http\Controllers\Admin\Academic\MessageController;
 use App\Http\Controllers\Admin\Membership\Academic\AcademicMembershipController;
-
+use App\Http\Controllers\Admin\Membership\Academic\AcademicReportsController;
 use App\Http\Controllers\Admin\Membership\Nonacademic\NonAcademicMembershipController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicApplicationsController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicMembersController;
@@ -108,7 +108,16 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('/academicmembership/create', [AcademicMembershipController::class, 'create'])->name('academicmembership.create');
             Route::put('/academicmembership/{academicmembership}/{orgId}', [AcademicMembershipController::class, 'update'])->name('academicmembership.update');
             Route::get('/academicmembership/{academicmembership}/edit/{orgId}', [AcademicMembershipController::class, 'edit'])->name('academicmembership.edit');
-            
+            Route::get('memberships',[AcademicReportsController::class, 'index'])->name('memberships-reports');
+            Route::get('memberships/details/{membership}',[AcademicReportsController::class, 'showMembershipDetails'])->name('memberships-details');
+            Route::get('memberships/members/{membership}',[AcademicReportsController::class, 'showMembers'])->name('memberships-members');
+            Route::get('memberships/members/show-details/{member}',[AcademicReportsController::class, 'showMembersDetails'])->name('members-details');
+            Route::get('memberships/generate-pdf/{membership}',[AcademicReportsController::class, 'generateAcadMembershipPDF'])->name('generateAcadMembershipPDF');
+            Route::post('memberships/generate-pdf/per-year-level',[AcademicReportsController::class, 'generateAcadMembershipPDFperYearLevel'])->name('generateAcadMembershipPDFperYearLevel');
+       
+
+
+
             //ACADEMIC MESSAGES
             Route::get('messages/inbox', [MessageController::class, 'inbox'])->name('inbox');
             Route::get('messages/sent', [MessageController::class, 'sent'])->name('sent');

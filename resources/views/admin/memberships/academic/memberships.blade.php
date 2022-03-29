@@ -18,38 +18,7 @@
         </div>
     @endif
     
-    <div class="container-fluid px-2">
-        <div class="row g-3">
-            {{-- <div class="col-md-6">
-                <div class="cardcon p-3 bg-white d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2 text-center">{{ $members }}</h3>
-                        <p class="fs-5">Members</p>
-                    </div>
-                    <i class="fas fa-users fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                </div>
-            </div> --}}
-            <div class="col-md-5">
-                <div class="cardcon p-3 bg-white d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2 text-center">{{ $applications }}</h3>
-                        <p class="fs-5">Application Requests</p>
-                    </div>
-                    <i class="fas fa-address-book fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                </div>
-            </div>
-
-            {{-- <div class="col-md-4">
-                <div class="cardcon p-3 bg-white  d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2 text-center">{{ $unpaid_members }}</h3>
-                        <p class="fs-5">Unpaid Members</p>
-                    </div>
-                    <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                </div>
-            </div> --}}
-        </div>
-    </div>
+   
     
     <div class="container-fluid">
         <div class="mt-3">
