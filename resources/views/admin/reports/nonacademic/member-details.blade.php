@@ -13,7 +13,7 @@
                         Members /  Official Member / Member Details
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="" class="text-decoration-none">Back</a>
+                        <a href="{{ route('membership.admin.nonacademic.memberships-members', $member_detail->membership_id) }}" class="text-decoration-none">Back</a>
                     </li>
                 </ol>
             </nav>

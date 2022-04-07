@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Academic\MessageController;
 use App\Http\Controllers\Admin\Membership\Academic\AcademicMembershipController;
 use App\Http\Controllers\Admin\Membership\Academic\AcademicReportsController;
 use App\Http\Controllers\Admin\Membership\Nonacademic\NonAcademicMembershipController;
+use App\Http\Controllers\Admin\Membership\Nonacademic\NonacademicReportsController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicApplicationsController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicMembersController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicPaymentsController;
@@ -138,6 +139,14 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::put('/nonacademicmembership/{nonacadsmembership}/{orgId}', [NonAcademicMembershipController::class, 'update'])->name('nonacademicmembership.update');
             Route::get('/nonacademicmembership/{nonacadsmembership}/{orgId}', [NonAcademicMembershipController::class, 'show'])->name('nonacademicmembership.show');
             Route::get('/nonacademicmembership/{noncadsmembership}/edit/{orgId}', [NonAcademicMembershipController::class, 'edit'])->name('nonacademicmembership.edit');
+            Route::get('memberships',[NonacademicReportsController::class, 'index'])->name('memberships-reports');
+            Route::get('memberships/details/{membership}',[NonacademicReportsController::class, 'showMembershipDetails'])->name('memberships-details');
+            Route::get('memberships/members/{membership}',[NonacademicReportsController::class, 'showMembers'])->name('memberships-members');
+            Route::get('memberships/members/show-details/{member}',[NonacademicReportsController::class, 'showMembersDetails'])->name('members-details');
+            Route::get('memberships/generate-pdf/{membership}',[NonacademicReportsController::class, 'generateNonAcadMembershipPDF'])->name('generateNonAcadMembershipPDF');
+            Route::post('memberships/generate-pdf/per-year-level',[NonacademicReportsController::class, 'generateNonAcadMembershipPDFperYearLevel'])->name('generateNonAcadMembershipPDFperYearLevel');
+       
+
             
             //NON ACADEMIC APPLICATIONS CONTROLLER ROUTES
             Route::get('/applications', [NonAcademicApplicationsController::class, 'index'])->name('nonacademicapplication.index');

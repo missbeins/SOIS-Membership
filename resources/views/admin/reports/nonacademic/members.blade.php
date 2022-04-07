@@ -17,9 +17,11 @@
             <ol class="breadcrumb justify-content-center ">
                 
                 <li class="breadcrumb-item active" aria-current="page">
-                    Organizations / Academic Organizations / Membership Details
+                    Organizations / Nonacademic Organizations / Membership Details
                 </li>
-
+                <li class="breadcrumb-item">
+                    <a href="{{ route('membership.admin.nonacademic.memberships-reports') }}" class="text-decoration-none">Back</a>
+                </li>
             </ol>
         </nav>
     </div>
@@ -61,7 +63,7 @@
                                 <td>{{ $member->year_and_section }}</td>
                                 <td>{{ $member->contact }}</td>                                
                                 <td>
-                                    <a href="{{ route('membership.student-services.showAcadMemberDetails', $member->academic_member_id) }}" type="button" class="btn btn-info"><i class="far fa-eye me-2"></i>Details</a>
+                                    <a href="{{  route('membership.admin.nonacademic.members-details', $member->non_academic_member_id) }}" type="button" class="btn btn-info"><i class="far fa-eye me-2"></i>Details</a>
                                 </td>
                                 
                             </tr>

@@ -90,7 +90,7 @@
                         </thead>
                         <tbody>
                             @if ($nonacademic_memberships->isNotEmpty())
-                                @foreach ($noncademic_memberships as $membership)
+                                @foreach ($nonacademic_memberships as $membership)
                                     <tr>
                                         <td>{{ $membership->semester }}</td>
                                         <td>{{ $membership->school_year }}</td>
@@ -100,22 +100,14 @@
                                             <td><span class="badge bg-danger">{{ $membership->am_status }}</span></td>
                                         @endif
                                         <td>
-                                            <a href="{{ route('membership.student-services.showAcadsMembershipDetails',$membership->academic_membership_id) }}" type="button" class="btn btn-info"><i class="fas fa-eye me-2"></i>Members</a>
-
-                                            <a href="{{ route('membership.student-services.showAcadsMembershipDetails',$membership->academic_membership_id) }}" type="button" class="btn btn-info"><i class="fas fa-eye me-2"></i>Details</a>
-                                            <a href="{{ route('membership.student-services.generateAcadMembershipPDF') }}" class="btn btn-warning" onclick="event.preventDefault();
-                                            document.getElementById('pdf-form').submit();"><i class="fas fa-file-pdf me-2"></i>Generate PDF</a>
-                                        
-                            
-                                            <form id="pdf-form" action="{{  route('membership.student-services.generateAcadMembershipPDF')  }}" method="POST" class="d-none">
-                                                @csrf
-                                                <input type="hidden" name="membership_id" value="{{ $membership->academic_membership_id }}">
-                                            </form>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <a href="{{ route('membership.admin.nonacademic.memberships-members', $membership->non_academic_membership_id) }}" type="button" class="btn btn-info"><i class="fas fa-eye me-2"></i>Members</a>
+                                            <a href="{{ route('membership.admin.nonacademic.memberships-details', $membership->non_academic_membership_id) }}" type="button" class="btn btn-info"><i class="fas fa-eye me-2"></i>Details</a>
+                                            <a href="{{ route('membership.admin.nonacademic.generateNonAcadMembershipPDF', $membership->non_academic_membership_id) }}" class="btn btn-warning"><i class="fas fa-file-pdf me-2"></i>Generate PDF</a>
+                                             <!-- Button trigger modal -->
+                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $membership->non_academic_membership_id }}">
                                                 <i class="fas fa-file-pdf me-2"></i>Generate PDF by Year Level
                                             </button>
-                                            {{-- @include('studentservices.includes.generate-pdf') --}}
+                                            @include('admin.reports.nonacademic.includes.generate-pdf')
                                         </td>
                                     </tr>
                                 @endforeach

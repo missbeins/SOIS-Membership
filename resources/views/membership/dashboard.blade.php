@@ -92,8 +92,9 @@
                             <i class="fa fa-caret-down"></i>
                             </button>
                         <div class="dropdown-container">
+                            <a href="{{ route('membership.admin.nonacademic.memberships-reports') }}"><i class="fa fa-dashboard me-2"></i>Dashboard</a>
                             <a href="{{ route('membership.admin.nonacademic.nonacademicmembership.index') }}"><i class="fas fa-layer-group me-2"></i>Memberships</a>
-                            {{-- <a href=""><i class="fas fa-cogs me-2"></i>User Logs</a> --}}
+
                         </div>
                         <a href="{{ route('membership.admin.nonacademic.nonacademicmember.index') }}"
                             class="list-group-item list-group-item-action  second-text fw-bold "><i

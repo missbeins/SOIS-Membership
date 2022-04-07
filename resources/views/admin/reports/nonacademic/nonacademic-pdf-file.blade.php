@@ -26,13 +26,13 @@
         <hr>
         <h4 class="text-center">
             ORGANIZATIONS MEMBERSHIP  <br>
-            @if ($acad_membership->semester == '1st Semester')
+            @if ($nonacad_membership->semester == '1st Semester')
                 FIRST SEMESTER
             @else
                 SECOND SEMESTER
             @endif
             <br>
-            ACADEMIC YEAR {{ $acad_membership->school_year }}
+            ACADEMIC YEAR {{ $nonacad_membership->school_year }}
 
         </h4>
         <div>        
@@ -70,7 +70,7 @@
                                     <td>{{ $member->gender }}</td>
                                     <td>{{ $member->contact }}</td>
                                     <td>{{ date_format(date_create($member->date_of_birth), 'F d, Y') }}</td>
-                                    <td>{{ $acad_membership->membership_fee }}</td>
+                                    <td>{{ $nonacad_membership->membership_fee }}</td>
                                     
                                 </tr>
                                @php
@@ -102,7 +102,7 @@
                                             <p>Office of the Vice President for Branches and Satellite Campuses</p>
                                             <p>TAGUIG BRANCH</p>
                                             <p>Office of Student Services</p>
-                                            <p>COMPUTER SOCIETY</p>
+                                            <p style="text-transform: uppercase;">{{ $organization->organization_name }}</p>
                                     </div>
                                 </header>
                                 <hr>
