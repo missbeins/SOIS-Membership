@@ -11,7 +11,7 @@
         <header>
             <div class="left-div">
                 <img src="{{ public_path('images/pup-logo-Polytechnic_University_of_the_Philippines.png') }}" style="width: 100px; height: 100px">
-                {{-- <img src="{{ public_path('/storage/'. $organization->logo->file) }}" style="width: 100px; height: 100px"> --}}
+                <img src="{{ public_path('/storage/'. $organization->logo->file) }}" style="width: 100px; height: 100px">
                 
             </div>
             <div class="right-div">
@@ -20,7 +20,7 @@
                     <p>Office of the Vice President for Branches and Satellite Campuses</p>
                     <p>TAGUIG BRANCH</p>
                     <p>Office of Student Services</p>
-                    {{-- <p style="text-transform: uppercase;">{{ $organization->organization_name }}</p> --}}
+                    <p style="text-transform: uppercase;">{{ $organization->organization_name }}</p>
             </div>
         </header>
         <hr>
