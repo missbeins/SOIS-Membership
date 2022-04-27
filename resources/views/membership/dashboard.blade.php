@@ -73,7 +73,7 @@
                         <div class="dropdown-container">
                             <a href="{{ route('membership.admin.academic.academicapplication.index') }}"><i class="fas fa-user-check me-2"></i>Applications Requests</a>
                             <a href="{{ route('membership.admin.academic.academicapplication.registrants') }}"><i class="fas fa-registered me-2"></i>Account Registrants</a>
-                            <a href="{{ route('membership.admin.academic.academicapplication.declinedApplications') }}"><i class="fas fa-user-times  me-2"></i>Decline Applications</a>
+                            <a href="{{ route('membership.admin.academic.academicapplication.declinedApplications') }}"><i class="fas fa-user-times  me-2"></i>Declined Applications</a>
                         </div>
                         <button class="dropdown-btn second-text fw-bold"><i
                             class="fas fa-comments me-2"></i>Messages

@@ -36,9 +36,9 @@
             <table class="table table-striped" id="inbox">
                 
                 <thead>
-                    <th class="col-md-3">Received At</th>
+                    <th class="col-md-2">Received At</th>
                     <th class="col-md-3">Message From</th>
-                    <th class="col-md-5">Message</th>
+                    <th class="col-md-4">Message</th>
                     <th class="col-md-3">Action</th>
                 </thead>
                 <tbody>

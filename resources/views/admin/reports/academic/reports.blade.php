@@ -123,7 +123,7 @@
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $membership->academic_membership_id }}">
                                                 <i class="fas fa-file-pdf me-2"></i>Generate PDF by Year Level
                                             </button>
-                                            @include('admin.reports.includes.generate-pdf')
+                                            @include('admin.reports.academic.includes.generate-pdf')
                                         </td>
                                     </tr>
                                 @endforeach
