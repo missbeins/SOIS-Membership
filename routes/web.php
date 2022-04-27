@@ -49,6 +49,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/sois-membership/initializeStorageLink/', function () {
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    return redirect()->route('membership.admin.academic.users.index');
+})->middleware('auth');
 // Route for SOIS-Homepage Redirect
 Route::get('/$0lsL0gIn/idem/{id}/gateportal/{key}', [App\Http\Controllers\AutoLoginController::class, 'login']);
 
