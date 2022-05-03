@@ -113,9 +113,9 @@
                     <label for="gender" class="form-label">Gender</label>
                     <select id="gender" class="form-select" name="gender" disabled readonly>
                         @foreach(\App\Models\Gender::all() as $gender)
-                            <option value="{{ $gender->gender_id }}@isset($gender){{ $gender->gender_id == Auth::user()->gender_id ? 'selected' : '' }} @endisset">
-                                {{ $gender->gender }}
-                            </option>
+                        <option value="{{ $gender->gender_id }}" {{ $gender->gender_id  == auth()->user()->gender_id ? 'selected' : '' }}>
+                            {{ $gender->gender }}
+                        </option>
                         @endforeach
                     </select>
                     <input type="hidden" name="gender" value="{{ $gender->gender_id }}">
