@@ -53,7 +53,8 @@ class NonAcademicMembersController extends Controller
                ->where('non_academic_members.membership_status','=','paid')
                ->where('non_academic_members.organization_id',$organizationID)
                ->orderBy('non_academic_member_id','DESC')
-               ->paginate(10);
+            //    ->paginate(10);
+                ->get();
            $nonacademic_memberships = Non_Academic_Membership::where('organization_id',$organizationID)
                ->get();
            return view('admin.members.nonacademic.members',compact(['paidmembers','nonacademic_memberships']));

@@ -65,7 +65,8 @@ class AcademicMembershipController extends Controller
             
             $academic_memberships = Academic_Membership::where('organization_id','=',Auth::user()->course['organization_id'])
                                 ->orderBy('academic_membership_id','DESC')
-                                ->paginate(1, ['*'], 'academic-memberships');
+                                // ->paginate(1, ['*'], 'academic-memberships');
+                                ->get();
             return view('admin.memberships.academic.memberships',compact([
                 'applications',
                 'academic_memberships',

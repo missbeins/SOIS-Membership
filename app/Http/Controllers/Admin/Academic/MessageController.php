@@ -43,7 +43,8 @@ class MessageController extends Controller
                                 ->join('organizations','organizations.organization_id','=','membership_replies.organization_id')
                                 ->where('membership_replies.organization_id', $organizationID)
                                 ->orderBy('reply_id','DESC')
-                                ->paginate(7);
+                                // ->paginate(7);
+                                ->get();
             // dd($membership_messages);
             return view('admin.messages.academic.inbox', compact('membership_messages'));
         }else{
@@ -71,7 +72,8 @@ class MessageController extends Controller
                                 ->join('organizations','organizations.organization_id','=','membership_messages.organization_id')
                                 ->where('membership_messages.organization_id', $organizationID)
                                 ->orderBy('message_id','DESC')
-                                ->paginate(7);
+                                // ->paginate(7);
+                                ->get();
             $year_and_sections = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','membership_id')
                         ->where('academic_membership.am_status','=','Active')
                         ->select('year_and_section')

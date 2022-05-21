@@ -13,13 +13,13 @@ class AcademicMessagesController extends Controller
 {
     public function index(){
         $messages = Membership_Messages::join('organizations','organizations.organization_id','=','membership_messages.organization_id')
-                ->where('user_id',Auth::user()->user_id)->orderBy('message_id','DESC')->paginate(6);
+                ->where('user_id',Auth::user()->user_id)->orderBy('message_id','DESC')->get();
         return view('users.Academic.messages', compact('messages'));
     }
     
     public function sent(){
         $messages = Membership_replies::join('organizations','organizations.organization_id','=','membership_replies.organization_id')
-                ->where('membership_replies.user_id',Auth::user()->user_id)->orderBy('reply_id','DESC')->paginate(6);
+                ->where('membership_replies.user_id',Auth::user()->user_id)->orderBy('reply_id','DESC')->get();
         return view('users.Academic.sents', compact('messages'));
     }
     public function replyMessage(Request $request, $id){

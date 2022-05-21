@@ -156,7 +156,7 @@
                     @endif
                 </tbody>
             </table>
-           {{ $expected_applicants->links() }}
+           {{-- {{ $expected_applicants->links() }} --}}
         </div>
     </div>
 </div>

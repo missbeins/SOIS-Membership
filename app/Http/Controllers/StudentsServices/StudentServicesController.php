@@ -16,15 +16,15 @@ use PDF;
 class StudentServicesController extends Controller
 {
     public function academicOrgs(){
-        $acadOrgs = Organizations::where('organization_type_id',1)->paginate(6);
+        $acadOrgs = Organizations::where('organization_type_id',1)->get();
         return view('studentservices.academic-organizations', compact('acadOrgs'));
     }
     public function nonacademicOrgs(){
-        $nonacadOrgs = Organizations::where('organization_type_id',2)->paginate(6);
+        $nonacadOrgs = Organizations::where('organization_type_id',2)->get();
         return view('studentservices.nonacademic-organizations',compact('nonacadOrgs'));
     }
     public function acadOrgsMemberships($org){
-        $acads_memberships = Academic_Membership::where('organization_id',$org)->paginate(6);
+        $acads_memberships = Academic_Membership::where('organization_id',$org)->get();
         $year_and_sections = Academic_Membership::join('academic_members','academic_members.membership_id','=','academic_membership.academic_membership_id')
                 ->where('academic_membership.organization_id',$org)
                 ->select('academic_members.year_and_section')
@@ -40,7 +40,7 @@ class StudentServicesController extends Controller
         return view('studentservices.acadorgs-memberships',compact(['acads_memberships','newyearLevelscollection']));
     }
     public function nonacadOrgsMemberships($org){
-        $nonacads_memberships = Non_Academic_Membership::where('organization_id',$org)->paginate(6);
+        $nonacads_memberships = Non_Academic_Membership::where('organization_id',$org)->get();
         return view('studentservices.nonacadorgs-memberships',compact('nonacads_memberships'));
     }
 
@@ -49,14 +49,14 @@ class StudentServicesController extends Controller
 
         $acad_membership = Academic_Membership::where('academic_membership_id', $id)->first();
         
-        $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.academic_member_id')->paginate(6);
+        $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.academic_member_id')->get();
         return view('studentservices.acad-show',compact(['acad_membership','members']));
     }
     public function showNonacadsMembershipDetails($id){
         abort_if(! Non_Academic_Membership::where('non_academic_membership_id', $id)->exists(), 404);
 
         $nonacad_membership = Non_Academic_Membership::where('non_academic_membership_id', $id)->first();
-        $members = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.non_academic_member_id')->paginate(6);
+        $members = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.non_academic_member_id')->get();
         
 
         return view('studentservices.nonacad-show',compact(['nonacad_membership','members']));

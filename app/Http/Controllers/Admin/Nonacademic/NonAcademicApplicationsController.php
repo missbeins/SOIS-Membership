@@ -56,7 +56,8 @@ class NonAcademicApplicationsController extends Controller
                            ->join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
                            ->where('application_status','=','pending')
                            ->orderBy('application_id','DESC')
-                           ->paginate(5, ['*'], 'applicants');
+                        //    ->paginate(5, ['*'], 'applicants');
+                        ->get();
 
            return view('admin.applications.nonacademic.applications', compact(['nonacad_applications','courses','genders']));
        }
@@ -87,7 +88,8 @@ class NonAcademicApplicationsController extends Controller
                            ->join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
                            ->join('declined_naapplications','declined_naapplications.application_id','=','non_academic_applications.application_id')
                            ->where('application_status','=','declined')
-                           ->paginate(5, ['*'], 'applicants');
+                        //    ->paginate(5, ['*'], 'applicants');
+                            ->get();
            
 
            return view('admin.applications.nonacademic.declined-applications', compact(['nonacad_applications','courses','genders']));

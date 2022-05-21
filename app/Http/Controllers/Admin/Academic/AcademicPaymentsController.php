@@ -38,7 +38,8 @@ class AcademicPaymentsController extends Controller
         $paidmembers = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
             ->where('academic_members.organization_id',$organizationID)
             ->orderBy('control_number','DESC')
-            ->paginate(10);
+            // ->paginate(10);
+            ->get();
         $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
             ->get();
         return view('admin.subscription.academic.subscription',compact(['paidmembers','academic_memberships']));

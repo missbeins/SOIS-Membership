@@ -63,7 +63,7 @@
                     @endif    
                 </tbody>
             </table>
-           {{ $nonacad_applications->links() }}      
+           {{-- {{ $nonacad_applications->links() }}       --}}
         </div>
     </div>
 </div>
@@ -82,7 +82,7 @@
         // https://github.com/fiduswriter/Simple-DataTables
         window.addEventListener('DOMContentLoaded', event => {
             const dataTable = new simpleDatatables.DataTable("#nonadeclined", {
-                perPage: 10,
+                perPage: 5,
                 searchable: true,
                 labels: {
                     placeholder: "Search on current page...",

@@ -89,7 +89,7 @@
                     @endif
                 </tbody>
             </table>
-           {{ $acads_memberships->links() }}
+           {{-- {{ $acads_memberships->links() }} --}}
         </div>
     </div>
 </div>
@@ -107,7 +107,7 @@
         // https://github.com/fiduswriter/Simple-DataTables
         window.addEventListener('DOMContentLoaded', event => {
             const dataTable = new simpleDatatables.DataTable("#expected", {
-                perPage: 10,
+                perPage: 5,
                 searchable: true,
                 labels: {
                     placeholder: "Search on current page...",

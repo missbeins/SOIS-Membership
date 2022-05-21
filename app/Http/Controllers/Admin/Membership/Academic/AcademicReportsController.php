@@ -62,8 +62,9 @@ class AcademicReportsController extends Controller
                ->count();
            
             $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
-                               ->orderBy('academic_membership_id','DESC')
-                               ->paginate(3, ['*'], 'academic-memberships');
+                            ->orderBy('academic_membership_id','DESC')
+                            //    ->paginate(3, ['*'], 'academic-memberships');
+                            ->get();
             // dd($academic_memberships);
             $year_and_sections = Academic_Membership::join('academic_members','academic_members.membership_id','=','academic_membership.academic_membership_id')
                                ->where('academic_membership.organization_id',$organizationID)
@@ -102,7 +103,8 @@ class AcademicReportsController extends Controller
         if(Gate::allows('is-admin')){
             abort_if(! Academic_Members::where('academic_member_id', $id)->exists(), 404);
             $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
-                    ->where('academic_membership_id', $id)->paginate(7);
+                    // ->where('academic_membership_id', $id)->paginate(7);
+                    ->get();
             return view('admin.reports.academic.members',compact('members'));
         }else{
             abort(403);

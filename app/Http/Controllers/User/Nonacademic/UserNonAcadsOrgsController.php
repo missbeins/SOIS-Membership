@@ -15,7 +15,7 @@ class UserNonAcadsOrgsController extends Controller
         $organizations = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.membership_id')
                     ->join('organizations','organizations.organization_id','=','non_academic_membership.organization_id')
                     ->where('user_id',$user_id)
-                    ->where('membership_status','paid')->orderBy('non_academic_membership.non_academic_membership_id','DESC')->paginate(10);
+                    ->where('membership_status','paid')->orderBy('non_academic_membership.non_academic_membership_id','DESC')->get();
        
         return view('users.Nonacademic.nonacademic-organizations',compact('organizations'));
     }

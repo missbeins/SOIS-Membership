@@ -84,10 +84,12 @@ class UserController extends Controller
                                     ->where('courses.organization_id',$organizationID)
                                     ->where('role_user.role_id', 8)
                                     ->orderBy('users.user_id','DESC')
-                                    ->paginate(5);
+                                    // ->paginate(5);
+                                    ->get();
                 $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
-                                    ->select()
-                                    ->paginate(1, ['*'], 'academic-memberships');
+                                    // ->select()
+                                    // ->paginate(1, ['*'], 'academic-memberships');
+                                    ->get();
     
                 // $academic_membership = Academic_Membership::all()
                 //                     ->where('')

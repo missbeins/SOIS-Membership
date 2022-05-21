@@ -16,7 +16,7 @@ class UserOrganizationsController extends Controller
         $organizations = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
                     ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                     ->where('user_id',$user_id)
-                    ->where('membership_status','paid')->orderBy('academic_membership.academic_membership_id','DESC')->paginate(10);
+                    ->where('membership_status','paid')->orderBy('academic_membership.academic_membership_id','DESC')->get();
        
         return view('users.Academic.academic-organizations',compact('organizations'));
     }

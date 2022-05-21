@@ -19,7 +19,7 @@ class UserApplicationsController extends Controller
                             ->where('academic_membership.am_status','=','Active')
                             ->where('academic_membership.registration_status','=','Open')
                             ->orderBy('academic_membership_id','DESC')
-                            ->paginate(5);
+                            ->get();
 
       
         // $academic_organization = Organizations::join('academic_membership','academic_membership.organization_id','=','organizations.organization_id')   
@@ -31,7 +31,7 @@ class UserApplicationsController extends Controller
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                             ->where('user_id',Auth::user()->user_id)
                             ->orderBy('application_id','DESC')
-                            ->paginate(10);
+                            ->get();
 
         return view('users.Academic.user-application', compact([
             'academic_memberships',

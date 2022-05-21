@@ -54,7 +54,8 @@ class AcademicMembersController extends Controller
                 ->where('academic_members.membership_status','=','paid')
                 ->where('academic_members.organization_id',$organizationID)
                 ->orderBy('academic_member_id','DESC')
-                ->paginate(5);
+                // ->paginate(5);
+                ->get();
             $academic_memberships = Academic_Membership::where('organization_id',$organizationID)
                 ->get();
             return view('admin.members.academic.members',compact(['paidmembers','academic_memberships']));

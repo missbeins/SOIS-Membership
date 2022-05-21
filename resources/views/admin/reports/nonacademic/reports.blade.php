@@ -117,7 +117,7 @@
                         </tbody>
                     </table>
                     
-                    {{ $nonacademic_memberships->links() }}
+                    {{-- {{ $nonacademic_memberships->links() }} --}}
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@
         // https://github.com/fiduswriter/Simple-DataTables
         window.addEventListener('DOMContentLoaded', event => {
             const dataTable = new simpleDatatables.DataTable("#memberships", {
-                perPage: 10,
+                perPage: 5,
                 searchable: true,
                 labels: {
                     placeholder: "Search on current page...",

@@ -62,7 +62,8 @@ class AcademicApplicationController extends Controller
                             ->join('organizations','organizations.organization_id','=','academic_membership.organization_id')
                             ->where('application_status','=','pending')
                             ->orderBy('application_id','DESC')
-                            ->paginate(5, ['*'], 'applicants');
+                            // ->paginate(5, ['*'], 'applicants');
+                            ->get();
 
             return view('admin.applications.academic.applications', compact(['acad_applications','expected_applicants','courses','genders']));
         }
@@ -96,7 +97,8 @@ class AcademicApplicationController extends Controller
             
             $expected_applicants = Expected_Applicants::where('organization_id',$organizationID)
                                 ->orderBy('expected_applicant_id','DESC')
-                                ->paginate(4, ['*'], 'expected-applicants');
+                                // ->paginate(4, ['*'], 'expected-applicants');
+                                ->get();
 
             return view('admin.applications.academic.expected-applicants', compact(['expected_applicants','registrantsCount','registeredCount']));
         }else{
@@ -129,7 +131,8 @@ class AcademicApplicationController extends Controller
                             ->join('declined_aapplications','declined_aapplications.application_id','=','academic_applications.application_id')
                             ->where('application_status','=','declined')
                             ->orderBy('declined_aapp_id','DESC')
-                            ->paginate(5, ['*'], 'applicants');
+                            // ->paginate(5, ['*'], 'applicants');
+                            ->get();
             
 
             return view('admin.applications.academic.declined-applications', compact(['acad_applications','courses','genders']));

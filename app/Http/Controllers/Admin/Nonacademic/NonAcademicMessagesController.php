@@ -71,7 +71,8 @@ class NonAcademicMessagesController extends Controller
                                 ->join('organizations','organizations.organization_id','=','membership_messages.organization_id')
                                 ->where('membership_messages.organization_id', $organizationID)
                                 ->orderBy('message_id','DESC')
-                                ->paginate(7);
+                                // ->paginate(7);
+                                ->get();
             $year_and_sections = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','membership_id')
                                 ->where('non_academic_membership.nam_status','=','Active')
                                 ->select('year_and_section')
