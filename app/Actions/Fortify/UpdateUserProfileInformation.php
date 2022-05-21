@@ -18,6 +18,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update($user, array $input)
     {
+        // dd($input);
         Validator::make($input, [
 
             'first_name' => ['required', 'string', 'max:255'],
@@ -31,6 +32,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 Rule::unique('users')->ignore($user)],
             'gender_id' => ['required','string'],
             'course_id' => ['required', 'string'],
+            'address' => ['required','string'],
+            'date_of_birth' => ['required','date'],
             'year_and_section' => ['nullable', 'string', 'max:255'],
             'mobile_number' => ['required', 'string'], 
             'email' => [
@@ -52,6 +55,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'last_name' => $input['last_name'],
                 'suffix' =>$input['suffix'],
                 'email' => $input['email'],
+                'address' =>$input['address'],
+                'date_of_birth' => $input['date_of_birth'],
                 'student_number' =>$input['student_number'],
                 'year_and_section' => $input['year_and_section'],
                 'course_id' => $input['course_id'],
@@ -76,6 +81,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'last_name' => $input['last_name'],
             'suffix' =>$input['suffix'],
             'email' => $input['email'],
+            'address' =>$input['address'],
+            'date_of_birth' => $input['date_of_birth'],
             'student_number' =>$input['student_number'],
             'year_and_section' => $input['year_and_section'],
             'course_id' => $input['course_id'],

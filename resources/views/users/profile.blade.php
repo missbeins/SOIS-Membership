@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="row g-2 mb-2">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <label for="course">Course</label>
                         <div class="form-floating" id="course">
                             <select name="course_id" class="form-control" id="course_id" aria-label="Floating label select example">
@@ -98,7 +98,7 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="email">Email</label>
                         <div class="form-floating" id="email">
                             <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="{{ Auth::user()->email }}" name="email">
@@ -110,6 +110,23 @@
                             </span>
                         @enderror
                     </div>
+                  
+                </div>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6">
+                        <label for="address">Address</label>
+                        <div class="form-floating" id="address">
+                            <input type="text" class="form-control" id="floatingInputGrid" value="{{ Auth::user()->address }}" name="address">
+
+                            <label for="address">Input your Address</label>
+                        </div>
+                        @error('address')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    
                     <div class="col-md-3">
                         <label for="studnum">Student Number</label>
                         <div class="form-floating" id="studnum">
@@ -118,6 +135,19 @@
                             <small>Format: 2019-00000-TG-0</small>
                         </div>
                         @error('student_number')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-3">
+                        <label for="date_of_birth">Birthday</label>
+                        <div class="form-floating" id="date_of_birth">
+                            <input type="date" class="form-control" id="floatingInputGrid" value="{{ Auth::user()->date_of_birth }}" name="date_of_birth">
+                            <label for="floatingInputGrid">Input your Birthday</label>
+                            
+                        </div>
+                        @error('date_of_birth')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
