@@ -14,8 +14,8 @@
                     </div>                    
                 </div>
                 <div class="modal-footer"> 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="sumbit" class="btn btn-primary">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  
                 </div>
             </form>
         </div>

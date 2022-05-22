@@ -52,7 +52,9 @@ class NonacademicReportsController extends Controller
        if(Gate::allows('is-admin')){
             $membershipCount = Non_Academic_Membership::where('organization_id',$organizationID)->count();
             $admin_course = Auth::user()->course_id;
-            $activeMembersCount = Non_Academic_Membership::where('organization_id',$organizationID)->where('nam_status','=','Active')->count();
+            $activeMembersCount = Non_Academic_Membership::join('non_academic_members','non_academic_members.membership_id','=','non_academic_membership.non_academic_membership_id')
+                        ->where('non_academic_members.organization_id',$organizationID)
+                        ->where('nam_status','=','Active')->count();
             $applications = Non_Academic_Applications::all()
                ->where('application_status','=','pending')
                ->where('organization_id',$organizationID)
@@ -97,7 +99,7 @@ class NonacademicReportsController extends Controller
     }
     public function showMembers($id){
         if(Gate::allows('is-admin')){
-            abort_if(! Non_Academic_Members::where('non_academic_member_id', $id)->exists(), 404);
+            abort_if(! Non_Academic_Membership::where('non_academic_membership_id', $id)->exists(), 404);
             $members = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.membership_id')
                     ->where('non_academic_membership_id', $id)
                     // ->paginate(7);

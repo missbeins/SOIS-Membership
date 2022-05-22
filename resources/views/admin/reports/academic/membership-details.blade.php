@@ -147,9 +147,9 @@
                 </div>
                 </div>
             </div>                      
-            <div class="modal-footer justify-content-start">
+            {{-- <div class="modal-footer justify-content-start">
                 <button type="submit" class="btn btn-primary ">Submit</button>
-            </div>
+            </div> --}}
         </form>  
     </div>
 </div>

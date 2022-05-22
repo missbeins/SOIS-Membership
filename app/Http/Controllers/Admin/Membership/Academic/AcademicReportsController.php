@@ -55,7 +55,10 @@ class AcademicReportsController extends Controller
             $membershipCount = Academic_Membership::where('organization_id',$organizationID)->count();
             $accountRegistrantsCount = Expected_Applicants::where('organization_id',$organizationID)->count();
             $admin_course = Auth::user()->course_id;
-            $activeMembersCount = Academic_Membership::where('organization_id',$organizationID)->where('am_status','=','Active')->count();
+            $activeMembersCount = Academic_Membership::join('academic_members','academic_members.membership_id','=','academic_membership.academic_membership_id')
+                                ->where('academic_membership.organization_id',$organizationID)
+                                ->where('am_status','=','Active')
+                                ->count();
             $applications = AcademicApplication::all()
                ->where('application_status','=','pending')
                ->where('organization_id',$organizationID)
@@ -101,7 +104,7 @@ class AcademicReportsController extends Controller
     }
     public function showMembers($id){
         if(Gate::allows('is-admin')){
-            abort_if(! Academic_Members::where('academic_member_id', $id)->exists(), 404);
+            abort_if(! Academic_Membership::where('academic_membership_id', $id)->exists(), 404);
             $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
                     // ->where('academic_membership_id', $id)->paginate(7);
                     ->get();

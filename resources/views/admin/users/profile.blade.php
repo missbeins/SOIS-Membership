@@ -26,6 +26,7 @@
         </ol>
     </nav>
 </div>
+
 <form action="{{ route('user-profile-information.update') }}" method="POST">
     @csrf
     @method('PUT')
