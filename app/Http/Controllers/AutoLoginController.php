@@ -21,7 +21,7 @@ class AutoLoginController extends Controller
      */ 
     public function login($id, $key)
     {
-        $this->dataLogger = new DataLogService();
+        // $this->dataLogger = new DataLogService();
 
         // Checks if URL has SSL, then appends it along with Host URL and  Request URI to get the full URL
         $urlString = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -53,6 +53,11 @@ class AutoLoginController extends Controller
             $this->regenerateGateKey($userID, $gateKey);
             return redirect()->route('membership.student-services.academicOrgs');
         }
+        // else if ( (Auth::user()->roles->pluck('role'))->containsStrict('Membership Admin'))
+        // {
+        //     $this->regenerateGateKey($userID, $gateKey);
+        //     return redirect()->route('membership.student-services.academicOrgs');
+        // }
         // Redirect User|Officer|President|Other Admins
         else
         {
