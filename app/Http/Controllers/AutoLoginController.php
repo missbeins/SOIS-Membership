@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Str;
 use Illuminate\Http\Request;
-
+use App\Services\GetOrgTypeService;
 use App\Models\SOISGate;
 use App\Services\DataLogServices\DataLogService;
 
@@ -53,11 +53,20 @@ class AutoLoginController extends Controller
             $this->regenerateGateKey($userID, $gateKey);
             return redirect()->route('membership.student-services.academicOrgs');
         }
-        // else if ( (Auth::user()->roles->pluck('role'))->containsStrict('Membership Admin'))
-        // {
-        //     $this->regenerateGateKey($userID, $gateKey);
-        //     return redirect()->route('membership.student-services.academicOrgs');
-        // }
+        else if ( (Auth::user()->roles->pluck('role'))->containsStrict('Membership Admin'))
+        {
+            $orgTypeId = (new GetOrgTypeService)->getOrganizationID();
+            $TypeId = $orgTypeId->organization_type_id;
+
+            if ($TypeId == 1) {
+                $this->regenerateGateKey($userID, $gateKey);
+                return redirect()->route('membership.academic.memberships-reports');
+            }else {
+                $this->regenerateGateKey($userID, $gateKey);
+                return redirect()->route('membership.nonacademic.memberships-reports');
+            }
+           
+        }
         // Redirect User|Officer|President|Other Admins
         else
         {
