@@ -154,14 +154,14 @@
                     
                 @endcan
                 @can('is-studentservices')
-                <button class="dropdown-btn second-text fw-bold"><i
-                    class="fas fa-folder-open me-2"></i>Organization
-                    <i class="fa fa-caret-down"></i>
-                    </button>
-                <div class="dropdown-container">
-                    <a href="{{ route('membership.student-services.academicOrgs') }}"><i class="fas fa-layer-group me-2"></i>Academic</a>
-                    <a href="{{ route('membership.student-services.nonacademicOrgs') }}"><i class="fas fa-layer-group me-2"></i>Non-Academic</a>
-                </div>
+                    <button class="dropdown-btn second-text fw-bold"><i
+                        class="fas fa-folder-open me-2"></i>Organization
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                    <div class="dropdown-container">
+                        <a href="{{ route('membership.student-services.academicOrgs') }}"><i class="fas fa-layer-group me-2"></i>Academic</a>
+                        <a href="{{ route('membership.student-services.nonacademicOrgs') }}"><i class="fas fa-layer-group me-2"></i>Non-Academic</a>
+                    </div>
                 @endcan
 
                 <a class=" list-group-item list-group-item-action second-text fw-bold" href="{{ route('logout') }}"

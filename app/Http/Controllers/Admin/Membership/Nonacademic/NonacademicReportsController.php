@@ -61,9 +61,9 @@ class NonacademicReportsController extends Controller
                ->count();
            
             $nonacademic_memberships = Non_Academic_Membership::where('organization_id',$organizationID)
-                               ->orderBy('non_academic_membership_id','DESC')
+                                ->orderBy('non_academic_membership_id','DESC')
                             //    ->paginate(3, ['*'], 'non_academic-memberships');
-                            ->get();
+                                ->get();
             // dd($academic_memberships);
             $year_and_sections = Non_Academic_Membership::join('non_academic_members','non_academic_members.membership_id','=','non_academic_membership.non_academic_membership_id')
                                ->where('non_academic_members.organization_id',$organizationID)

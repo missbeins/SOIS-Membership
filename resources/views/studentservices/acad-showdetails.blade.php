@@ -13,7 +13,7 @@
                         Members /  Official Member / Member Details
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="" class="text-decoration-none">Back</a>
+                        <a href="{{ route('membership.student-services.academicOrgs') }}" class="text-decoration-none">Home</a>
                     </li>
                 </ol>
             </nav>

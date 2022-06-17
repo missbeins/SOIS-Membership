@@ -49,28 +49,32 @@ class StudentServicesController extends Controller
 
         $acad_membership = Academic_Membership::where('academic_membership_id', $id)->first();
         
-        $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.academic_member_id')->get();
+        $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
+                ->where('academic_membership.academic_membership_id', $id)
+                ->get();
+        // dd($members);
         return view('studentservices.acad-show',compact(['acad_membership','members']));
     }
     public function showNonacadsMembershipDetails($id){
         abort_if(! Non_Academic_Membership::where('non_academic_membership_id', $id)->exists(), 404);
 
         $nonacad_membership = Non_Academic_Membership::where('non_academic_membership_id', $id)->first();
-        $members = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.non_academic_member_id')->get();
+        $members = Non_Academic_Members::join('non_academic_membership','non_academic_membership.non_academic_membership_id','=','non_academic_members.membership_id')
+                                        ->where('non_academic_membership_id', $id)
+                                        ->get();
         
-
         return view('studentservices.nonacad-show',compact(['nonacad_membership','members']));
     }
 
     public function showAcadMemberDetails($id){
-        abort_if(! Academic_Membership::where('academic_membership_id', $id)->exists(), 404);
+        abort_if(! Academic_Members::where('academic_member_id', $id)->exists(), 404);
         $member_detail = Academic_Members::where('academic_member_id', $id)->first();
         $courses = Course::all();
         return view('studentservices.acad-showdetails', compact(['member_detail','courses']));
     }
 
     public function showNonacadMemberDetails($id){
-        abort_if(! Academic_Membership::where('academic_membership_id', $id)->exists(), 404);
+        abort_if(! Non_Academic_Members::where('non_academic_member_id', $id)->exists(), 404);
         $courses = Course::all();
         $member_detail = Non_Academic_Members::where('non_academic_member_id', $id)->first();
         return view('studentservices.nonacad-showdetails', compact(['member_detail','courses']));

@@ -18,7 +18,7 @@
         </ol>
     </nav>
 </div>
-<form action="" method="POST">
+<form action="{{ route('membership.student-services.update-profile', $user_id) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="card">
@@ -65,7 +65,7 @@
                         </span>
                     @enderror
                     </div>
-                    <div class="col-md">
+                    <div class="col-md-2">
                         <label for="suffix">Suffix</label>
                         <div class="form-floating" id="suffix">
                             <input type="text" class="form-control" id="floatingInputGrid" value="{{ Auth::user()->suffix }}" name="suffix">
@@ -80,25 +80,6 @@
                 </div>
                 <div class="row g-2 mb-2">
                     <div class="col-md-6">
-                        <label for="course">Course</label>
-                        <div class="form-floating" id="course">
-                            <select name="course_id" class="form-control" id="course_id" aria-label="Floating label select example">
-                                @foreach ($courses as $course)
-                                    <option value="{{ $course->course_id }}"
-                                        {{ $course->course_id == auth()->user()->course_id ? 'selected' : '' }}
-                                        @error('course_id') is-invalid @enderror>
-                                        {{ $course->course_name }}</option>
-                                @endforeach
-                            </select>
-                            <label for="course_id">Select Course</label>
-                        </div>
-                        @error('course_id')
-                            <span class="invalid-feedback d-block" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-3">
                         <label for="email">Email</label>
                         <div class="form-floating" id="email">
                             <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="{{ Auth::user()->email }}" name="email">
@@ -111,34 +92,6 @@
                         @enderror
                     </div>
                     <div class="col-md-3">
-                        <label for="studnum">Student Number</label>
-                        <div class="form-floating" id="studnum">
-                            <input type="text" class="form-control" id="floatingInputGrid" value="{{ Auth::user()->student_number }}" name="student_number" pattern="[0-9]{4}-[0-9]{5}-[A-Z]{2}-[0]{1}">
-                            <label for="floatingInputGrid">Input your Student Number</label>
-                            <small>Format: 2019-00000-TG-0</small>
-                        </div>
-                        @error('student_number')
-                            <span class="invalid-feedback d-block" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row g-2 mb-2">
-                    <div class="col-md">
-                        <label for="year_and_section">Year and Section</label>
-                        <div class="form-floating" id="year_n_section">
-                            <input type="text" class="form-control" id="floatingInputGrid" value="{{ Auth::user()->year_and_section }}" name="year_and_section" pattern="[0-5]{1}-[0-9]{1}">
-                            <label for="floatingInputGrid">Input your Year and Section</label>
-                            <small>Format: 1-1</small>
-                        </div>
-                        @error('year_and_section')
-                            <span class="invalid-feedback d-block" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="col-md">
                         <label for="contact">Contact</label>
                         <div class="form-floating" id="contact">
                             <input type="text" class="form-control" id="floatingInputGrid"value="{{ Auth::user()->mobile_number }}" name="mobile_number">
@@ -150,7 +103,7 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="col-md">
+                    <div class="col-md-3">
                         <label for="gender">Gender</label>
                         <div class="form-floating" id="gender">
                             <select class="form-select" id="gender_id" aria-label="Floating label select example" name="gender_id">

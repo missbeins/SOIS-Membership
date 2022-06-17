@@ -106,7 +106,8 @@ class AcademicReportsController extends Controller
         if(Gate::allows('is-admin')){
             abort_if(! Academic_Membership::where('academic_membership_id', $id)->exists(), 404);
             $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
-                    // ->where('academic_membership_id', $id)->paginate(7);
+                    ->where('academic_membership_id', $id)
+                    // ->paginate(7);
                     ->get();
             return view('admin.reports.academic.members',compact('members'));
         }else{

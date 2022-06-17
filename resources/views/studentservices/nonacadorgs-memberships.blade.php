@@ -19,7 +19,9 @@
                 <li class="breadcrumb-item active" aria-current="page">
                     Organizations / Academic Organizations
                 </li>
-
+                <li class="breadcrumb-item">
+                    <a href="{{ route('membership.student-services.nonacademicOrgs') }}" class="text-decoration-none">Home</a>
+                </li>
             </ol>
         </nav>
     </div>

@@ -19,7 +19,7 @@
                 <li class="breadcrumb-item active" aria-current="page">
                     Organizations / Academic Organizations
                 </li>
-
+                
             </ol>
         </nav>
     </div>
