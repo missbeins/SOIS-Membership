@@ -34,31 +34,36 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('is-admin', function($user){
-            
+
             return $user->hasAnyRole('Membership Admin');
-            
+
+        });
+        Gate::define('is-adviser', function($user){
+
+            return $user->hasAnyRole('Adviser');
+
         });
 
         Gate::define('is-student', function($user){
-            
+
             return $user->hasAnyRole('User');
-            
+
         });
         Gate::define('is-studentservices', function($user){
-            
+
             return $user->hasAnyRole('Head of Student Services');
-            
+
         });
 
         Gate::define('is-academic', function($user){
 
             $orgTypeId = (new GetOrgTypeService)->getOrganizationID();
             $TypeId = $orgTypeId->organization_type_id;
-            
+
             if ($TypeId == 1) {
                 return $TypeId;
             }
-            
+
         });
         Gate::define('is-nonacademic', function($user){
 
@@ -68,7 +73,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($TypeId == 2) {
                 return $TypeId;
             }
-            
+
         });
     }
 }

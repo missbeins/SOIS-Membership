@@ -40,8 +40,9 @@
                     <a class="second-text brand" href="{{ route('membership.admin.nonacademic.nonacademicmembership.index') }}"><i
                         class="fas fa-swatchbook me-2"></i>Membership</a>
                     @endcan
-                    
                 @elsecan('is-studentservices')
+                    <a class="second-text brand" href=""><i class="fas fa-swatchbook me-2"></i>Membership</a>
+                @elsecan('is-adviser')
                     <a class="second-text brand" href=""><i class="fas fa-swatchbook me-2"></i>Membership</a>
                 @elsecan('is-student')
                     <a class="second-text brand" href=""><i
@@ -85,7 +86,7 @@
                         </div>
                         {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
                                 class="fas fa-paperclip me-2"></i>Reports</a> --}}
-                        
+
                     @elsecan('is-nonacademic')
                         <button class="dropdown-btn second-text fw-bold"><i
                             class="fas fa-folder-open me-2"></i>Organization
@@ -120,9 +121,9 @@
                         </div>
                         {{-- <a href="#" class="list-group-item list-group-item-action second-text fw-bold"><i
                                 class="fas fa-paperclip me-2"></i>Reports</a> --}}
-                        
+
                     @endcan
-                @endcan           
+                @endcan
 
                 @can('is-student')
                     <button class="dropdown-btn second-text fw-bold"><i
@@ -133,7 +134,7 @@
                         <a href="{{ route('membership.user.academic.my-organizations') }}"><i class="fas fa-user-friends me-2"></i>Academic</a>
                         <a href="{{ route('membership.user.nonacademic.my-organizations') }}"><i class="fas fa-user-friends me-2"></i>Non-academic</a></a>
                     </div>
-        
+
                     <button class="dropdown-btn second-text fw-bold"><i
                         class="fas fa-address-book me-2"></i>My Applications
                         <i class="fa fa-caret-down"></i>
@@ -150,8 +151,8 @@
                         <a href="{{ route('membership.user.academic.messages') }}"><i class="fas fa-inbox me-2"></i>Inbox</a>
                         <a href="{{ route('membership.user.academic.sent') }}"><i class="fas fa-paper-plane me-2"></i>Sent</a></a>
                     </div>
-                   
-                    
+
+
                 @endcan
                 @can('is-studentservices')
                     <button class="dropdown-btn second-text fw-bold"><i
@@ -162,6 +163,28 @@
                         <a href="{{ route('membership.student-services.academicOrgs') }}"><i class="fas fa-layer-group me-2"></i>Academic</a>
                         <a href="{{ route('membership.student-services.nonacademicOrgs') }}"><i class="fas fa-layer-group me-2"></i>Non-Academic</a>
                     </div>
+                @endcan
+                @can('is-adviser')
+                    @can('is-academic')
+                        <a href="{{ route('membership.adviser.academic.index') }}"
+                            class="list-group-item list-group-item-action  second-text fw-bold "><i class="fa fa-dashboard me-2"></i>Dashboard</a>
+                        <a href="{{ route('membership.adviser.academic.members') }}"
+                            class="list-group-item list-group-item-action  second-text fw-bold "><i
+                            class="fas fa-users me-2"></i>Members</a>
+                        <a href="{{ route('membership.adviser.academic.payment-details') }}"
+                            class="list-group-item list-group-item-action second-text fw-bold"><i
+                            class="fas fa-money-check me-2"></i>Payment Details</a>
+                    @endcan
+                    @can('is-nonacademic')
+                        <a href="{{ route('membership.adviser.nonacademic.index') }}"
+                            class="list-group-item list-group-item-action  second-text fw-bold "><i class="fa fa-dashboard me-2"></i>Dashboard</a>
+                        <a href="{{ route('membership.adviser.nonacademic.members') }}"
+                            class="list-group-item list-group-item-action  second-text fw-bold "><i
+                            class="fas fa-users me-2"></i>Members</a>
+                        <a href="{{ route('membership.adviser.nonacademic.payment-details') }}"
+                            class="list-group-item list-group-item-action second-text fw-bold"><i
+                            class="fas fa-money-check me-2"></i>Payment Details</a>
+                    @endcan
                 @endcan
 
                 <a class=" list-group-item list-group-item-action second-text fw-bold" href="{{ route('logout') }}"
@@ -200,7 +223,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @can('is-admin')
-                                   
+
                                     <li><a class="dropdown-item" href="{{ route('membership.admin.profile') }}"><i
                                         class="fas fa-user me-2"></i>Profile</a></li>
                                 @elsecan('is-student')
@@ -226,7 +249,7 @@
                         </li>
                     </ul>
                 </div>
-               
+
             </nav>
             {{-- Table --}}
             <div class="container-fluid">

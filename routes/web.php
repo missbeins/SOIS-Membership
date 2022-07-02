@@ -16,23 +16,21 @@ use App\Http\Controllers\Admin\Nonacademic\NonAcademicApplicationsController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicMembersController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicPaymentsController;
 use App\Http\Controllers\Admin\Nonacademic\NonAcademicMessagesController;
-
 use App\Http\Controllers\User\Academic\UserOrganizationsController;
 use App\Http\Controllers\User\Academic\UserApplicationsController;
 use App\Http\Controllers\User\Academic\UserAcademicApplicationsController;
 use App\Http\Controllers\User\Academic\AcademicMessagesController;
-
 use App\Http\Controllers\User\Nonacademic\UserNonAcademicApplicationController;
-
 use App\Http\Controllers\InformationVerificationController;
 use App\Http\Controllers\User\Nonacademic\NonAcadsUserApplicationsController;
 use App\Http\Controllers\User\Nonacademic\UserNonAcadsOrgsController;
 use App\Http\Controllers\User\UpdateProfileController;
 use App\Http\Controllers\User\UserProfileController;
-
 use App\Http\Controllers\StudentsServices\SSProfileController;
 use App\Http\Controllers\StudentsServices\SSUpdateProfileController;
 use App\Http\Controllers\StudentsServices\StudentServicesController;
+use App\Http\Controllers\OrgAdviser\NonAcademicOrgAdviserController;
+use App\Http\Controllers\OrgAdviser\AcademicOrgAdviserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +77,7 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::get('profile', ProfileController::class)->name('profile');
         Route::prefix('academic')->name('academic.')->group(function () {
 
-            //USER CONTROLLER ROUTES ONLY FOR ACADEMIC ORGANIZATIONS           
+            //USER CONTROLLER ROUTES ONLY FOR ACADEMIC ORGANIZATIONS
             Route::get('users', [UserController::class, 'index'])->name('users.index');
             Route::post('users', [UserController::class, 'store'])->name('users.store');
             Route::get('users/create', [UserController::class, 'create'])->name('users.create');
@@ -119,7 +117,7 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('memberships/members/show-details/{member}',[AcademicReportsController::class, 'showMembersDetails'])->name('members-details');
             Route::get('memberships/generate-pdf/{membership}',[AcademicReportsController::class, 'generateAcadMembershipPDF'])->name('generateAcadMembershipPDF');
             Route::post('memberships/generate-pdf/per-year-level',[AcademicReportsController::class, 'generateAcadMembershipPDFperYearLevel'])->name('generateAcadMembershipPDFperYearLevel');
-       
+
 
 
 
@@ -149,15 +147,15 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('memberships/members/show-details/{member}',[NonacademicReportsController::class, 'showMembersDetails'])->name('members-details');
             Route::get('memberships/generate-pdf/{membership}',[NonacademicReportsController::class, 'generateNonAcadMembershipPDF'])->name('generateNonAcadMembershipPDF');
             Route::post('memberships/generate-pdf/per-year-level',[NonacademicReportsController::class, 'generateNonAcadMembershipPDFperYearLevel'])->name('generateNonAcadMembershipPDFperYearLevel');
-       
 
-            
+
+
             //NON ACADEMIC APPLICATIONS CONTROLLER ROUTES
             Route::get('/applications', [NonAcademicApplicationsController::class, 'index'])->name('nonacademicapplication.index');
             Route::put('/application/accept/{application}/{orgId}', [NonAcademicApplicationsController::class, 'accept'])->name('nonacademicapplication.accept');
             Route::put('/application/decline/{application}/{orgId}', [NonAcademicApplicationsController::class, 'decline'])->name('nonacademicapplication.decline');
             Route::get('/applications/declined-applications', [NonAcademicApplicationsController::class, 'declinedApplications'])->name('nonacademicapplication.declinedApplications');
-            
+
             //NON ACADEMIC MEMBERS CONTROLLER ROUTES
             Route::get('/members/official', [NonAcademicMembersController::class, 'index'])->name('nonacademicmember.index');
             Route::get('/members/official/{member}/{orgId}', [NonAcademicMembersController::class, 'show'])->name('nonacademicmember.show');
@@ -168,7 +166,7 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             Route::get('/members/payments/filter', [NonAcademicPaymentsController::class, 'filterPayments'])->name('nonacademicfilterPayment');
             Route::get('/members/payments', [NonAcademicPaymentsController::class, 'index'])->name('nonacademicpayment.index');
             Route::get('/members/payments/{payment}/{orgId}', [NonAcademicPaymentsController::class, 'show'])->name('nonacademicpayment.show');
-            
+
             //NON ACADEMIC MESSAGES
             Route::get('messages/inbox', [NonAcademicMessagesController::class, 'inbox'])->name('inbox');
             Route::get('messages/sent', [NonAcademicMessagesController::class, 'sent'])->name('sent');
@@ -181,13 +179,13 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
 
         });
     });
-     
+
     //users routes
     Route::prefix('user')->middleware(['auth','auth.isStudent'])->name('user.')->group(function () {
 
           //USER ACADEMIC CONTROLLERS ROUTES
         Route::prefix('academic')->name('academic.')->group(function () {
-            
+
             Route::get('application-form', [UserAcademicApplicationsController::class, 'showForm'])->name('academic-application');
             Route::post('applications',[UserAcademicApplicationsController::class, 'store'])->name('application-store');
             Route::get('messages/inbox', [AcademicMessagesController::class, 'index'])->name('messages');
@@ -205,7 +203,7 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
 
           //USER NON ACADEMIC CONTROLLERS ROUTES
         Route::prefix('nonacademic')->name('nonacademic.')->group(function () {
-         
+
             Route::get('my-applications', [NonAcadsUserApplicationsController::class, 'index'])->name('my-applications');
             Route::get('application-form', [UserNonacademicApplicationController::class, 'showForm'])->name('nonacademic-application');
             Route::post('applications',[UserNonacademicApplicationController::class, 'store'])->name('application-store');
@@ -214,16 +212,16 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
             // Route::get('messages/inbox', [UserNonAcademicMessagesController::class, 'index'])->name('messages');
             // Route::get('messages/sent', [UserNonAcademicMessagesController::class, 'sent'])->name('sent');
             // Route::post('messages/reply/{message}',[UserNonAcademicMessagesController::class, 'replyMessage'])->name('reply');
-            
+
             // Route::delete('messages/delete/{message}',[AcademicMessagesController::class, 'deleteMessage'])->name('delete');
-        
+
         });
         Route::get('profile', UserProfileController::class)->name('profile');
         Route::put('profile/update/{user}', [UpdateProfileController::class, 'updateProfile'])->name('update-profile');
 
 
-    }); 
-    
+    });
+
     // student affairs routes
     Route::prefix('student-services')->name('student-services.')->group(function (){
         Route::get('profile', SSProfileController::class)->name('profile');
@@ -240,5 +238,40 @@ Route::prefix('membership')->middleware('auth')->name('membership.')->group(func
         Route::post('organizations/academic-organizations/memberships/generate-pdf/per-year-level',[StudentServicesController::class, 'generateAcadMembershipPDFperYearLevel'])->name('generateAcadMembershipPDFperYearLevel');
         Route::post('organizations/nonacademic-organizations/memberships/generate-pdf',[StudentServicesController::class, 'generateNonacadMembershipPDF'])->name('generateNonacadMembershipPDF');
 
+    });
+
+
+     // organizations adviser routes
+     Route::prefix('adviser')->name('adviser.')->group(function (){
+
+        //rpute for academic org advisers
+        Route::prefix('academic')->name('academic.')->group(function () {
+            Route::get('organization/dashboard', [AcademicOrgAdviserController::class, 'index'])->name('index');
+            Route::get('organization/official', [AcademicOrgAdviserController::class, 'orgMembers'])->name('members');
+            Route::get('organization/payment-details', [AcademicOrgAdviserController::class, 'paymentDetails'])->name('payment-details');
+            Route::get('/members/payments/filter', [AcademicOrgAdviserController::class, 'filterPayments'])->name('filterPayment');
+            Route::get('organization/official/{member}/{orgId}', [AcademicOrgAdviserController::class, 'show'])->name('show-member-detail');
+            Route::get('organization/filter' , [AcademicOrgAdviserController::class, 'filterMembers'])->name('filter-members');
+            Route::get('memberships/details/{membership}',[AcademicOrgAdviserController::class, 'showMembershipDetails'])->name('memberships-details');
+            Route::get('memberships/members/{membership}',[AcademicOrgAdviserController::class, 'showMembers'])->name('memberships-members');
+            Route::get('memberships/members/show-details/{member}',[AcademicOrgAdviserController::class, 'showMembersDetails'])->name('members-details');
+            Route::get('memberships/generate-pdf/{membership}',[AcademicOrgAdviserController::class, 'generateMembershipPDF'])->name('generateMembershipPDF');
+            Route::post('memberships/generate-pdf/per-year-level',[AcademicOrgAdviserController::class, 'generateMembershipPDFperYearLevel'])->name('generateMembershipPDFperYearLevel');
+        });
+
+        //route for non academic org advisers
+        Route::prefix('non-academic')->name('nonacademic.')->group(function () {
+            Route::get('organization/dashboard', [NonAcademicOrgAdviserController::class, 'index'])->name('index');
+            Route::get('organization/official', [NonAcademicOrgAdviserController::class, 'orgMembers'])->name('members');
+            Route::get('organization/payment-details', [NonAcademicOrgAdviserController::class, 'paymentDetails'])->name('payment-details');
+            Route::get('/members/payments/filter', [NonAcademicOrgAdviserController::class, 'filterPayments'])->name('filterPayment');
+            Route::get('organization/official/{member}/{orgId}', [NonAcademicOrgAdviserController::class, 'show'])->name('show-member-detail');
+            Route::get('organization/filter' , [NonAcademicOrgAdviserController::class, 'filterMembers'])->name('filter-members');
+            Route::get('memberships/details/{membership}',[NonAcademicOrgAdviserController::class, 'showMembershipDetails'])->name('memberships-details');
+            Route::get('memberships/members/{membership}',[NonAcademicOrgAdviserController::class, 'showMembers'])->name('memberships-members');
+            Route::get('memberships/members/show-details/{member}',[NonAcademicOrgAdviserController::class, 'showMembersDetails'])->name('members-details');
+            Route::get('memberships/generate-pdf/{membership}',[NonAcademicOrgAdviserController::class, 'generateMembershipPDF'])->name('generateMembershipPDF');
+            Route::post('memberships/generate-pdf/per-year-level',[NonAcademicOrgAdviserController::class, 'generateMembershipPDFperYearLevel'])->name('generateMembershipPDFperYearLevel');
+        });
     });
 });
