@@ -20,7 +20,7 @@
                     Organizations / Academic Organizations / Membership Members
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('membership.adviser.index') }}" class="text-decoration-none">Back</a>
+                    <a href="{{ route('membership.adviser.academic.index') }}" class="text-decoration-none">Back</a>
                 </li>
             </ol>
         </nav>
@@ -63,7 +63,7 @@
                                 <td>{{ $member->year_and_section }}</td>
                                 <td>{{ $member->contact }}</td>
                                 <td>
-                                    <a href="{{ route('membership.members-details', $member->academic_member_id) }}" type="button" class="btn btn-info"><i class="far fa-eye me-2"></i>Details</a>
+                                    <a href="{{ route('membership.adviser.academic.members-details', $member->academic_member_id) }}" type="button" class="btn btn-info"><i class="far fa-eye me-2"></i>Details</a>
                                 </td>
 
                             </tr>

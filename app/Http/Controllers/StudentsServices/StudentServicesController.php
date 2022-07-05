@@ -50,7 +50,7 @@ class StudentServicesController extends Controller
         $acad_membership = Academic_Membership::where('academic_membership_id', $id)->first();
         
         $members = Academic_Members::join('academic_membership','academic_membership.academic_membership_id','=','academic_members.membership_id')
-                ->where('academic_membership.academic_membership_id', $id)
+                ->where('academic_membership_id', $id)
                 ->get();
         // dd($members);
         return view('studentservices.acad-show',compact(['acad_membership','members']));

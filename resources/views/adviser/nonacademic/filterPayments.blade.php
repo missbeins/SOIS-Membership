@@ -14,7 +14,7 @@
                    Payments Details / Membership Payments / Filter Payments
                    </li>
                    <li class="breadcrumb-item">
-                       <a href="{{route('membership.admin.academic.academicpayment.index')}}" class="text-decoration-none">Back</a>
+                       <a href="{{route('membership.admin.nonacademic.academicpayment.index')}}" class="text-decoration-none">Back</a>
                    </li>
    
                </ol>

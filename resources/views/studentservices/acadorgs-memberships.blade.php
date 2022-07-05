@@ -20,9 +20,8 @@
                     Organizations / Academic Organizations
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('membership.student-services.academicOrgs') }}" class="text-decoration-none">Home</a>
+                    <a href="{{ route('membership.student-services.academicOrgs') }}" class="text-decoration-none">Back</a>
                 </li>
-
             </ol>
         </nav>
     </div>
@@ -69,6 +68,7 @@
                                 @endif
                                 
                                 <td>
+                                    {{-- <a href="{{ route('membership.student-services.showAcadMemberDetails', $membership->academic_membership_id) }}" type="button" class="btn btn-info"><i class="fas fa-eye me-2"></i>Members</a> --}}
                                     <a href="{{ route('membership.student-services.showAcadsMembershipDetails',$membership->academic_membership_id) }}" type="button" class="btn btn-info"><i class="fas fa-eye me-2"></i>Details</a>
                                     <a href="{{ route('membership.student-services.generateAcadMembershipPDF') }}" class="btn btn-warning" onclick="event.preventDefault();
                                     document.getElementById('pdf-form').submit();"><i class="fas fa-file-pdf me-2"></i>Generate PDF</a>
